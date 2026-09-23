@@ -1,4 +1,22 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from it!"
+	"hello_world": "Hello, {name} from it!",
+	"nav_about": "Chi siamo",
+	"nav_what_we_do": "Cosa facciamo",
+	"nav_news": "News",
+	"nav_find_group": "Trova il tuo gruppo",
+	"nav_join": "Unisciti",
+	"nav_donate": "Dona",
+	"nav_donate_now": "DONA ORA",
+	"nav_menu": "Menu",
+	"footer_social_text": "Seguici sui social ed entra nella community Volunteers",
+	"footer_copyright": "© {year} Volunteers · Facciamo del bene divertendoci",
+	"footer_social_cta": "Seguici sui social media ed entra a far parte della community Volunteers",
+	"footer_what_you_can_do": "Cosa puoi fare",
+	"footer_volunteer": "Diventa un volontario",
+	"footer_contacts": "Contatti",
+	"footer_contact_us": "Contattaci",
+	"footer_locations": "Sedi",
+	"footer_media_kit": "Media Kit",
+	"footer_copyright_short": "© {year} Volunteers. Tutti i diritti riservati."
 }

@@ -1,4 +1,22 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from nl!"
+	"hello_world": "Hello, {name} from nl!",
+	"nav_about": "Over ons",
+	"nav_what_we_do": "Wat we doen",
+	"nav_news": "Nieuws",
+	"nav_find_group": "Vind jouw groep",
+	"nav_join": "Doe mee",
+	"nav_donate": "Doneer",
+	"nav_donate_now": "DONEER NU",
+	"nav_menu": "Menu",
+	"footer_social_text": "Volg ons op social media en word lid van de Volunteers community",
+	"footer_copyright": "© {year} Volunteers · Goed doen met plezier",
+	"footer_social_cta": "Volg ons op social media en word lid van de Volunteers community",
+	"footer_what_you_can_do": "Wat je kunt doen",
+	"footer_volunteer": "Word vrijwilliger",
+	"footer_contacts": "Contact",
+	"footer_contact_us": "Neem contact op",
+	"footer_locations": "Locaties",
+	"footer_media_kit": "Media Kit",
+	"footer_copyright_short": "© {year} Volunteers. Alle rechten voorbehouden."
 }

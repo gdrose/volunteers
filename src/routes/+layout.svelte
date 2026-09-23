@@ -3,6 +3,8 @@
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
+	import { Navbar } from '$lib/components/nav';
+	import { Footer } from '$lib/components/footer';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
@@ -10,7 +12,9 @@
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<Navbar />
 {@render children()}
+<Footer />
 
 <div style="display:none">
 	{#each locales as locale (locale)}

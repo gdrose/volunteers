@@ -1,4 +1,22 @@
 {
 	"$schema": "https://inlang.com/schema/inlang-message-format",
-	"hello_world": "Hello, {name} from ja!"
+	"hello_world": "Hello, {name} from ja!",
+	"nav_about": "私たちについて",
+	"nav_what_we_do": "私たちの活動",
+	"nav_news": "ニュース",
+	"nav_find_group": "グループを探す",
+	"nav_join": "参加する",
+	"nav_donate": "寄付する",
+	"nav_donate_now": "今すぐ寄付",
+	"nav_menu": "メニュー",
+	"footer_social_text": "SNSでフォローしてVolunteersコミュニティに参加しよう",
+	"footer_copyright": "© {year} Volunteers · 楽しみながら良いことをしよう",
+	"footer_social_cta": "SNSでフォローしてVolunteersコミュニティに参加しよう",
+	"footer_what_you_can_do": "できること",
+	"footer_volunteer": "ボランティアになる",
+	"footer_contacts": "連絡先",
+	"footer_contact_us": "お問い合わせ",
+	"footer_locations": "拠点",
+	"footer_media_kit": "メディアキット",
+	"footer_copyright_short": "© {year} Volunteers. 全著作権所有。"
 }
