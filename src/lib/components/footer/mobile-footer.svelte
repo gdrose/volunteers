@@ -31,7 +31,9 @@
 	] as const;
 </script>
 
-<footer class="flex w-full flex-col gap-8 border-t border-border bg-background px-6 py-10 lg:hidden">
+<footer
+	class="flex w-full flex-col gap-8 border-t border-border bg-background px-6 py-10 lg:hidden"
+>
 	<a href={resolve(localizeHref('/') as Pathname)} class="flex items-center justify-center">
 		<img src="/wordmark.svg" alt="Volunteers" class="h-6 w-auto" />
 	</a>
@@ -43,7 +45,10 @@
 					{typeof column.title === 'string' ? column.title : column.title()}
 				</p>
 				{#each column.links as link (link.path)}
-					<a href={resolve(localizeHref(link.path) as Pathname)} class="font-medium text-foreground">
+					<a
+						href={resolve(localizeHref(link.path) as Pathname)}
+						class="font-medium text-foreground"
+					>
 						{link.label()}
 					</a>
 				{/each}
@@ -54,7 +59,9 @@
 	<div class="flex flex-col gap-3 pt-3">
 		<div class="flex items-center gap-3">
 			<img src={visFoundationLogo} alt="VIS Foundation" class="size-8.5 object-cover" />
-			<span class="inline-flex items-center rounded bg-foreground px-2.5 py-1 text-[10px] font-black whitespace-nowrap text-background">
+			<span
+				class="inline-flex items-center rounded bg-foreground px-2.5 py-1 text-[10px] font-black whitespace-nowrap text-background"
+			>
 				<span class="text-[#ffbf00]">VIS </span>FOUNDATION
 			</span>
 		</div>

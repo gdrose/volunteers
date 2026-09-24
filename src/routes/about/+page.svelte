@@ -1,5 +1,17 @@
 <script lang="ts">
-	import { m } from '$lib/paraglide/messages.js';
+	import {
+		AboutHero,
+		ContactsSection,
+		DocumentsSection,
+		StoryTimeline
+	} from '$lib/components/about';
+	import { NewsletterSection } from '$lib/components/newsletter';
 </script>
 
-<h1>{m.nav_about()}</h1>
+<main>
+	<AboutHero />
+	<StoryTimeline />
+	<DocumentsSection />
+	<ContactsSection />
+	<NewsletterSection />
+</main>

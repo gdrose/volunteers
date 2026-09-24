@@ -45,7 +45,9 @@
 	</a>
 {/snippet}
 
-<div class="flex w-full items-center justify-center border-b border-border bg-muted px-4 py-2 lg:hidden">
+<div
+	class="flex w-full items-center justify-center border-b border-border bg-muted px-4 py-2 lg:hidden"
+>
 	<p class="text-base font-black tracking-tight text-primary uppercase">{m.nav_donate_now()}</p>
 </div>
 

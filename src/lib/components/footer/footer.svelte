@@ -2,6 +2,7 @@
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { localizeHref } from '$lib/paraglide/runtime';
+	import { Container } from '$lib/components/shared';
 	import { m } from '$lib/paraglide/messages.js';
 	import instagramLogo from '$lib/assets/social/black/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/black/tiktok.svg';
@@ -56,8 +57,8 @@
 
 <footer class="hidden w-full flex-col bg-background lg:flex">
 	<div class="w-full bg-muted">
-		<div
-			class="mx-auto flex w-full max-w-275 flex-col items-center justify-between gap-6 px-6 py-8 lg:h-40 lg:flex-row lg:py-0"
+		<Container
+			class="flex flex-col items-center justify-between gap-6 py-8 lg:h-40 lg:flex-row lg:py-0"
 		>
 			<p class="max-w-[622px] text-2xl font-semibold tracking-tight text-foreground">
 				{m.footer_social_cta()}
@@ -69,10 +70,10 @@
 					</span>
 				{/each}
 			</div>
-		</div>
+		</Container>
 	</div>
 
-	<div class="mx-auto flex w-full max-w-275 items-start justify-between gap-10 px-6 py-12">
+	<Container class="flex items-start justify-between gap-10 py-12">
 		<div class="flex flex-col items-center gap-3">
 			<a href={resolve(localizeHref('/') as Pathname)} class="flex items-center">
 				<img src="/wordmark.svg" alt="Volunteers" class="h-auto w-22" />
@@ -112,7 +113,7 @@
 				<span class="text-[#ffbf00]">VIS</span>&nbsp;FOUNDATION
 			</span>
 		</div>
-	</div>
+	</Container>
 </footer>
 
 <MobileFooter />

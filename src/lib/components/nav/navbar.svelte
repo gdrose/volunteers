@@ -6,6 +6,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LanguageSwitcher from './language-switcher.svelte';
 	import MobileNavbar from './mobile-navbar.svelte';
+	import { Container } from '$lib/components/shared';
 	import instagramLogo from '$lib/assets/social/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/tiktok.svg';
 	import linkedinLogo from '$lib/assets/social/linkedin.svg';
@@ -62,30 +63,29 @@
 
 <header class="sticky top-0 z-40 hidden w-full flex-col bg-background lg:flex">
 	{#if !scrolled}
-		<div
-			transition:slide={{ duration: 200 }}
-			class="mx-auto flex w-full max-w-275 flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-3 lg:h-16 lg:flex-nowrap lg:py-0"
-		>
-			<a href={resolve(localizeHref('/') as Pathname)} class="flex shrink-0 items-center">
-				<img src="/wordmark.svg" alt="Volunteers" class="h-6 w-auto lg:h-8" />
-			</a>
+		<div transition:slide={{ duration: 200 }} class="w-full">
+			<Container
+				class="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3 lg:h-16 lg:flex-nowrap lg:py-0"
+			>
+				<a href={resolve(localizeHref('/') as Pathname)} class="flex shrink-0 items-center">
+					<img src="/wordmark.svg" alt="Volunteers" class="h-6 w-auto lg:h-8" />
+				</a>
 
-			<div class="flex items-center gap-3 sm:gap-4">
-				<LanguageSwitcher />
-				<Button size="lg">
-					{m.nav_join()}
-				</Button>
-				<Button variant="outline" size="lg">
-					{m.nav_donate()}
-				</Button>
-			</div>
+				<div class="flex items-center gap-3 sm:gap-4">
+					<LanguageSwitcher />
+					<Button size="lg">
+						{m.nav_join()}
+					</Button>
+					<Button variant="outline" size="lg">
+						{m.nav_donate()}
+					</Button>
+				</div>
+			</Container>
 		</div>
 	{/if}
 
 	<div class={scrolled ? 'w-full border-b border-border bg-background' : 'w-full bg-muted'}>
-		<div
-			class="mx-auto flex w-full max-w-275 flex-wrap items-center justify-between gap-3 px-6 py-2 lg:h-12 lg:py-0"
-		>
+		<Container class="flex flex-wrap items-center justify-between gap-3 py-2 lg:h-12 lg:py-0">
 			<nav class="flex flex-wrap items-center gap-4 lg:gap-7">
 				{#each navLinks as link (link.path)}
 					{@render navLink(link.path, link.label())}
@@ -112,7 +112,7 @@
 					{/each}
 				</div>
 			{/if}
-		</div>
+		</Container>
 	</div>
 </header>
 

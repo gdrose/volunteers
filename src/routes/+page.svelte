@@ -1,4 +1,11 @@
+<script lang="ts">
+	import { Hero } from '$lib/components/hero';
+	import { ProjectsSection } from '$lib/components/projects';
+	import { StatsSection } from '$lib/components/stats';
+	import { NewsletterSection } from '$lib/components/newsletter';
+</script>
 
-<div class="h-[1500px]">
-<h1>Facciamo del bene divertendoci!</h1>
-</div>
+<Hero />
+<ProjectsSection />
+<StatsSection />
+<NewsletterSection />
