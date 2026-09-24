@@ -12,10 +12,13 @@
 				ghost: "hover:bg-muted hover:text-muted-foreground dark:hover:bg-muted/50",
 				link: "text-primary underline-offset-4 hover:underline",
 				"outline-primary": "border-border bg-background text-primary",
+				// Label floating on imagery.
+				overlay: "bg-background/95 text-primary lg:text-foreground",
 			},
 			size: {
 				default: "h-5 px-2 py-0.5 text-caption font-medium",
 				lg: "h-10 min-w-22 px-4 text-h4",
+				pill: "px-2.5 py-1.5 text-caption font-extrabold uppercase lg:px-3 lg:py-2 lg:font-bold",
 			},
 		},
 		defaultVariants: {

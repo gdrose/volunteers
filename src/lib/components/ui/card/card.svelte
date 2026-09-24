@@ -15,6 +15,8 @@
 				project: "gap-4 overflow-visible rounded-[20px] p-4 ring-0 has-[>img:first-child]:pt-4 lg:gap-3.5 lg:rounded-3xl lg:pt-[13px] lg:pr-1 lg:pb-[26px] lg:pl-2.5 lg:has-[>img:first-child]:pt-[13px]",
 				// Borderless news tile: image on top, title and meta row below; the title link covers the card.
 				post: "relative gap-4 overflow-visible rounded-[16px] p-4 ring-0 has-[a:focus-visible]:ring-3 has-[a:focus-visible]:ring-ring/50 has-[>img:first-child]:pt-4",
+				// Local group tile: inset image, header, stats and a divided footer link (see card-footer).
+				group: "gap-4 rounded-2xl p-4 ring-0 [--card-spacing:0px] has-[>img:first-child]:pt-4 lg:p-6 lg:has-[>img:first-child]:pt-6",
 				timeline: "gap-0 rounded-[16px] py-0 ring-0 [--card-spacing:--spacing(4)] *:data-[slot=card-content]:py-4 *:[img:first-child]:rounded-none lg:flex-row lg:items-start lg:gap-4 lg:overflow-visible lg:rounded-none lg:bg-transparent lg:[--card-spacing:--spacing(2)] lg:*:data-[slot=card-content]:py-3 lg:*:[img:first-child]:rounded-[16px]",
 			},
 		},

@@ -15,6 +15,8 @@
 				destructive: "bg-destructive/10 hover:bg-destructive/20 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/20 text-destructive focus-visible:border-destructive/40 dark:hover:bg-destructive/30",
 				link: "text-primary underline-offset-4 hover:underline",
 				soft: "bg-primary/10 text-primary hover:bg-primary/15 aria-expanded:bg-primary/15",
+				// Round control floating on imagery (mobile); a muted chip on desktop.
+				overlay: "bg-background/95 text-foreground hover:bg-background lg:border-border lg:bg-muted lg:hover:bg-secondary",
 				inverse: "border-primary-foreground bg-transparent text-primary-foreground hover:bg-primary-foreground/10 focus-visible:border-primary-foreground focus-visible:ring-primary-foreground/50 lg:border-transparent lg:bg-primary-foreground lg:text-black lg:hover:bg-primary-foreground/90",
 			},
 			size: {

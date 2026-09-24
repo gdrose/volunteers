@@ -12,8 +12,8 @@
 
 <div
 	bind:this={ref}
-	data-slot="card-title"
-	class={cn("text-h4 text-foreground group-data-[variant=contact]/card:text-h3 group-data-[variant=project]/card:text-h3 group-data-[variant=post]/card:text-h3 group-data-[variant=group]/card:text-h3 group-data-[variant=callout]/card:text-h2", className)}
+	data-slot="dialog-header"
+	class={cn("gap-2 flex flex-col", className)}
 	{...restProps}
 >
 	{@render children?.()}
