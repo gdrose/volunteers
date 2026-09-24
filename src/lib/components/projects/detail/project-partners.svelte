@@ -8,10 +8,7 @@
 
 <section aria-labelledby="project-partners" class="w-full border-t">
 	<Container class="flex flex-col gap-6 pt-10 pb-12 lg:gap-7 lg:pt-14 lg:pb-18">
-		<h2
-			id="project-partners"
-			class="text-center text-[26px] leading-normal font-extrabold text-foreground lg:text-[28px] lg:leading-9"
-		>
+		<h2 id="project-partners" class="text-center text-h2 text-foreground">
 			{m.project_partners_title()}
 		</h2>
 
@@ -26,11 +23,11 @@
 				<div role="listitem" class="flex items-center gap-3.5 lg:w-30 lg:flex-col lg:gap-2">
 					<span
 						aria-hidden="true"
-						class="flex size-12 shrink-0 items-center justify-center rounded-[14px] bg-primary/10 text-lg font-extrabold text-primary lg:size-14 lg:rounded-[16px] lg:text-xl"
+						class="flex size-12 shrink-0 items-center justify-center rounded-[14px] bg-primary/10 text-h3 text-primary lg:size-14 lg:rounded-[16px]"
 					>
 						{partner.initial}
 					</span>
-					<span class="text-[15px] leading-normal font-bold text-foreground lg:text-xs">
+					<span class="text-small font-bold text-foreground">
 						{partner.name}
 					</span>
 				</div>

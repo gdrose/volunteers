@@ -14,8 +14,8 @@
 				"outline-primary": "border-border bg-background text-primary",
 			},
 			size: {
-				default: "h-5 px-2 py-0.5 text-xs font-medium",
-				lg: "h-10 min-w-22 px-4 text-lg font-black",
+				default: "h-5 px-2 py-0.5 text-caption font-medium",
+				lg: "h-10 min-w-22 px-4 text-h4",
 			},
 		},
 		defaultVariants: {

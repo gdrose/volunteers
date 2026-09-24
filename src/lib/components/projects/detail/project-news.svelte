@@ -16,10 +16,7 @@
 {#if posts.length}
 	<section aria-labelledby="project-news" class="w-full border-t lg:border-t-0">
 		<Container class="flex flex-col items-center gap-6 pt-10 pb-12 lg:gap-10 lg:pt-14 lg:pb-18">
-			<h2
-				id="project-news"
-				class="text-center text-[28px] leading-normal font-extrabold text-foreground lg:leading-9"
-			>
+			<h2 id="project-news" class="text-center text-h2 text-foreground">
 				{m.project_news_title()}
 			</h2>
 

@@ -12,7 +12,7 @@
 </script>
 
 <a
-	class={cn('group inline-flex items-center gap-1.5 text-sm font-bold text-link', className)}
+	class={cn('group inline-flex items-center gap-1.5 text-small font-bold text-link', className)}
 	{...restProps}
 >
 	{@render children()}

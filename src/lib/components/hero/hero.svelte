@@ -27,9 +27,7 @@
 	<div class="flex flex-col gap-6 lg:min-w-0 lg:flex-1">
 		<HeroTitle />
 
-		<p
-			class="text-[15px] leading-[22px] font-light text-muted-foreground lg:text-base lg:leading-normal lg:tracking-[-0.03em] lg:text-foreground"
-		>
+		<p class="text-lead text-muted-foreground lg:text-foreground">
 			{m.hero_description()}
 		</p>
 

@@ -10,9 +10,7 @@
 	let { post }: { post: NewsPost } = $props();
 </script>
 
-<Card.Root
-	class="relative gap-4 overflow-visible rounded-[16px] p-4 ring-0 has-[a:focus-visible]:ring-3 has-[a:focus-visible]:ring-ring/50 has-[>img:first-child]:pt-4"
->
+<Card.Root variant="post">
 	<img
 		src={post.image}
 		alt=""
@@ -21,11 +19,7 @@
 	/>
 
 	<Card.Content class="flex flex-1 flex-col gap-3 px-0">
-		<Card.Title
-			role="heading"
-			aria-level={3}
-			class="text-xl leading-[26px] font-extrabold text-foreground"
-		>
+		<Card.Title role="heading" aria-level={3}>
 			<a
 				href={resolve(localizeHref(`/news/${post.slug}`) as Pathname)}
 				class="outline-none after:absolute after:inset-0"
@@ -36,7 +30,7 @@
 
 		<div class="mt-auto flex flex-col gap-3">
 			<Separator />
-			<div class="flex items-center justify-between text-[13px] leading-normal">
+			<div class="flex items-center justify-between text-small">
 				<time datetime={post.date} class="text-muted-foreground">
 					{formatPostDate(post.date)}
 				</time>

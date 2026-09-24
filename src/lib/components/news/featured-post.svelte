@@ -19,13 +19,13 @@
 	/>
 
 	<div class="flex flex-col items-start gap-4 lg:min-w-0 lg:flex-1 lg:gap-5">
-		<h2 class="text-[26px] leading-8 font-black text-foreground lg:text-4xl lg:leading-11">
+		<h2 class="text-h2 text-foreground">
 			{post.title()}
 		</h2>
-		<p class="text-base leading-[26px] text-muted-foreground">
+		<p class="text-lead text-muted-foreground">
 			{post.excerpt?.()}
 		</p>
-		<div class="flex items-center gap-4 text-sm leading-normal">
+		<div class="flex items-center gap-4 text-small">
 			<time datetime={post.date} class="text-muted-foreground">{formatPostDate(post.date)}</time>
 			<span class="size-1 rounded-[2px] bg-muted-foreground" aria-hidden="true"></span>
 			<span class="font-semibold text-link">

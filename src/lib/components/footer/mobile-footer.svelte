@@ -38,7 +38,7 @@
 		<img src="/wordmark.svg" alt="Volunteers" class="h-6 w-auto" />
 	</a>
 
-	<div class="flex flex-col gap-6 text-sm">
+	<div class="flex flex-col gap-6 text-small">
 		{#each columns as column (column.title)}
 			<div class="flex flex-col gap-2">
 				<p class="font-extrabold text-primary">
@@ -60,12 +60,12 @@
 		<div class="flex items-center gap-3">
 			<img src={visFoundationLogo} alt="VIS Foundation" class="size-8.5 object-cover" />
 			<span
-				class="inline-flex items-center rounded bg-foreground px-2.5 py-1 text-[10px] font-black whitespace-nowrap text-background"
+				class="inline-flex items-center rounded bg-foreground px-2.5 py-1 text-micro font-black whitespace-nowrap text-background"
 			>
 				<span class="text-[#ffbf00]">VIS </span>FOUNDATION
 			</span>
 		</div>
-		<p class="text-xs text-muted-foreground">
+		<p class="text-caption text-muted-foreground">
 			{m.footer_copyright_short({ year: new Date().getFullYear() })}
 		</p>
 	</div>

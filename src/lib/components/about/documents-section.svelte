@@ -11,16 +11,11 @@
 <section aria-labelledby="documents-title" class="w-full bg-background">
 	<Container class="flex flex-col gap-7 pt-10 pb-12 lg:gap-9 lg:py-20">
 		<header class="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-10">
-			<h2
-				id="documents-title"
-				class="text-[30px] leading-normal font-black tracking-[-0.02em] text-foreground lg:text-5xl lg:leading-normal"
-			>
+			<h2 id="documents-title" class="text-h1 text-foreground">
 				{m.about_documents_title()}
 				<span class="text-primary">{m.about_documents_title_highlight()}</span>
 			</h2>
-			<p
-				class="text-[15px] leading-[22px] text-muted-foreground lg:max-w-115 lg:text-base lg:leading-normal"
-			>
+			<p class="text-lead text-muted-foreground lg:max-w-115">
 				{m.about_documents_description()}
 			</p>
 		</header>

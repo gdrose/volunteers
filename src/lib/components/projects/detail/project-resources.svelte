@@ -17,10 +17,7 @@
 
 <section aria-labelledby="project-resources" class="w-full border-t">
 	<Container class="flex flex-col gap-4 py-8 lg:gap-7 lg:py-14">
-		<h2
-			id="project-resources"
-			class="text-center text-2xl leading-normal font-extrabold text-foreground lg:text-[28px] lg:leading-9"
-		>
+		<h2 id="project-resources" class="text-center text-h2 text-foreground">
 			{m.project_resources_title()}
 		</h2>
 
@@ -43,9 +40,7 @@
 							<span class="lg:hidden">{resource.shortDescription()}</span>
 							<span class="hidden lg:inline">{resource.description()}</span>
 						</Item.Description>
-						<span
-							class="inline-flex items-center gap-1.5 text-xs leading-normal font-bold text-primary lg:text-[13px]"
-						>
+						<span class="inline-flex items-center gap-1.5 text-caption font-bold text-primary">
 							{actionLabel[resource.kind]()}
 							<img src={arrowRight} alt="" width="14" height="14" />
 						</span>

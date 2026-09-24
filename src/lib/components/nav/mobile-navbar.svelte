@@ -36,7 +36,7 @@
 		href={resolve(localizeHref(path) as Pathname)}
 		onclick={() => (open = false)}
 		class={[
-			'flex h-[58px] w-full items-center justify-between border-b border-border text-2xl font-extrabold tracking-tight',
+			'flex h-[58px] w-full items-center justify-between border-b border-border text-h2',
 			highlight ? 'text-primary' : 'text-foreground'
 		]}
 	>
@@ -48,7 +48,7 @@
 <div
 	class="flex w-full items-center justify-center border-b border-border bg-muted px-4 py-2 lg:hidden"
 >
-	<p class="text-base font-black tracking-tight text-primary uppercase">{m.nav_donate_now()}</p>
+	<p class="text-h4 font-black text-primary uppercase">{m.nav_donate_now()}</p>
 </div>
 
 <div
@@ -65,7 +65,7 @@
 	<div class="flex flex-1 justify-end">
 		<Sheet.Root bind:open>
 			<Sheet.Trigger
-				class="inline-flex items-center gap-1.5 text-sm font-bold text-foreground outline-none"
+				class="inline-flex items-center gap-1.5 text-small font-bold text-foreground outline-none"
 			>
 				<Menu class="size-[18px]" />
 				{m.nav_menu()}
@@ -99,7 +99,7 @@
 							<div class="h-px w-full bg-border" aria-hidden="true"></div>
 
 							<div class="flex w-full flex-col items-center gap-3 rounded-2xl bg-muted px-4 py-6">
-								<p class="text-center text-[13px] font-semibold text-foreground">
+								<p class="text-center text-small font-semibold text-foreground">
 									{m.footer_social_text()}
 								</p>
 								<div class="flex items-center justify-center gap-3">
@@ -113,7 +113,7 @@
 								</div>
 							</div>
 
-							<p class="text-center text-xs text-muted-foreground">
+							<p class="text-center text-caption text-muted-foreground">
 								{m.footer_copyright({ year: new Date().getFullYear() })}
 							</p>
 						</div>

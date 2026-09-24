@@ -12,17 +12,14 @@
 <section aria-labelledby="stats-title" class="w-full bg-background lg:bg-muted">
 	<Container class="flex flex-col gap-7 py-10 lg:gap-[7px] lg:pt-9 lg:pb-20">
 		<div class="flex flex-col gap-5 lg:gap-3">
-			<h2
-				id="stats-title"
-				class="text-[30px] leading-8 font-black tracking-[-0.02em] text-foreground lg:text-[40px] lg:leading-normal"
-			>
+			<h2 id="stats-title" class="text-h1 text-foreground">
 				{m.stats_title()}
 				<span class="text-primary italic">{m.stats_title_highlight()}</span>
 			</h2>
-			<p class="text-sm leading-5 text-muted-foreground lg:hidden">
+			<p class="text-body text-muted-foreground lg:hidden">
 				{m.stats_description()}
 			</p>
-			<p class="hidden text-base leading-5 text-foreground lg:block">
+			<p class="hidden text-body text-foreground lg:block">
 				{m.stats_description_short()}
 			</p>
 		</div>

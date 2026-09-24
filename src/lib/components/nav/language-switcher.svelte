@@ -16,21 +16,21 @@
 	const sizeStyles = {
 		sm: {
 			gap: 'gap-1',
-			text: 'text-xs',
+			text: 'text-caption',
 			weight: 'font-semibold',
 			icon: 'size-[18px]',
 			chevron: 'size-[18px]'
 		},
 		default: {
 			gap: 'gap-1',
-			text: 'text-sm',
+			text: 'text-small',
 			weight: 'font-semibold',
 			icon: 'size-4',
 			chevron: 'size-3.5'
 		},
 		lg: {
 			gap: 'gap-2',
-			text: 'text-base',
+			text: 'text-h4',
 			weight: 'font-extrabold',
 			icon: 'size-5',
 			chevron: 'size-5'

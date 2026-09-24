@@ -22,14 +22,12 @@
 	<header class="flex flex-col gap-4">
 		<PageBreadcrumb {crumbs} />
 
-		<h1
-			class="text-[40px] leading-tight font-black tracking-[-0.02em] text-foreground lg:text-[56px] lg:leading-normal"
-		>
+		<h1 class="text-display text-foreground">
 			{@render title()}
 		</h1>
 
 		{#if description}
-			<p class="text-base leading-6 text-muted-foreground lg:text-lg lg:leading-7">
+			<p class="text-lead text-muted-foreground">
 				{description}
 			</p>
 		{/if}

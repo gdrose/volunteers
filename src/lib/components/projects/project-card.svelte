@@ -24,12 +24,7 @@
 	}: Props = $props();
 </script>
 
-<Card.Root
-	class={cn(
-		'gap-4 overflow-visible rounded-[20px] p-4 ring-0 has-[>img:first-child]:pt-4 lg:gap-3.5 lg:rounded-3xl lg:pt-[13px] lg:pr-1 lg:pb-[26px] lg:pl-2.5 lg:has-[>img:first-child]:pt-[13px]',
-		className
-	)}
->
+<Card.Root variant="project" class={className}>
 	<img
 		src={image}
 		alt=""
@@ -41,18 +36,8 @@
 	/>
 
 	<Card.Content class="flex flex-1 flex-col gap-2 px-0 lg:gap-3.5">
-		<Card.Title
-			role="heading"
-			aria-level={3}
-			class="text-lg leading-normal font-extrabold text-foreground lg:text-xl lg:font-black"
-		>
-			{title}
-		</Card.Title>
-		<Card.Description
-			class="text-[13px] leading-[18px] lg:text-sm lg:leading-normal lg:font-medium lg:text-foreground"
-		>
-			{description}
-		</Card.Description>
+		<Card.Title role="heading" aria-level={3}>{title}</Card.Title>
+		<Card.Description>{description}</Card.Description>
 	</Card.Content>
 
 	<Card.Footer class="px-0">

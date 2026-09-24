@@ -16,14 +16,11 @@
 
 <Container class="flex flex-col gap-8 pt-2 pb-10 lg:gap-12 lg:pt-8 lg:pb-14">
 	<section aria-labelledby="project-intro" class="flex flex-col gap-4 pb-4 lg:gap-5 lg:pb-0">
-		<h2
-			id="project-intro"
-			class="text-lg leading-6 font-extrabold text-foreground lg:text-[22px] lg:leading-[30px]"
-		>
+		<h2 id="project-intro" class="text-h3 text-foreground">
 			{project.intro()}
 		</h2>
 		{#each project.paragraphs as paragraph, i (i)}
-			<p class="text-sm leading-[21px] text-muted-foreground lg:text-base lg:leading-7">
+			<p class="text-body text-muted-foreground">
 				{paragraph()}
 			</p>
 		{/each}
@@ -32,10 +29,7 @@
 	<Separator />
 
 	<section aria-labelledby="project-activities" class="flex flex-col gap-5 lg:gap-8">
-		<h2
-			id="project-activities"
-			class="text-xl leading-normal font-extrabold text-foreground lg:text-lg lg:leading-[26px]"
-		>
+		<h2 id="project-activities" class="text-h3 text-foreground">
 			{m.project_activities_title()}
 		</h2>
 
@@ -72,9 +66,7 @@
 					>
 						<img src={activity.icon} alt="" width="22" height="22" class="size-3 lg:size-[22px]" />
 					</span>
-					<span
-						class="text-[13px] leading-[17px] font-bold text-foreground lg:text-[15px] lg:leading-normal"
-					>
+					<span class="text-small font-bold text-foreground">
 						{activity.label()}
 					</span>
 				</li>

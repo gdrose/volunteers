@@ -8,10 +8,7 @@
 
 <section aria-labelledby="contacts-title" class="w-full bg-muted">
 	<Container class="flex flex-col gap-6 pt-10 pb-12 lg:gap-8 lg:pt-16 lg:pb-18">
-		<h2
-			id="contacts-title"
-			class="text-[30px] leading-normal font-black text-foreground lg:text-[40px]"
-		>
+		<h2 id="contacts-title" class="text-h1 text-foreground">
 			{m.about_contacts_title()}
 			<span class="text-primary">{m.about_contacts_title_highlight()}</span>
 		</h2>

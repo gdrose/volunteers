@@ -60,7 +60,7 @@
 		<Container
 			class="flex flex-col items-center justify-between gap-6 py-8 lg:h-40 lg:flex-row lg:py-0"
 		>
-			<p class="max-w-[622px] text-2xl font-semibold tracking-tight text-foreground">
+			<p class="max-w-[622px] text-h3 font-semibold text-foreground">
 				{m.footer_social_cta()}
 			</p>
 			<div class="flex shrink-0 items-center gap-3.5">
@@ -90,13 +90,13 @@
 		<nav class="flex gap-10">
 			{#each columns as column (column.title)}
 				<div class="flex w-[130px] flex-col gap-2">
-					<p class="text-base font-extrabold text-primary">
+					<p class="text-body font-extrabold text-primary">
 						{typeof column.title === 'string' ? column.title : column.title()}
 					</p>
 					{#each column.links as link (link.path)}
 						<a
 							href={resolve(localizeHref(link.path) as Pathname)}
-							class="text-xs font-medium text-foreground"
+							class="text-caption font-medium text-foreground"
 						>
 							{link.label()}
 						</a>
@@ -108,7 +108,7 @@
 		<div class="flex flex-col items-center gap-0.5">
 			<img src={visFoundationLogo} alt="VIS Foundation" class="size-14 object-cover" />
 			<span
-				class="inline-flex items-center rounded-full bg-foreground px-3 py-2 text-[10px] font-black whitespace-nowrap text-background"
+				class="inline-flex items-center rounded-full bg-foreground px-3 py-2 text-micro font-black whitespace-nowrap text-background"
 			>
 				<span class="text-[#ffbf00]">VIS</span>&nbsp;FOUNDATION
 			</span>

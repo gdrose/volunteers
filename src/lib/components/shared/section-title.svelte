@@ -13,10 +13,7 @@
 </script>
 
 <h2
-	class={cn(
-		'pb-[13px] text-[28px] leading-9 font-black text-foreground lg:pb-0 lg:text-center lg:text-[42px] lg:leading-[70px]',
-		className
-	)}
+	class={cn('pb-[13px] text-h1 text-foreground lg:pb-4 lg:text-center', className)}
 	{...restProps}
 >
 	<span class="relative inline-block">
@@ -32,7 +29,7 @@
 			alt=""
 			width="363.412"
 			height="18.8394"
-			class="absolute top-[44px] left-1/2 hidden max-w-none -translate-x-1/2 -scale-y-100 lg:block"
+			class="absolute top-[39px] left-1/2 hidden max-w-none -translate-x-1/2 -scale-y-100 lg:block"
 		/>
 		<span class="relative">{@render children()}</span>
 	</span>

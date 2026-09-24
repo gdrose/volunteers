@@ -14,13 +14,10 @@
 <section aria-labelledby="story-title" class="w-full bg-muted">
 	<Container class="flex flex-col gap-8 pt-10 pb-12 lg:gap-6 lg:py-10">
 		<header class="flex flex-col gap-3 lg:max-w-190 lg:gap-2">
-			<h2
-				id="story-title"
-				class="text-[30px] leading-[34px] font-black tracking-[-0.02em] text-foreground lg:text-5xl lg:leading-normal"
-			>
+			<h2 id="story-title" class="text-h1 text-foreground">
 				{m.about_story_title()}
 			</h2>
-			<p class="text-[15px] leading-[22px] text-muted-foreground lg:text-lg lg:leading-normal">
+			<p class="text-lead text-muted-foreground">
 				{m.about_story_description()}
 			</p>
 		</header>
@@ -58,17 +55,13 @@
 							)}
 						/>
 						<Card.Content class="flex flex-col gap-2 lg:min-w-0 lg:flex-1">
-							<p class="text-[13px] leading-normal font-bold text-primary lg:hidden">
+							<p class="text-small font-bold text-primary lg:hidden">
 								{milestone.year()}
 							</p>
-							<h3
-								class="text-lg leading-normal font-black text-foreground lg:text-[28px] lg:leading-[1.15]"
-							>
+							<h3 class="text-h3 text-foreground">
 								{milestone.title()}
 							</h3>
-							<p
-								class="text-[13px] leading-[19px] text-muted-foreground lg:text-base lg:leading-normal"
-							>
+							<p class="text-body text-muted-foreground">
 								{milestone.description()}
 							</p>
 						</Card.Content>
