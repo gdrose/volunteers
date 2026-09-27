@@ -1,5 +1,6 @@
 <script lang="ts">
+	import { ComingSoonPage } from '$lib/components/shared';
 	import { m } from '$lib/paraglide/messages.js';
 </script>
 
-<h1>{m.nav_donate()}</h1>
+<ComingSoonPage name={m.nav_donate()} />

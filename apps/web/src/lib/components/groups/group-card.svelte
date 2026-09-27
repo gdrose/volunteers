@@ -13,6 +13,7 @@
 		<SanityImage
 			image={group.photo}
 			width={400}
+			sizes="(min-width: 64rem) 340px, 100vw"
 			alt=""
 			loading="lazy"
 			class="h-35 w-full rounded-lg object-cover lg:h-40"

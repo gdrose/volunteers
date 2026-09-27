@@ -38,10 +38,7 @@
 					</Item.Media>
 					<Item.Content>
 						<Item.Title role="heading" aria-level={3}>{resource.title}</Item.Title>
-						<Item.Description>
-							<span class="lg:hidden">{resource.shortDescription ?? resource.description}</span>
-							<span class="hidden lg:inline">{resource.description}</span>
-						</Item.Description>
+						<Item.Description>{resource.shortDescription ?? resource.description}</Item.Description>
 						{#if resource.href}
 							<!-- eslint-disable svelte/no-navigation-without-resolve -- file or external URL -->
 							<a
@@ -55,9 +52,9 @@
 							</a>
 							<!-- eslint-enable svelte/no-navigation-without-resolve -->
 						{:else}
-							<span class="inline-flex items-center gap-1.5 text-caption font-bold text-primary">
-								{actionLabel[resource.kind]()}
-								<img src={arrowRight} alt="" width="14" height="14" />
+							<!-- No file or link yet: say so rather than show a link that goes nowhere. -->
+							<span class="text-caption font-bold text-muted-foreground">
+								{m.project_resource_coming_soon()}
 							</span>
 						{/if}
 					</Item.Content>

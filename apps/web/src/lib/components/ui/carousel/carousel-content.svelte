@@ -8,7 +8,7 @@
 			variant: {
 				default: "",
 				// Photo gallery: framed white card on mobile, bare row on desktop.
-				gallery: "rounded-[24px] border bg-card p-1 shadow-[0_12px_28px_rgba(17,24,39,0.08)] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none",
+				gallery: "rounded-3xl border bg-card p-1 shadow-[0_12px_28px_rgba(17,24,39,0.08)] lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none",
 				// Takes the free height of a flex-column root, e.g. the full-screen photo viewer.
 				lightbox: "min-h-0 flex-1",
 			},

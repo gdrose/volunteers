@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PageLayout } from '$lib/components/shared';
+	import { PageLayout, Seo } from '$lib/components/shared';
 	import { FeaturedPost, NewsFeed } from '$lib/components/news';
 	import { NewsletterSection } from '$lib/components/newsletter';
 	import { m } from '$lib/paraglide/messages.js';
@@ -7,6 +7,8 @@
 
 	let { data }: PageProps = $props();
 </script>
+
+<Seo title={m.nav_news()} description={m.news_description()} />
 
 <PageLayout crumbs={[{ label: m.nav_news() }]} description={m.news_description()}>
 	{#snippet title()}

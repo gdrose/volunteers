@@ -10,11 +10,7 @@
 <Card.Root variant="callout">
 	<Card.Title role="heading" aria-level={2}>{m.find_group_cta_title()}</Card.Title>
 	<Card.Description class="max-w-150">{m.find_group_cta_description()}</Card.Description>
-	<Button
-		href={resolve(localizeHref('/contact') as Pathname)}
-		size="cta-xl"
-		class="w-full lg:w-auto"
-	>
+	<Button href={resolve(localizeHref('/contact') as Pathname)} size="lg" class="w-full lg:w-auto">
 		{m.find_group_cta_button()}<span aria-hidden="true">→</span>
 	</Button>
 </Card.Root>

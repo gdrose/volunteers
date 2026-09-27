@@ -44,12 +44,12 @@
 		>
 			<Carousel.Content variant="gallery" class="-ms-3 lg:-ms-4">
 				{#each project.gallery ?? [] as image (image._key)}
-					<Carousel.Item class="basis-[250px] ps-3 lg:basis-[38.93%] lg:ps-4">
+					<Carousel.Item class="basis-64 ps-3 lg:basis-[38.93%] lg:ps-4">
 						<SanityImage
 							{image}
 							width={560}
 							loading="lazy"
-							class="h-80 w-full rounded-[20px] object-cover lg:h-105 lg:rounded-[24px]"
+							class="h-80 w-full rounded-2xl object-cover lg:h-105 lg:rounded-3xl"
 						/>
 					</Carousel.Item>
 				{/each}
@@ -63,14 +63,14 @@
 			{#each project.activities ?? [] as activity (activity._key)}
 				<li class="flex items-center gap-3 lg:p-3">
 					<span
-						class="flex size-5 shrink-0 items-center justify-center rounded-[6px] border border-primary bg-primary/10 lg:size-10 lg:rounded-[12px] lg:bg-background"
+						class="flex size-5 shrink-0 items-center justify-center rounded-sm border border-primary bg-primary/10 lg:size-10 lg:rounded-lg lg:bg-background"
 					>
 						<img
 							src={activityIcon(activity.icon)}
 							alt=""
 							width="22"
 							height="22"
-							class="size-3 lg:size-[22px]"
+							class="size-3 lg:size-6"
 						/>
 					</span>
 					<span class="text-small font-bold text-foreground">
@@ -86,7 +86,7 @@
 	<Card.Root variant="callout">
 		<Card.Title role="heading" aria-level={2}>{m.project_find_group_title()}</Card.Title>
 		<Card.Description>{m.project_find_group_description()}</Card.Description>
-		<Button href={resolve(localizeHref('/find-a-group') as Pathname)} size="cta-xl">
+		<Button href={resolve(localizeHref('/find-a-group') as Pathname)} size="lg">
 			{m.nav_find_group()}<span aria-hidden="true">→</span>
 		</Button>
 	</Card.Root>

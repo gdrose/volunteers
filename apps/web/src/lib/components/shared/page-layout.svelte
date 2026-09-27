@@ -15,10 +15,7 @@
 	let { crumbs, title, description, children, class: className }: Props = $props();
 </script>
 
-<Container
-	as="main"
-	class={['flex flex-col gap-8 pt-8 pb-16 lg:gap-12 lg:pt-10 lg:pb-20', className]}
->
+<Container class={['flex flex-col gap-8 pt-8 pb-16 lg:gap-12 lg:pt-10 lg:pb-20', className]}>
 	<header class="flex flex-col gap-4">
 		<PageBreadcrumb {crumbs} />
 

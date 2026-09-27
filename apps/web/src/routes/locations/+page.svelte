@@ -1,5 +1,6 @@
 <script lang="ts">
+	import { ComingSoonPage } from '$lib/components/shared';
 	import { m } from '$lib/paraglide/messages.js';
 </script>
 
-<h1>{m.footer_locations()}</h1>
+<ComingSoonPage name={m.footer_locations()} />

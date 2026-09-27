@@ -12,7 +12,7 @@
 		project: ProjectShowcaseData;
 		/** Detail page; without one the CTA shows as coming soon. */
 		href?: string;
-		/** Puts the photos on the right on desktop. */
+		/** Text first, photos second (on the right on desktop), in DOM and visual order alike. */
 		reverse?: boolean;
 	};
 
@@ -36,13 +36,25 @@
 	aria-labelledby={titleId}
 	class="flex scroll-mt-24 flex-col gap-6 lg:grid lg:grid-cols-12 lg:items-center lg:gap-16"
 >
-	<!-- Photos lead the section; each one opens the full-screen viewer. -->
-	<div
-		class={cn(
-			'grid grid-cols-2 gap-2 lg:col-span-7 lg:h-130 lg:grid-cols-3 lg:grid-rows-2 lg:gap-3',
-			reverse && 'lg:order-last'
-		)}
-	>
+	{#if reverse}
+		{@render text()}
+		{@render gallery()}
+	{:else}
+		{@render gallery()}
+		{@render text()}
+	{/if}
+</section>
+
+<PhotoLightbox
+	bind:open={viewerOpen}
+	start={viewerStart}
+	title={project.title}
+	photos={photos.map((image) => ({ src: urlFor(image).width(1600).url(), alt: image.alt ?? '' }))}
+/>
+
+<!-- Each photo opens the full-screen viewer. -->
+{#snippet gallery()}
+	<div class="grid grid-cols-2 gap-2 lg:col-span-7 lg:h-130 lg:grid-cols-3 lg:grid-rows-2 lg:gap-3">
 		{#if lead}
 			{@render photo(lead, 0, 'col-span-2 aspect-4/3 lg:row-span-2 lg:aspect-auto')}
 		{/if}
@@ -56,7 +68,9 @@
 			)}
 		{/each}
 	</div>
+{/snippet}
 
+{#snippet text()}
 	<div class="flex flex-col items-start gap-3 lg:col-span-5 lg:gap-5">
 		<h2 id={titleId} class="text-h1 text-foreground">
 			{project.title}
@@ -66,24 +80,17 @@
 		</p>
 		<div class="w-full pt-2 sm:w-auto lg:pt-1">
 			{#if href}
-				<Button {href} size="xl" class="w-full sm:w-auto">
+				<Button {href} size="lg" class="w-full sm:w-auto">
 					{m.what_we_do_cta({ project: project.title })}<span aria-hidden="true">→</span>
 				</Button>
 			{:else}
-				<Button size="xl" variant="outline" disabled class="w-full sm:w-auto">
+				<Button size="lg" variant="outline" disabled class="w-full sm:w-auto">
 					{m.what_we_do_coming_soon()}
 				</Button>
 			{/if}
 		</div>
 	</div>
-</section>
-
-<PhotoLightbox
-	bind:open={viewerOpen}
-	start={viewerStart}
-	title={project.title}
-	photos={photos.map((image) => ({ src: urlFor(image).width(1600).url(), alt: image.alt ?? '' }))}
-/>
+{/snippet}
 
 {#snippet photo(image: ProjectImage, index: number, layout: string)}
 	<button
@@ -91,7 +98,7 @@
 		aria-haspopup="dialog"
 		onclick={() => openViewer(index)}
 		class={cn(
-			'group/photo relative cursor-zoom-in overflow-hidden rounded-[20px] bg-muted outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 lg:rounded-[24px]',
+			'group/photo relative cursor-zoom-in overflow-hidden rounded-2xl bg-muted lg:rounded-3xl',
 			layout
 		)}
 	>

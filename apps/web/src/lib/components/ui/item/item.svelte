@@ -2,7 +2,7 @@
 	import { tv, type VariantProps } from "tailwind-variants";
 
 	export const itemVariants = tv({
-		base: "[a]:hover:bg-muted rounded-2xl border text-small group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors",
+		base: "[a]:hover:bg-muted rounded-2xl border text-small group/item flex w-full flex-wrap items-center transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background [a]:transition-colors",
 		variants: {
 			variant: {
 				default: "border-transparent",
@@ -14,8 +14,10 @@
 				default: "gap-3.5 px-4 py-3.5",
 				sm: "gap-3.5 px-3.5 py-3",
 				xs: "gap-2.5 px-3 py-2.5 in-data-[slot=dropdown-menu-content]:p-0",
-				resource: "gap-3 rounded-[16px] p-3 lg:h-40 lg:gap-4 lg:p-5",
+				resource: "gap-3 rounded-xl p-3 lg:h-40 lg:gap-4 lg:p-5",
 				// Summary row with a full-width action below on mobile; single row on desktop.
+				// Partner in the project partners strip: monogram beside the name, stacked on desktop.
+				partner: "gap-3.5 p-0 lg:w-30 lg:flex-col lg:gap-2",
 				document: "gap-x-3 gap-y-3.5 p-4 *:data-[slot=item-actions]:basis-full lg:flex-nowrap lg:gap-5 lg:px-6 lg:py-5 lg:*:data-[slot=item-actions]:basis-auto",
 			},
 		},

@@ -10,6 +10,7 @@ export const load: PageServerLoad = async () => {
 	});
 	return {
 		stats: about?.stats ?? [],
+		statsAsOf: about?.statsAsOf ?? null,
 		milestones: about?.milestones ?? [],
 		offices: about?.offices ?? [],
 		documents: about?.documents ?? []

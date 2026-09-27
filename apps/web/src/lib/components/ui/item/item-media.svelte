@@ -7,8 +7,10 @@
 			variant: {
 				default: "bg-transparent",
 				icon: "[&_svg:not([class*='size-'])]:size-4",
-				tile: "size-11 rounded-[12px] bg-primary/10 group-has-data-[slot=item-description]/item:translate-y-0 group-has-data-[slot=item-description]/item:self-center lg:size-12",
-				thumbnail: "relative size-16 overflow-hidden rounded-[10px] group-has-data-[slot=item-description]/item:translate-y-0 group-has-data-[slot=item-description]/item:self-center lg:h-28 lg:w-18 lg:rounded-[12px] [&>img:first-child]:size-full [&>img:first-child]:object-cover",
+				tile: "size-11 rounded-lg bg-primary/10 group-has-data-[slot=item-description]/item:translate-y-0 group-has-data-[slot=item-description]/item:self-center lg:size-12",
+				// Initial of a name on a brand tint, standing in for a logo.
+				monogram: "size-12 rounded-xl bg-primary/10 text-h3 text-primary group-has-data-[slot=item-description]/item:translate-y-0 lg:size-14",
+				thumbnail: "relative size-16 overflow-hidden rounded-lg group-has-data-[slot=item-description]/item:translate-y-0 group-has-data-[slot=item-description]/item:self-center lg:h-28 lg:w-18 lg:rounded-lg [&>img:first-child]:size-full [&>img:first-child]:object-cover",
 				image: "size-10 overflow-hidden rounded-lg group-data-[size=sm]/item:size-8 group-data-[size=xs]/item:size-6 group-data-[size=xs]/item:rounded-md [&_img]:size-full [&_img]:object-cover",
 			},
 		},

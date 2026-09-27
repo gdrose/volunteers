@@ -32,6 +32,7 @@ export const project = defineType({
     {name: 'overview', title: 'Overview', default: true},
     {name: 'media', title: 'Photos'},
     {name: 'details', title: 'Activities & resources'},
+    {name: 'impact', title: 'Impact'},
   ],
   fields: [
     languageField,
@@ -172,7 +173,7 @@ export const project = defineType({
             defineField({
               name: 'shortDescription',
               type: 'string',
-              description: 'Shorter copy used on small screens.',
+              description: 'Short copy shown on the resource card. Falls back to the description.',
             }),
             defineField({name: 'cover', type: 'imageWithAlt'}),
             defineField({
@@ -187,6 +188,43 @@ export const project = defineType({
           },
         }),
       ],
+    }),
+    defineField({
+      name: 'startedYear',
+      title: 'Started (year)',
+      type: 'number',
+      group: 'impact',
+      validation: (rule) => rule.integer().min(1900),
+    }),
+    defineField({
+      name: 'impact',
+      type: 'array',
+      group: 'impact',
+      description: 'Key results, e.g. "1200+" "meals served". Shown after the activities.',
+      of: [
+        defineArrayMember({
+          name: 'impactFigure',
+          type: 'object',
+          fields: [
+            defineField({
+              name: 'value',
+              type: 'string',
+              description: 'As displayed, e.g. "1200+".',
+              validation: (rule) => rule.required(),
+            }),
+            defineField({name: 'label', type: 'string', validation: (rule) => rule.required()}),
+            defineField({name: 'description', type: 'text', rows: 2}),
+          ],
+          preview: {select: {title: 'value', subtitle: 'label'}},
+        }),
+      ],
+      validation: (rule) => rule.max(4),
+    }),
+    defineField({
+      name: 'outcomes',
+      type: 'simpleText',
+      group: 'impact',
+      description: 'Optional. What changed thanks to the project, in a few sentences.',
     }),
   ],
   orderings: [

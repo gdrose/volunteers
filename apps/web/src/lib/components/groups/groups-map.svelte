@@ -70,8 +70,9 @@
 					title: group.city,
 					icon: L.divIcon({
 						className: '',
-						html: `<span class="block size-4 rounded-full border-2 border-white ${kindColor[group.kind]} shadow-[0_2px_4px_rgba(0,0,0,0.3)]"></span>`,
-						iconSize: [16, 16]
+						// 24px hit area around the 16px dot.
+						html: `<span class="flex size-6 items-center justify-center"><span class="block size-4 rounded-full border-2 border-white ${kindColor[group.kind]} shadow-[0_2px_4px_rgba(0,0,0,0.3)]"></span></span>`,
+						iconSize: [24, 24]
 					})
 				}).on('click', () => onSelect(group));
 				markers[group.id] = marker;
@@ -90,7 +91,7 @@
 	});
 </script>
 
-<div class={cn('isolate overflow-hidden rounded-[20px] border lg:rounded-3xl', className)}>
+<div class={cn('isolate overflow-hidden rounded-2xl border lg:rounded-3xl', className)}>
 	<div
 		class="flex justify-center gap-3 border-b bg-muted p-3 lg:justify-start lg:gap-4 lg:px-6 lg:py-4"
 	>

@@ -84,10 +84,8 @@
 					</dl>
 				{/if}
 
-				<!-- Mobile: below the join button, under a divider. Desktop: above it, with an icon chip. -->
-				<div
-					class="order-last flex flex-col gap-2.5 border-t pt-4 lg:order-none lg:border-t-0 lg:pt-0"
-				>
+				<!-- Above the join button everywhere; under a divider on mobile, with an icon chip on desktop. -->
+				<div class="flex flex-col gap-2.5 border-t pt-4 lg:border-t-0 lg:pt-0">
 					<p class="text-small font-extrabold text-foreground lg:sr-only">
 						{m.find_group_contact_group()}
 					</p>
@@ -115,7 +113,7 @@
 						href={shown.whatsappUrl}
 						target="_blank"
 						rel="noopener noreferrer"
-						size="cta-xl"
+						size="lg"
 						class="w-full"
 					>
 						{m.find_group_join_whatsapp()}<span aria-hidden="true">→</span>

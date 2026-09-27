@@ -11,7 +11,7 @@
 			image={project.heroImage}
 			width={1920}
 			fetchpriority="high"
-			class="h-60 w-full object-cover lg:h-[438px]"
+			class="h-60 w-full object-cover lg:h-110"
 		/>
 	{/if}
 	<Container class="flex flex-col gap-3 pt-6 pb-7 lg:pt-8 lg:pb-4">

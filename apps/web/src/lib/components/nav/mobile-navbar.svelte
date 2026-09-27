@@ -1,26 +1,20 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import Menu from '@lucide/svelte/icons/menu';
 	import ArrowRight from '@lucide/svelte/icons/arrow-right';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import LanguageSwitcher from './language-switcher.svelte';
+	import { donateLink, findGroupLink, mainLinks, navCurrent, type NavLink } from './nav-links';
 	import { socialLinks, type SocialProfile } from '$lib/components/shared';
 	import instagramLogo from '$lib/assets/social/color/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/color/tiktok.svg';
 	import linkedinLogo from '$lib/assets/social/color/linkedin.svg';
 	import whatsappLogo from '$lib/assets/social/color/whatsapp.svg';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { deLocalizeUrl, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
-
-	const navLinks = [
-		{ label: m.nav_about, path: '/about' },
-		{ label: m.nav_what_we_do, path: '/what-we-do' },
-		{ label: m.nav_news, path: '/news' }
-	] as const;
-
-	const findGroupPath = '/find-a-group';
 
 	let { socials: profiles }: { socials: SocialProfile[] } = $props();
 
@@ -33,28 +27,33 @@
 		})
 	);
 
+	const currentPath = $derived(deLocalizeUrl(page.url).pathname);
+
 	let open = $state(false);
 </script>
 
-{#snippet menuRow(path: string, label: string, highlight = false)}
+{#snippet menuRow(link: NavLink, highlight = false)}
+	<!-- Current section: underlined like the desktop nav. -->
 	<a
-		href={resolve(localizeHref(path) as Pathname)}
+		href={resolve(localizeHref(link.path) as Pathname)}
+		aria-current={navCurrent(currentPath, link.path)}
 		onclick={() => (open = false)}
 		class={[
-			'flex h-[58px] w-full items-center justify-between border-b border-border text-h2',
+			'flex h-14 w-full items-center justify-between border-b border-border text-h2 decoration-primary decoration-2 underline-offset-8 aria-[current]:underline',
 			highlight ? 'text-primary' : 'text-foreground'
 		]}
 	>
-		{label}
+		{link.label()}
 		<ArrowRight class={highlight ? 'size-6 text-primary' : 'size-6 text-link'} />
 	</a>
 {/snippet}
 
-<div
-	class="flex w-full items-center justify-center border-b border-border bg-muted px-4 py-2 lg:hidden"
+<a
+	href={resolve(localizeHref(donateLink.path) as Pathname)}
+	class="flex w-full items-center justify-center border-b border-border bg-muted px-4 py-2 text-h4 font-black text-primary uppercase lg:hidden"
 >
-	<p class="text-h4 font-black text-primary uppercase">{m.nav_donate_now()}</p>
-</div>
+	{m.nav_donate_now()}
+</a>
 
 <div
 	class="sticky top-0 z-40 flex w-full items-center justify-between border-b border-border bg-background px-4 py-3 lg:hidden"
@@ -70,9 +69,9 @@
 	<div class="flex flex-1 justify-end">
 		<Sheet.Root bind:open>
 			<Sheet.Trigger
-				class="inline-flex items-center gap-1.5 text-small font-bold text-foreground outline-none"
+				class="inline-flex min-h-6 items-center gap-1.5 rounded-sm px-1 text-small font-bold text-foreground"
 			>
-				<Menu class="size-[18px]" />
+				<Menu class="size-4.5" />
 				{m.nav_menu()}
 			</Sheet.Trigger>
 			<Sheet.Content
@@ -88,14 +87,20 @@
 						<LanguageSwitcher size="lg" class="w-full justify-center rounded-2xl bg-muted py-2" />
 
 						<nav class="flex w-full flex-col border-t border-border">
-							{#each navLinks as link (link.path)}
-								{@render menuRow(link.path, link.label())}
+							{#each mainLinks as link (link.path)}
+								{@render menuRow(link)}
 							{/each}
-							{@render menuRow(findGroupPath, m.nav_find_group(), true)}
+							{@render menuRow(findGroupLink, true)}
 						</nav>
 
-						<Button variant="soft" size="lg" class="w-full" onclick={() => (open = false)}>
-							{m.nav_donate()}
+						<Button
+							href={resolve(localizeHref(donateLink.path) as Pathname)}
+							variant="soft"
+							size="lg"
+							class="w-full"
+							onclick={() => (open = false)}
+						>
+							{donateLink.label()}
 						</Button>
 
 						<div class="flex-1"></div>
@@ -115,7 +120,7 @@
 											target="_blank"
 											rel="noopener noreferrer"
 											aria-label={social.name}
-											class="flex shrink-0 items-center justify-center rounded-full bg-white p-2.5 transition-opacity outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-ring/50"
+											class="flex shrink-0 items-center justify-center rounded-full bg-white p-2.5 transition-opacity hover:opacity-80"
 										>
 											<img src={social.icon} alt="" class="size-5" />
 										</a>

@@ -4,31 +4,7 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 	import visFoundationLogo from '$lib/assets/footer/vis-foundation.png';
-
-	const columns = [
-		{
-			title: 'Volunteers',
-			links: [
-				{ label: m.nav_about, path: '/about' },
-				{ label: m.nav_what_we_do, path: '/what-we-do' }
-			]
-		},
-		{
-			title: m.footer_what_you_can_do,
-			links: [
-				{ label: m.footer_volunteer, path: '/volunteer' },
-				{ label: m.nav_donate, path: '/donate' }
-			]
-		},
-		{
-			title: m.footer_contacts,
-			links: [
-				{ label: m.footer_contact_us, path: '/contact' },
-				{ label: m.footer_locations, path: '/locations' },
-				{ label: m.footer_media_kit, path: '/media-kit' }
-			]
-		}
-	] as const;
+	import { footerColumns } from '$lib/components/nav/nav-links';
 </script>
 
 <footer
@@ -39,15 +15,15 @@
 	</a>
 
 	<div class="flex flex-col gap-6 text-small">
-		{#each columns as column (column.title)}
-			<div class="flex flex-col gap-2">
-				<p class="font-extrabold text-primary">
+		{#each footerColumns as column (column.title)}
+			<div class="flex flex-col">
+				<p class="pb-1 font-extrabold text-primary">
 					{typeof column.title === 'string' ? column.title : column.title()}
 				</p>
 				{#each column.links as link (link.path)}
 					<a
 						href={resolve(localizeHref(link.path) as Pathname)}
-						class="font-medium text-foreground"
+						class="py-1 font-medium text-foreground"
 					>
 						{link.label()}
 					</a>
@@ -62,7 +38,7 @@
 			<span
 				class="inline-flex items-center rounded bg-foreground px-2.5 py-1 text-micro font-black whitespace-nowrap text-background"
 			>
-				<span class="text-[#ffbf00]">VIS </span>FOUNDATION
+				<span class="text-vis-gold">VIS </span>FOUNDATION
 			</span>
 		</div>
 		<p class="text-caption text-muted-foreground">

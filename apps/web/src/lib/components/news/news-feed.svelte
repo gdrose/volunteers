@@ -56,7 +56,7 @@
 
 	{#if visibleCount < posts.length}
 		<div class="flex justify-center pt-6">
-			<Button variant="outline-strong" size="load-more" onclick={() => (visibleCount += pageSize)}>
+			<Button variant="outline-strong" size="lg" onclick={() => (visibleCount += pageSize)}>
 				{m.news_load_more()}<span aria-hidden="true">→</span>
 			</Button>
 		</div>

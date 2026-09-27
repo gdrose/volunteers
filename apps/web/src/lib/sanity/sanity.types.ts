@@ -166,6 +166,7 @@ export type HomePage = {
     _type: "stat";
     _key: string;
   }>;
+  statsAsOf?: string;
 };
 
 export type Group = {
@@ -250,6 +251,7 @@ export type NewsPost = {
   slug: Slug;
   excerpt: string;
   publishedAt: string;
+  author?: string;
   category: "field-stories" | "new-locations" | "medical" | "culture";
   project?: ProjectReference;
   coverImage: ImageWithAlt;
@@ -302,6 +304,15 @@ export type Project = {
     _type: "resource";
     _key: string;
   }>;
+  startedYear?: number;
+  impact?: Array<{
+    value: string;
+    label: string;
+    description?: string;
+    _type: "impactFigure";
+    _key: string;
+  }>;
+  outcomes?: SimpleText;
 };
 
 export type SanityImageCrop = {
@@ -414,7 +425,7 @@ export type AllSanitySchemaTypes = SimpleText | ArticleBody | PullQuote | Sanity
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: NEWS_INDEX_QUERY
-// Query: {	"featured": coalesce(		*[_id == "newsPage-" + $locale][0].featuredPost->{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])},		*[_type == "newsPost" && language == $locale] | order(publishedAt desc)[0]{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}	),	"posts": *[_type == "newsPost" && language == $locale && defined(slug.current)]		| order(publishedAt desc){	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}}
+// Query: {	"featured": coalesce(		*[_id == "newsPage-" + $locale][0].featuredPost->{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])},		*[_type == "newsPost" && language == $locale] | order(publishedAt desc)[0]{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}	),	"posts": *[_type == "newsPost" && language == $locale && defined(slug.current)]		| order(publishedAt desc){	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}}
 export type NEWS_INDEX_QUERY_RESULT = {
   featured: {
     _id: string;
@@ -423,6 +434,7 @@ export type NEWS_INDEX_QUERY_RESULT = {
     excerpt: string;
     category: "culture" | "field-stories" | "medical" | "new-locations";
     publishedAt: string;
+    author: string | null;
     coverImage: ImageWithAlt;
     readingMinutes: number | 1;
   } | null;
@@ -433,6 +445,7 @@ export type NEWS_INDEX_QUERY_RESULT = {
     excerpt: string;
     category: "culture" | "field-stories" | "medical" | "new-locations";
     publishedAt: string;
+    author: string | null;
     coverImage: ImageWithAlt;
     readingMinutes: number | 1;
   }>;
@@ -440,7 +453,7 @@ export type NEWS_INDEX_QUERY_RESULT = {
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: NEWS_POST_QUERY
-// Query: *[_type == "newsPost" && language == $locale && slug.current == $slug][0]{			_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	]),		body,		"project": project->{ title, teaser, "slug": slug.current }	}
+// Query: *[_type == "newsPost" && language == $locale && slug.current == $slug][0]{			_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	]),		body,		"project": project->{ title, teaser, "slug": slug.current }	}
 export type NEWS_POST_QUERY_RESULT = {
   _id: string;
   title: string;
@@ -448,6 +461,7 @@ export type NEWS_POST_QUERY_RESULT = {
   excerpt: string;
   category: "culture" | "field-stories" | "medical" | "new-locations";
   publishedAt: string;
+  author: string | null;
   coverImage: ImageWithAlt;
   readingMinutes: number | 1;
   body: ArticleBody;
@@ -460,7 +474,7 @@ export type NEWS_POST_QUERY_RESULT = {
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: RELATED_POSTS_QUERY
-// Query: *[_type == "newsPost" && language == $locale && _id != $id]{			_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	]),		"score": select(defined($projectSlug) && project->slug.current == $projectSlug => 2, 0)			+ select(category == $category => 1, 0)	} | order(score desc, publishedAt desc)[0...3]
+// Query: *[_type == "newsPost" && language == $locale && _id != $id]{			_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	]),		"score": select(defined($projectSlug) && project->slug.current == $projectSlug => 2, 0)			+ select(category == $category => 1, 0)	} | order(score desc, publishedAt desc)[0...3]
 export type RELATED_POSTS_QUERY_RESULT = Array<{
   _id: string;
   title: string;
@@ -468,6 +482,7 @@ export type RELATED_POSTS_QUERY_RESULT = Array<{
   excerpt: string;
   category: "culture" | "field-stories" | "medical" | "new-locations";
   publishedAt: string;
+  author: string | null;
   coverImage: ImageWithAlt;
   readingMinutes: number | 1;
   score: 0 | 1 | 2 | 3;
@@ -475,7 +490,7 @@ export type RELATED_POSTS_QUERY_RESULT = Array<{
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: PROJECT_NEWS_QUERY
-// Query: *[_type == "newsPost" && language == $locale && project->slug.current == $projectSlug]		| order(publishedAt desc)[0...3]{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}
+// Query: *[_type == "newsPost" && language == $locale && project->slug.current == $projectSlug]		| order(publishedAt desc)[0...3]{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}
 export type PROJECT_NEWS_QUERY_RESULT = Array<{
   _id: string;
   title: string;
@@ -483,6 +498,7 @@ export type PROJECT_NEWS_QUERY_RESULT = Array<{
   excerpt: string;
   category: "culture" | "field-stories" | "medical" | "new-locations";
   publishedAt: string;
+  author: string | null;
   coverImage: ImageWithAlt;
   readingMinutes: number | 1;
 }>;
@@ -502,7 +518,7 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: {	"projects": *[_type == "project" && language == $locale && defined(slug.current)]		| order(sortOrder asc){			_id,			title,			"slug": slug.current,			teaser,			coverImage		},	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description }}
+// Query: {	"projects": *[_type == "project" && language == $locale && defined(slug.current)]		| order(sortOrder asc){			_id,			title,			"slug": slug.current,			teaser,			coverImage		},	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description },	"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf}
 export type HOME_PAGE_QUERY_RESULT = {
   projects: Array<{
     _id: string;
@@ -517,17 +533,19 @@ export type HOME_PAGE_QUERY_RESULT = {
     label: string;
     description: string | null;
   }> | null;
+  statsAsOf: null | string;
 };
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: ABOUT_PAGE_QUERY
-// Query: *[_id == "aboutPage-" + $locale][0]{		"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label },		"milestones": milestones[]{ _key, period, title, description, image },		"offices": offices[]{ _key, scope, title, description, location, email },		"documents": documents[defined(file.asset)]{			_key,			title,			updatedYear,			"href": file.asset->url,			"format": upper(file.asset->extension)		}	}
+// Query: *[_id == "aboutPage-" + $locale][0]{		"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label },		"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf,		"milestones": milestones[]{ _key, period, title, description, image },		"offices": offices[]{ _key, scope, title, description, location, email },		"documents": documents[defined(file.asset)]{			_key,			title,			updatedYear,			"href": file.asset->url,			"format": upper(file.asset->extension)		}	}
 export type ABOUT_PAGE_QUERY_RESULT = {
   stats: Array<{
     _key: string;
     value: string;
     label: string;
   }> | null;
+  statsAsOf: null | string;
   milestones: null;
   offices: null;
   documents: null;
@@ -537,6 +555,7 @@ export type ABOUT_PAGE_QUERY_RESULT = {
     value: string;
     label: string;
   }> | null;
+  statsAsOf: null | string;
   milestones: Array<{
     _key: string;
     period: string;
@@ -576,7 +595,7 @@ export type PROJECT_SHOWCASE_QUERY_RESULT = Array<{
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && language == $locale && slug.current == $slug][0]{		_id,		title,		"slug": slug.current,		headline,		headlineEmphasis,		summary,		intro,		body,		heroImage,		gallery,		activities,		"resources": resources[]{			_key,			kind,			title,			description,			shortDescription,			cover,			"href": coalesce(url, file.asset->url)		},		partners	}
+// Query: *[_type == "project" && language == $locale && slug.current == $slug][0]{		_id,		title,		"slug": slug.current,		headline,		headlineEmphasis,		summary,		intro,		body,		heroImage,		gallery,		activities,		"resources": resources[]{			_key,			kind,			title,			description,			shortDescription,			cover,			"href": coalesce(url, file.asset->url)		},		partners,		startedYear,		"impact": impact[]{ _key, value, label, description },		outcomes	}
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string;
@@ -606,7 +625,20 @@ export type PROJECT_QUERY_RESULT = {
     href: string | null;
   }> | null;
   partners: Array<string> | null;
+  startedYear: number | null;
+  impact: Array<{
+    _key: string;
+    value: string;
+    label: string;
+    description: string | null;
+  }> | null;
+  outcomes: SimpleText | null;
 } | null;
+
+// Source: ../web/src/lib/sanity/queries.ts
+// Variable: CONTACT_EMAIL_QUERY
+// Query: coalesce(		*[_id == "aboutPage-" + $locale][0].offices[scope == "international"][0].email,		*[_id == "aboutPage-" + $locale][0].offices[0].email	)
+export type CONTACT_EMAIL_QUERY_RESULT = string | null;
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: GROUPS_QUERY

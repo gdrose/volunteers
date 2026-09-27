@@ -1,7 +1,6 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Container } from '$lib/components/shared';
-	import arrowUpRight from '$lib/assets/about/contacts/arrow-up-right.svg';
 	import type { Office } from './about';
 	import { m } from '$lib/paraglide/messages.js';
 
@@ -21,9 +20,6 @@
 					<Card.Root variant="contact" class="h-full">
 						<Card.Header>
 							<Card.Title role="heading" aria-level={3}>{office.title}</Card.Title>
-							<Card.Action>
-								<img src={arrowUpRight} alt="" width="16" height="16" />
-							</Card.Action>
 						</Card.Header>
 						<Card.Content>
 							<Card.Description>{office.description}</Card.Description>

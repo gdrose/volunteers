@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { prefersReducedMotion } from "svelte/motion";
 	import { cn, type WithElementRef } from "$lib/utils.js";
 	import {
 		type CarouselAPI,
@@ -37,15 +38,16 @@
 
 	setEmblaContext(carouselState);
 
+	// With reduced motion, programmatic scrolls jump straight to the slide.
 	function scrollPrev() {
-		carouselState.api?.scrollPrev();
+		carouselState.api?.scrollPrev(prefersReducedMotion.current);
 	}
 
 	function scrollNext() {
-		carouselState.api?.scrollNext();
+		carouselState.api?.scrollNext(prefersReducedMotion.current);
 	}
 
-	function scrollTo(index: number, jump?: boolean) {
+	function scrollTo(index: number, jump = prefersReducedMotion.current) {
 		carouselState.api?.scrollTo(index, jump);
 	}
 

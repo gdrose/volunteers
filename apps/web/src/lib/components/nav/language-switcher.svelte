@@ -18,8 +18,8 @@
 			gap: 'gap-1',
 			text: 'text-caption',
 			weight: 'font-semibold',
-			icon: 'size-[18px]',
-			chevron: 'size-[18px]'
+			icon: 'size-4.5',
+			chevron: 'size-4.5'
 		},
 		default: {
 			gap: 'gap-1',
@@ -48,7 +48,7 @@
 <DropdownMenu.Root bind:open>
 	<DropdownMenu.Trigger
 		class={cn(
-			'inline-flex items-center text-foreground outline-none',
+			'inline-flex min-h-6 items-center rounded-sm px-1 text-foreground',
 			s.gap,
 			s.text,
 			s.weight,

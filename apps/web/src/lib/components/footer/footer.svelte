@@ -13,6 +13,7 @@
 	import linkedinCircle from '$lib/assets/social/circle/linkedin.svg';
 	import whatsappCircle from '$lib/assets/social/circle/whatsapp.svg';
 	import visFoundationLogo from '$lib/assets/footer/vis-foundation.png';
+	import { footerColumns } from '$lib/components/nav/nav-links';
 	import MobileFooter from './mobile-footer.svelte';
 
 	let { socials }: { socials: SocialProfile[] } = $props();
@@ -34,31 +35,6 @@
 			whatsapp: whatsappCircle
 		})
 	);
-
-	const columns = [
-		{
-			title: 'Volunteers',
-			links: [
-				{ label: m.nav_about, path: '/about' },
-				{ label: m.nav_what_we_do, path: '/what-we-do' }
-			]
-		},
-		{
-			title: m.footer_what_you_can_do,
-			links: [
-				{ label: m.footer_volunteer, path: '/volunteer' },
-				{ label: m.nav_donate, path: '/donate' }
-			]
-		},
-		{
-			title: m.footer_contacts,
-			links: [
-				{ label: m.footer_contact_us, path: '/contact' },
-				{ label: m.footer_locations, path: '/locations' },
-				{ label: m.footer_media_kit, path: '/media-kit' }
-			]
-		}
-	] as const;
 </script>
 
 <footer class="hidden w-full flex-col bg-background lg:flex">
@@ -77,7 +53,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label={social.name}
-						class="shrink-0 rounded-full transition-opacity outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-ring/50"
+						class="shrink-0 rounded-full transition-opacity hover:opacity-80"
 					>
 						<img src={social.icon} alt="" class="size-16" />
 					</a>
@@ -100,7 +76,7 @@
 						target="_blank"
 						rel="noopener noreferrer"
 						aria-label={social.name}
-						class="shrink-0 rounded-sm transition-opacity outline-none hover:opacity-70 focus-visible:ring-3 focus-visible:ring-ring/50"
+						class="shrink-0 rounded-sm transition-opacity hover:opacity-70"
 					>
 						<img src={social.icon} alt="" class="size-6" />
 					</a>
@@ -110,15 +86,15 @@
 		</div>
 
 		<nav class="flex gap-10">
-			{#each columns as column (column.title)}
-				<div class="flex w-32 flex-col gap-2">
-					<p class="text-body font-extrabold text-primary">
+			{#each footerColumns as column (column.title)}
+				<div class="flex w-32 flex-col">
+					<p class="pb-1 text-body font-extrabold text-primary">
 						{typeof column.title === 'string' ? column.title : column.title()}
 					</p>
 					{#each column.links as link (link.path)}
 						<a
 							href={resolve(localizeHref(link.path) as Pathname)}
-							class="text-caption font-medium text-foreground"
+							class="py-1 text-caption font-medium text-foreground"
 						>
 							{link.label()}
 						</a>
@@ -132,7 +108,7 @@
 			<span
 				class="inline-flex items-center rounded-full bg-foreground px-3 py-2 text-micro font-black whitespace-nowrap text-background"
 			>
-				<span class="text-[#ffbf00]">VIS</span>&nbsp;FOUNDATION
+				<span class="text-vis-gold">VIS</span>&nbsp;FOUNDATION
 			</span>
 		</div>
 	</Container>

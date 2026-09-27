@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Container, PageBreadcrumb } from '$lib/components/shared';
-	import volunteersImage from '$lib/assets/about/volunteers.png';
+	import { formatStatsDate, formatStatValue } from '$lib/components/stats';
 	import type { AboutStat } from './about';
 	import { m } from '$lib/paraglide/messages.js';
 
-	let { stats }: { stats: AboutStat[] } = $props();
+	let { stats, asOf }: { stats: AboutStat[]; asOf?: string | null } = $props();
 </script>
 
 <Container
@@ -29,26 +29,33 @@
 				{m.about_body()}
 			</p>
 
-			<dl class="flex gap-2 lg:gap-7">
-				{#each stats as stat (stat._key)}
-					<div class="flex min-w-0 flex-1 flex-col gap-1">
-						<dt class="order-2 text-caption font-semibold text-muted-foreground">
-							{stat.label}
-						</dt>
-						<dd class="order-1 text-h2 whitespace-nowrap text-primary">
-							{stat.value}
-						</dd>
-					</div>
-				{/each}
-			</dl>
+			<div class="flex flex-col gap-2">
+				<dl class="flex gap-2 lg:gap-7">
+					{#each stats as stat (stat._key)}
+						<div class="flex min-w-0 flex-1 flex-col gap-1">
+							<dt class="order-2 text-caption font-semibold text-muted-foreground">
+								{stat.label}
+							</dt>
+							<dd class="order-1 text-h2 whitespace-nowrap text-primary">
+								{formatStatValue(stat.value)}
+							</dd>
+						</div>
+					{/each}
+				</dl>
+				{#if stats.length && asOf}
+					<p class="text-caption text-muted-foreground">
+						{m.stats_as_of({ date: formatStatsDate(asOf) })}
+					</p>
+				{/if}
+			</div>
 		</div>
 
-		<img
-			src={volunteersImage}
+		<enhanced:img
+			src="$lib/assets/about/volunteers.png"
 			alt={m.about_image_alt()}
-			width="554"
-			height="368"
-			class="h-65 w-full rounded-[16px] object-cover lg:h-125 lg:w-130 lg:shrink-0 lg:rounded-[24px]"
+			fetchpriority="high"
+			sizes="(min-width: 64rem) 520px, 100vw"
+			class="h-65 w-full rounded-xl object-cover lg:h-125 lg:w-130 lg:shrink-0 lg:rounded-3xl"
 		/>
 	</div>
 </Container>

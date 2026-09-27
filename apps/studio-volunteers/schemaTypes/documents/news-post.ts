@@ -44,6 +44,11 @@ export const newsPost = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: 'author',
+      type: 'string',
+      description: 'Who wrote the post. Shown next to the date.',
+    }),
+    defineField({
       name: 'category',
       type: 'string',
       options: {list: NEWS_CATEGORIES, layout: 'radio'},

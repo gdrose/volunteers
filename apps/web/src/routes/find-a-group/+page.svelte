@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { PageLayout } from '$lib/components/shared';
+	import { PageLayout, Seo } from '$lib/components/shared';
 	import {
 		DelegationCallout,
 		GroupDetails,
@@ -12,6 +12,8 @@
 
 	let { data }: PageProps = $props();
 </script>
+
+<Seo title={m.nav_find_group()} description={m.find_group_description()} />
 
 <PageLayout crumbs={[{ label: m.nav_find_group() }]} description={m.find_group_description()}>
 	{#snippet title()}

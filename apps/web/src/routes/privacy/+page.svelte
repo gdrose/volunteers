@@ -3,4 +3,4 @@
 	import { m } from '$lib/paraglide/messages.js';
 </script>
 
-<ComingSoonPage name={m.footer_media_kit()} />
+<ComingSoonPage name={m.privacy_title()} />

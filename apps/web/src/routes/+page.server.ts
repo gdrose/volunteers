@@ -5,8 +5,11 @@ import { getLocale } from '$lib/paraglide/runtime';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
-	const { projects, stats } = await client.fetch<HOME_PAGE_QUERY_RESULT>(HOME_PAGE_QUERY, {
-		locale: getLocale()
-	});
-	return { projects, stats: stats ?? [] };
+	const { projects, stats, statsAsOf } = await client.fetch<HOME_PAGE_QUERY_RESULT>(
+		HOME_PAGE_QUERY,
+		{
+			locale: getLocale()
+		}
+	);
+	return { projects, stats: stats ?? [], statsAsOf };
 };

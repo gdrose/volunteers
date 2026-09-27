@@ -53,7 +53,7 @@
 	<label
 		bind:this={field}
 		class={cn(
-			'flex cursor-text items-center gap-2 rounded-3xl border bg-background p-2.5 transition-shadow focus-within:border-ring focus-within:ring-3 focus-within:ring-ring/50 lg:min-h-18 lg:gap-2.5 lg:p-3',
+			'flex cursor-text items-center gap-2 rounded-3xl border bg-background p-2.5 transition-shadow focus-within:border-ring focus-within:ring-3 focus-within:ring-ring lg:min-h-18 lg:gap-2.5 lg:p-3',
 			className
 		)}
 	>

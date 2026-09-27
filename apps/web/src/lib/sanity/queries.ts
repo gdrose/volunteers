@@ -15,6 +15,7 @@ const postCardFields = /* groq */ `
 	excerpt,
 	category,
 	publishedAt,
+	author,
 	coverImage,
 	"readingMinutes": math::max([
 		1,
@@ -70,7 +71,8 @@ export const HOME_PAGE_QUERY = defineQuery(`{
 			teaser,
 			coverImage
 		},
-	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description }
+	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description },
+	"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf
 }`);
 
 // --- About ----------------------------------------------------------------------------
@@ -79,6 +81,7 @@ export const HOME_PAGE_QUERY = defineQuery(`{
 export const ABOUT_PAGE_QUERY = defineQuery(`
 	*[_id == "aboutPage-" + $locale][0]{
 		"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label },
+		"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf,
 		"milestones": milestones[]{ _key, period, title, description, image },
 		"offices": offices[]{ _key, scope, title, description, location, email },
 		"documents": documents[defined(file.asset)]{
@@ -126,8 +129,21 @@ export const PROJECT_QUERY = defineQuery(`
 			cover,
 			"href": coalesce(url, file.asset->url)
 		},
-		partners
+		partners,
+		startedYear,
+		"impact": impact[]{ _key, value, label, description },
+		outcomes
 	}
+`);
+
+// --- Contact --------------------------------------------------------------------------
+
+/** Inbox the contact form writes to: the international office, else the first listed. */
+export const CONTACT_EMAIL_QUERY = defineQuery(`
+	coalesce(
+		*[_id == "aboutPage-" + $locale][0].offices[scope == "international"][0].email,
+		*[_id == "aboutPage-" + $locale][0].offices[0].email
+	)
 `);
 
 // --- Groups ---------------------------------------------------------------------------

@@ -29,7 +29,7 @@
 			<Button
 				href={resolve(localizeHref('/news') as Pathname)}
 				variant="outline-strong"
-				size="load-more"
+				size="lg"
 				class="w-full lg:w-auto"
 			>
 				{m.project_news_see_all()}<span aria-hidden="true">→</span>

@@ -7,3 +7,5 @@ export { socialLinks, type SocialId, type SocialProfile } from './socials';
 export { default as PhotoLightbox, type LightboxPhoto } from './photo-lightbox.svelte';
 export { default as SanityImage } from './sanity-image.svelte';
 export { default as PortableTextLink } from './portable-text-link.svelte';
+export { default as Seo } from './seo.svelte';
+export { default as ComingSoonPage } from './coming-soon-page.svelte';

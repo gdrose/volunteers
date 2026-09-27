@@ -19,9 +19,10 @@
 	<SanityImage
 		{image}
 		width={400}
+		sizes="(min-width: 64rem) 260px, (min-width: 40rem) 50vw, 100vw"
 		alt=""
 		loading="lazy"
-		class="h-40 w-full rounded-xl object-cover transition-transform duration-500 ease-out motion-safe:group-hover/card:scale-105 lg:h-[173px]"
+		class="h-40 w-full rounded-xl object-cover transition-transform duration-500 ease-out motion-safe:group-hover/card:scale-105 lg:h-44"
 	/>
 
 	<Card.Content class="flex flex-1 flex-col gap-2 px-0 lg:gap-3.5">

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
-	import { PageLayout } from '$lib/components/shared';
+	import { PageLayout, Seo } from '$lib/components/shared';
 	import { ProjectShowcase } from '$lib/components/projects';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -12,6 +12,8 @@
 
 	let { data }: PageProps = $props();
 </script>
+
+<Seo title={m.nav_what_we_do()} description={m.what_we_do_description()} />
 
 <PageLayout crumbs={[{ label: m.nav_what_we_do() }]} description={m.what_we_do_description()}>
 	{#snippet title()}
@@ -31,7 +33,7 @@
 	<Card.Root variant="callout" class="mt-8 lg:mt-16">
 		<Card.Title role="heading" aria-level={2}>{m.project_find_group_title()}</Card.Title>
 		<Card.Description>{m.project_find_group_description()}</Card.Description>
-		<Button href={resolve(localizeHref('/find-a-group') as Pathname)} size="cta-xl">
+		<Button href={resolve(localizeHref('/find-a-group') as Pathname)} size="lg">
 			{m.nav_find_group()}<span aria-hidden="true">→</span>
 		</Button>
 	</Card.Root>

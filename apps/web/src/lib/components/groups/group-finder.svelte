@@ -19,7 +19,7 @@
 	<Button
 		href={resolve(localizeHref('/contact') as Pathname)}
 		variant="outline"
-		size="xl"
+		size="lg"
 		class="w-full lg:hidden"
 	>
 		{m.find_group_contact_us()}
@@ -33,7 +33,7 @@
 			{m.find_group_search_title()}
 		</h2>
 		<ul
-			class="order-last flex list-inside list-disc flex-col gap-1.5 text-small font-medium text-muted-foreground lg:order-none lg:gap-2 lg:font-normal"
+			class="flex list-inside list-disc flex-col gap-1.5 text-small font-medium text-muted-foreground lg:gap-2 lg:font-normal"
 		>
 			<li>{m.find_group_stat_italy()}</li>
 			<li>{m.find_group_stat_abroad()}</li>

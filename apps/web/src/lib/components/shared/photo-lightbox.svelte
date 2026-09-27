@@ -3,8 +3,11 @@
 </script>
 
 <script lang="ts">
+	import { prefersReducedMotion } from 'svelte/motion';
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import closeIcon from '$lib/assets/groups/close.svg';
 	import type { CarouselAPI } from '$lib/components/ui/carousel/context.js';
 	import { m } from '$lib/paraglide/messages.js';
 
@@ -35,8 +38,8 @@
 	}
 
 	function onkeydown(event: KeyboardEvent) {
-		if (event.key === 'ArrowLeft') api?.scrollPrev();
-		else if (event.key === 'ArrowRight') api?.scrollNext();
+		if (event.key === 'ArrowLeft') api?.scrollPrev(prefersReducedMotion.current);
+		else if (event.key === 'ArrowRight') api?.scrollNext(prefersReducedMotion.current);
 	}
 
 	// Swipe down to close: horizontal swipes stay with the carousel.
@@ -82,8 +85,20 @@
 	>
 		<Dialog.Title class="sr-only">{title}</Dialog.Title>
 
-		<!-- No visible close button: tap anywhere but a control, press Esc or swipe down. -->
-		<Dialog.Close class="sr-only">{m.lightbox_close()}</Dialog.Close>
+		<!-- Also closes on a tap anywhere but a control, Esc, or a swipe down. -->
+		<Dialog.Close>
+			{#snippet child({ props })}
+				<Button
+					{...props}
+					variant="overlay"
+					size="icon-lg"
+					class="absolute end-3 top-[max(0.75rem,env(safe-area-inset-top))] z-20 sm:end-4 sm:top-4"
+				>
+					<img src={closeIcon} alt="" width="16" height="16" />
+					<span class="sr-only">{m.lightbox_close()}</span>
+				</Button>
+			{/snippet}
+		</Dialog.Close>
 		<p class="sr-only" aria-live="polite">
 			{m.lightbox_slide({ index: current + 1, total: photos.length })}
 		</p>
@@ -95,7 +110,7 @@
 			aria-label={title}
 			class="flex min-h-0 flex-1 flex-col pt-[max(3rem,env(safe-area-inset-top))] sm:pt-16"
 			style="transform: translateY({dragY}px); opacity: {1 - Math.min(dragY / 400, 0.6)};
-				transition: {dragging ? 'none' : 'transform 200ms, opacity 200ms'}"
+				transition: {dragging || prefersReducedMotion.current ? 'none' : 'transform 200ms, opacity 200ms'}"
 		>
 			<!-- Full-bleed photos on phones, with a gutter between slides while swiping. -->
 			<Carousel.Content variant="lightbox" class="h-full">

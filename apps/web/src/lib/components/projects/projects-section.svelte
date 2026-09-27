@@ -15,14 +15,14 @@
 	<Container class="flex flex-col gap-6 py-10 lg:gap-4 lg:py-3">
 		<SectionTitle id="projects-title">{m.projects_title()}</SectionTitle>
 
-		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-[19px]">
+		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
 			{#each projects as project (project._id)}
 				<ProjectCard
 					title={project.title}
 					description={project.teaser}
 					image={project.coverImage}
 					href={resolve(localizeHref(`/what-we-do/${project.slug}`) as Pathname)}
-					linkLabel={m.projects_learn_more()}
+					linkLabel={m.what_we_do_cta({ project: project.title })}
 				/>
 			{/each}
 		</div>

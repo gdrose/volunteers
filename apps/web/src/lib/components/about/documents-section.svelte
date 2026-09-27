@@ -38,12 +38,7 @@
 						</Item.Description>
 					</Item.Content>
 					<Item.Actions>
-						<Button
-							href="{document.href}?dl="
-							variant="outline"
-							size="download"
-							class="w-full lg:w-auto"
-						>
+						<Button href="{document.href}?dl=" variant="outline" size="lg" class="w-full lg:w-auto">
 							<img src={downloadIcon} alt="" width="16" height="16" data-icon="inline-start" />
 							{m.about_documents_download()}
 						</Button>

@@ -32,6 +32,12 @@ export const homePage = defineType({
       ],
       validation: (rule) => rule.max(4),
     }),
+    defineField({
+      name: 'statsAsOf',
+      title: 'Figures as of',
+      type: 'date',
+      description: 'When the key figures were last checked. Shown under them as "Figures as of …".',
+    }),
   ],
   preview: {
     select: {language: 'language'},

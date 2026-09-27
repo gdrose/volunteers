@@ -12,6 +12,7 @@ export {
 } from './projects';
 export { default as ProjectHeader } from './detail/project-header.svelte';
 export { default as ProjectOverview } from './detail/project-overview.svelte';
+export { default as ProjectImpact } from './detail/project-impact.svelte';
 export { default as ProjectNews } from './detail/project-news.svelte';
 export { default as ProjectResources } from './detail/project-resources.svelte';
 export { default as ProjectPartners } from './detail/project-partners.svelte';
