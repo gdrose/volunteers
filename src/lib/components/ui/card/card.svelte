@@ -11,6 +11,8 @@
 				contact: "gap-3.5 rounded-[20px] [--card-spacing:--spacing(5)] lg:gap-[18px] lg:rounded-[24px] lg:[--card-spacing:--spacing(7)]",
 				// Centered call-to-action panel; children sit directly in the card.
 				callout: "items-center gap-3.5 rounded-[20px] bg-muted px-(--card-spacing) text-center [--card-spacing:--spacing(5)] lg:gap-4 lg:rounded-[24px] lg:[--card-spacing:--spacing(10)]",
+				// Muted panel wrapping a form; same radii and spacing as the callout, left-aligned.
+				form: "gap-6 rounded-[20px] bg-muted px-(--card-spacing) [--card-spacing:--spacing(5)] lg:gap-8 lg:rounded-[24px] lg:[--card-spacing:--spacing(10)]",
 				// Borderless project tile: rounded image on top, title/description/link below.
 				project: "gap-4 overflow-visible rounded-[20px] p-4 ring-0 has-[>img:first-child]:pt-4 lg:gap-3.5 lg:rounded-3xl lg:pt-[13px] lg:pr-1 lg:pb-[26px] lg:pl-2.5 lg:has-[>img:first-child]:pt-[13px]",
 				// Borderless news tile: image on top, title and meta row below; the title link covers the card.

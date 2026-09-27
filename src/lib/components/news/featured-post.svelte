@@ -2,7 +2,8 @@
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { formatPostDate, type NewsPost } from './news';
+	import PostMeta from './post-meta.svelte';
+	import type { NewsPost } from './news';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 
@@ -23,15 +24,9 @@
 			{post.title()}
 		</h2>
 		<p class="text-lead text-muted-foreground">
-			{post.excerpt?.()}
+			{post.excerpt()}
 		</p>
-		<div class="flex items-center gap-4 text-small">
-			<time datetime={post.date} class="text-muted-foreground">{formatPostDate(post.date)}</time>
-			<span class="size-1 rounded-[2px] bg-muted-foreground" aria-hidden="true"></span>
-			<span class="font-semibold text-link">
-				{m.news_reading_time({ minutes: post.readingMinutes })}
-			</span>
-		</div>
+		<PostMeta {post} />
 		<Button
 			href={resolve(localizeHref(`/news/${post.slug}`) as Pathname)}
 			size="xl"

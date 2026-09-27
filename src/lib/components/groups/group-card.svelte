@@ -3,6 +3,7 @@
 	import { ArrowLink } from '$lib/components/shared';
 	import { m } from '$lib/paraglide/messages.js';
 	import { groupArea, type LocalGroup } from './groups';
+	import { groupHref } from './group-selection.svelte';
 
 	let { group }: { group: LocalGroup & { featured: NonNullable<LocalGroup['featured']> } } =
 		$props();
@@ -38,7 +39,7 @@
 
 	<Card.Footer>
 		<!-- Opens the group details dialog on the find-a-group page. -->
-		<ArrowLink href="?group={group.id}" data-sveltekit-noscroll>
+		<ArrowLink href={groupHref(group)} data-sveltekit-noscroll>
 			{m.find_group_contact_group()}
 		</ArrowLink>
 	</Card.Footer>

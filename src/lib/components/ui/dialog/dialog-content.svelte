@@ -8,6 +8,8 @@
 				default: "",
 				// Media panel: image on top (mobile) or on the left (desktop), content beside it.
 				media: "flex max-h-[calc(100dvh-2rem)] flex-col gap-0 overflow-y-auto rounded-3xl p-0 ring-0 shadow-[0_20px_60px_rgba(17,24,39,0.2)] lg:max-h-[calc(100dvh-4rem)] lg:max-w-228 lg:flex-row lg:overflow-hidden",
+				// Full-screen photo viewer on a dark backdrop; clicking the backdrop closes it.
+				lightbox: "inset-0 flex h-dvh w-full max-w-none translate-x-0 translate-y-0 flex-col gap-0 cursor-zoom-out rounded-none bg-black p-0 text-white ring-0 sm:max-w-none data-open:zoom-in-100 data-closed:zoom-out-100",
 			},
 		},
 		defaultVariants: {

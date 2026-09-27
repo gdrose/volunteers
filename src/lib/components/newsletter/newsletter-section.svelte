@@ -1,17 +1,41 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Container } from '$lib/components/shared';
+	import { Checkbox } from '$lib/components/ui/checkbox/index.js';
 	import { Input } from '$lib/components/ui/input/index.js';
+	import * as Tooltip from '$lib/components/ui/tooltip/index.js';
 	import { m } from '$lib/paraglide/messages.js';
 	import titleUnderline from '$lib/assets/newsletter/title-underline.svg';
 	import titleDecoration from '$lib/assets/newsletter/title-decoration.svg';
 	import newsletterCircle from '$lib/assets/newsletter/newsletter-circle.svg';
-	import checkCircle from '$lib/assets/newsletter/check-circle.svg';
-	import checkCircleSm from '$lib/assets/newsletter/check-circle-sm.svg';
+
+	let consent = $state(false);
+	// Set when the user tries to subscribe without consenting: shakes the
+	// consent row, marks the checkbox invalid and opens the reminder tooltip.
+	let reminder = $state(false);
+	let shaking = $state(false);
+	let reminderTimeout: ReturnType<typeof setTimeout> | undefined;
+
+	$effect(() => {
+		if (consent) reminder = false;
+	});
+
+	$effect(() => () => clearTimeout(reminderTimeout));
 
 	// TODO: wire up to the newsletter provider once available.
 	function handleSubmit(event: SubmitEvent) {
 		event.preventDefault();
+		if (!consent) {
+			remindConsent();
+			return;
+		}
+	}
+
+	function remindConsent() {
+		reminder = true;
+		shaking = true;
+		clearTimeout(reminderTimeout);
+		reminderTimeout = setTimeout(() => (reminder = false), 4000);
 	}
 </script>
 
@@ -84,19 +108,44 @@
 				<div
 					class="flex flex-col gap-4 sm:gap-5 lg:flex-row lg:items-start lg:justify-between lg:gap-6 lg:pr-2"
 				>
-					<p class="flex items-start gap-2 lg:max-w-[273px] lg:gap-[3px]">
-						<img src={checkCircle} alt="" width="16" height="16" class="shrink-0 lg:hidden" />
-						<img
-							src={checkCircleSm}
-							alt=""
-							width="12"
-							height="12"
-							class="hidden shrink-0 lg:block"
-						/>
-						<span class="text-micro lg:pt-px">
+					<div
+						class={[
+							'flex items-start gap-2 lg:max-w-[273px]',
+							shaking && 'motion-safe:animate-shake'
+						]}
+						onanimationend={() => (shaking = false)}
+					>
+						<Tooltip.Provider>
+							<!-- Only opens as a reminder, never on hover. -->
+							<Tooltip.Root bind:open={() => reminder, (open) => !open && (reminder = false)}>
+								<Tooltip.Trigger>
+									{#snippet child({ props })}
+										<Checkbox
+											{...props}
+											id="newsletter-consent"
+											name="consent"
+											variant="inverse"
+											bind:checked={consent}
+											aria-invalid={reminder || undefined}
+											aria-describedby={reminder ? 'newsletter-consent-reminder' : undefined}
+										/>
+									{/snippet}
+								</Tooltip.Trigger>
+								<Tooltip.Content
+									id="newsletter-consent-reminder"
+									variant="destructive"
+									side="top"
+									align="start"
+									sideOffset={6}
+								>
+									{m.newsletter_consent_required()}
+								</Tooltip.Content>
+							</Tooltip.Root>
+						</Tooltip.Provider>
+						<label for="newsletter-consent" class="cursor-pointer text-micro">
 							{m.newsletter_consent()}
-						</span>
-					</p>
+						</label>
+					</div>
 					<Button type="submit" variant="inverse" size="form" class="w-full lg:-mt-px lg:w-auto">
 						{m.newsletter_submit()}
 					</Button>

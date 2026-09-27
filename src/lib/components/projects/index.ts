@@ -8,3 +8,5 @@ export { default as ProjectOverview } from './detail/project-overview.svelte';
 export { default as ProjectNews } from './detail/project-news.svelte';
 export { default as ProjectResources } from './detail/project-resources.svelte';
 export { default as ProjectPartners } from './detail/project-partners.svelte';
+export { default as ProjectShowcase } from './project-showcase.svelte';
+export { projectPhotos } from './project-showcase';

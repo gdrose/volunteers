@@ -19,6 +19,8 @@
 				default: "h-5 px-2 py-0.5 text-caption font-medium",
 				lg: "h-10 min-w-22 px-4 text-h4",
 				pill: "px-2.5 py-1.5 text-caption font-extrabold uppercase lg:px-3 lg:py-2 lg:font-bold",
+				// Round icon-only chip, e.g. the zoom cue on a photo.
+				icon: "size-8 p-0 [&>svg]:size-4! lg:size-9",
 			},
 		},
 		defaultVariants: {

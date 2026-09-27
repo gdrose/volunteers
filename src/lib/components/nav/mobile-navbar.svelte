@@ -6,6 +6,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import LanguageSwitcher from './language-switcher.svelte';
+	import { socialLinks } from '$lib/components/shared';
 	import instagramLogo from '$lib/assets/social/color/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/color/tiktok.svg';
 	import linkedinLogo from '$lib/assets/social/color/linkedin.svg';
@@ -21,12 +22,12 @@
 
 	const findGroupPath = '/find-a-group';
 
-	const socialLinks = [
-		{ name: 'Instagram', icon: instagramLogo },
-		{ name: 'TikTok', icon: tiktokLogo },
-		{ name: 'LinkedIn', icon: linkedinLogo },
-		{ name: 'WhatsApp', icon: whatsappLogo }
-	];
+	const socials = socialLinks({
+		instagram: instagramLogo,
+		tiktok: tiktokLogo,
+		linkedin: linkedinLogo,
+		whatsapp: whatsappLogo
+	});
 
 	let open = $state(false);
 </script>
@@ -103,12 +104,18 @@
 									{m.footer_social_text()}
 								</p>
 								<div class="flex items-center justify-center gap-3">
-									{#each socialLinks as social (social.name)}
-										<span
-											class="flex shrink-0 items-center justify-center rounded-full bg-white p-2.5"
+									{#each socials as social (social.id)}
+										<!-- eslint-disable svelte/no-navigation-without-resolve -- external profile URL -->
+										<a
+											href={social.url}
+											target="_blank"
+											rel="noopener noreferrer"
+											aria-label={social.name}
+											class="flex shrink-0 items-center justify-center rounded-full bg-white p-2.5 transition-opacity outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-ring/50"
 										>
-											<img src={social.icon} alt={social.name} class="size-5" />
-										</span>
+											<img src={social.icon} alt="" class="size-5" />
+										</a>
+										<!-- eslint-enable svelte/no-navigation-without-resolve -->
 									{/each}
 								</div>
 							</div>

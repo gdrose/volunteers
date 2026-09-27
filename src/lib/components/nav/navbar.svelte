@@ -6,7 +6,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LanguageSwitcher from './language-switcher.svelte';
 	import MobileNavbar from './mobile-navbar.svelte';
-	import { Container } from '$lib/components/shared';
+	import { Container, socialLinks } from '$lib/components/shared';
 	import instagramLogo from '$lib/assets/social/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/tiktok.svg';
 	import linkedinLogo from '$lib/assets/social/linkedin.svg';
@@ -22,12 +22,12 @@
 
 	const findGroupPath = '/find-a-group';
 
-	const socialLinks = [
-		{ name: 'Instagram', icon: instagramLogo },
-		{ name: 'TikTok', icon: tiktokLogo },
-		{ name: 'LinkedIn', icon: linkedinLogo },
-		{ name: 'WhatsApp', icon: whatsappLogo }
-	];
+	const socials = socialLinks({
+		instagram: instagramLogo,
+		tiktok: tiktokLogo,
+		linkedin: linkedinLogo,
+		whatsapp: whatsappLogo
+	});
 
 	const currentPath = $derived(deLocalizeUrl(page.url).pathname);
 
@@ -105,10 +105,18 @@
 				</div>
 			{:else}
 				<div class="flex items-center gap-2.5">
-					{#each socialLinks as social (social.name)}
-						<span class="shrink-0">
-							<img src={social.icon} alt={social.name} class="size-7" />
-						</span>
+					{#each socials as social (social.id)}
+						<!-- eslint-disable svelte/no-navigation-without-resolve -- external profile URL -->
+						<a
+							href={social.url}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={social.name}
+							class="shrink-0 rounded-sm transition-opacity outline-none hover:opacity-70 focus-visible:ring-3 focus-visible:ring-ring/50"
+						>
+							<img src={social.icon} alt="" class="size-7" />
+						</a>
+						<!-- eslint-enable svelte/no-navigation-without-resolve -->
 					{/each}
 				</div>
 			{/if}

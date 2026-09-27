@@ -2,7 +2,7 @@
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { localizeHref } from '$lib/paraglide/runtime';
-	import { Container } from '$lib/components/shared';
+	import { Container, socialLinks } from '$lib/components/shared';
 	import { m } from '$lib/paraglide/messages.js';
 	import instagramLogo from '$lib/assets/social/black/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/black/tiktok.svg';
@@ -15,19 +15,19 @@
 	import visFoundationLogo from '$lib/assets/footer/vis-foundation.png';
 	import MobileFooter from './mobile-footer.svelte';
 
-	const socialLinks = [
-		{ name: 'Instagram', icon: instagramLogo },
-		{ name: 'TikTok', icon: tiktokLogo },
-		{ name: 'LinkedIn', icon: linkedinLogo },
-		{ name: 'WhatsApp', icon: whatsappLogo }
-	];
+	const smallSocials = socialLinks({
+		instagram: instagramLogo,
+		tiktok: tiktokLogo,
+		linkedin: linkedinLogo,
+		whatsapp: whatsappLogo
+	});
 
-	const circleSocialLinks = [
-		{ name: 'Instagram', icon: instagramCircle },
-		{ name: 'TikTok', icon: tiktokCircle },
-		{ name: 'LinkedIn', icon: linkedinCircle },
-		{ name: 'WhatsApp', icon: whatsappCircle }
-	];
+	const circleSocials = socialLinks({
+		instagram: instagramCircle,
+		tiktok: tiktokCircle,
+		linkedin: linkedinCircle,
+		whatsapp: whatsappCircle
+	});
 
 	const columns = [
 		{
@@ -60,14 +60,22 @@
 		<Container
 			class="flex flex-col items-center justify-between gap-6 py-8 lg:h-40 lg:flex-row lg:py-0"
 		>
-			<p class="max-w-[622px] text-h3 font-semibold text-foreground">
+			<p class="max-w-155 text-h3 font-semibold text-foreground">
 				{m.footer_social_cta()}
 			</p>
 			<div class="flex shrink-0 items-center gap-3.5">
-				{#each circleSocialLinks as social (social.name)}
-					<span class="shrink-0">
-						<img src={social.icon} alt={social.name} class="size-16" />
-					</span>
+				{#each circleSocials as social (social.id)}
+					<!-- eslint-disable svelte/no-navigation-without-resolve -- external profile URL -->
+					<a
+						href={social.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={social.name}
+						class="shrink-0 rounded-full transition-opacity outline-none hover:opacity-80 focus-visible:ring-3 focus-visible:ring-ring/50"
+					>
+						<img src={social.icon} alt="" class="size-16" />
+					</a>
+					<!-- eslint-enable svelte/no-navigation-without-resolve -->
 				{/each}
 			</div>
 		</Container>
@@ -79,17 +87,25 @@
 				<img src="/wordmark.svg" alt="Volunteers" class="h-auto w-22" />
 			</a>
 			<div class="flex items-center gap-2">
-				{#each socialLinks as social (social.name)}
-					<span class="shrink-0">
-						<img src={social.icon} alt={social.name} class="size-6" />
-					</span>
+				{#each smallSocials as social (social.id)}
+					<!-- eslint-disable svelte/no-navigation-without-resolve -- external profile URL -->
+					<a
+						href={social.url}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={social.name}
+						class="shrink-0 rounded-sm transition-opacity outline-none hover:opacity-70 focus-visible:ring-3 focus-visible:ring-ring/50"
+					>
+						<img src={social.icon} alt="" class="size-6" />
+					</a>
+					<!-- eslint-enable svelte/no-navigation-without-resolve -->
 				{/each}
 			</div>
 		</div>
 
 		<nav class="flex gap-10">
 			{#each columns as column (column.title)}
-				<div class="flex w-[130px] flex-col gap-2">
+				<div class="flex w-32 flex-col gap-2">
 					<p class="text-body font-extrabold text-primary">
 						{typeof column.title === 'string' ? column.title : column.title()}
 					</p>

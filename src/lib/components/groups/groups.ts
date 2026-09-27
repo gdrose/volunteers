@@ -37,8 +37,8 @@ export const groups: LocalGroup[] = [
 		kind: 'local',
 		lat: 37.5079,
 		lng: 15.083,
-    featured: { image: cataniaImage, volunteers: '450+', projects: 12 },
-    whatsapp: "#"
+		featured: { image: cataniaImage, volunteers: '450+', projects: 12 },
+		whatsapp: '#'
 	},
 	{
 		id: 'milano',
@@ -50,8 +50,8 @@ export const groups: LocalGroup[] = [
 		lng: 9.19,
 		featured: { image: milanoImage, volunteers: '320+', projects: 8 },
 		description: m.find_group_milano_description,
-    email: 'milano@volunteers.org',
-    whatsapp: "#"
+		email: 'milano@volunteers.org',
+		whatsapp: '#'
 	},
 	{
 		id: 'roma',
@@ -61,8 +61,8 @@ export const groups: LocalGroup[] = [
 		kind: 'local',
 		lat: 41.9028,
 		lng: 12.4964,
-    featured: { image: romaImage, volunteers: '280+', projects: 6 },
-		whatsapp: "#"
+		featured: { image: romaImage, volunteers: '280+', projects: 6 },
+		whatsapp: '#'
 	},
 	{
 		id: 'acireale',

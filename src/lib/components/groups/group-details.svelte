@@ -6,14 +6,10 @@
 	import mailIcon from '$lib/assets/groups/mail.svg';
 	import { m } from '$lib/paraglide/messages.js';
 	import { groupArea, groupEmail, type LocalGroup } from './groups';
+	import { selectedGroup, showGroup } from './group-selection.svelte';
 
-	type Props = {
-		/** The group to show; the dialog is open while this is set. */
-		group: LocalGroup | undefined;
-		onClose: () => void;
-	};
-
-	let { group, onClose }: Props = $props();
+	// Open while the URL names a group (`?group=milano`).
+	const group = $derived(selectedGroup());
 
 	// Keep the last group rendered while the dialog animates closed.
 	let shown = $state<LocalGroup>();
@@ -23,7 +19,7 @@
 	});
 </script>
 
-<Dialog.Root open={!!group} onOpenChange={(open) => !open && onClose()}>
+<Dialog.Root open={!!group} onOpenChange={(open) => !open && showGroup()}>
 	{#if shown}
 		{@const location = `${shown.city} · ${groupArea(shown)}`}
 		{@const email = groupEmail(shown)}
