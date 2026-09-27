@@ -6,7 +6,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import LanguageSwitcher from './language-switcher.svelte';
-	import { socialLinks } from '$lib/components/shared';
+	import { socialLinks, type SocialProfile } from '$lib/components/shared';
 	import instagramLogo from '$lib/assets/social/color/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/color/tiktok.svg';
 	import linkedinLogo from '$lib/assets/social/color/linkedin.svg';
@@ -22,12 +22,16 @@
 
 	const findGroupPath = '/find-a-group';
 
-	const socials = socialLinks({
-		instagram: instagramLogo,
-		tiktok: tiktokLogo,
-		linkedin: linkedinLogo,
-		whatsapp: whatsappLogo
-	});
+	let { socials: profiles }: { socials: SocialProfile[] } = $props();
+
+	const socials = $derived(
+		socialLinks(profiles, {
+			instagram: instagramLogo,
+			tiktok: tiktokLogo,
+			linkedin: linkedinLogo,
+			whatsapp: whatsappLogo
+		})
+	);
 
 	let open = $state(false);
 </script>

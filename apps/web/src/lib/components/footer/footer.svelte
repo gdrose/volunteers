@@ -2,7 +2,7 @@
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { localizeHref } from '$lib/paraglide/runtime';
-	import { Container, socialLinks } from '$lib/components/shared';
+	import { Container, socialLinks, type SocialProfile } from '$lib/components/shared';
 	import { m } from '$lib/paraglide/messages.js';
 	import instagramLogo from '$lib/assets/social/black/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/black/tiktok.svg';
@@ -15,19 +15,25 @@
 	import visFoundationLogo from '$lib/assets/footer/vis-foundation.png';
 	import MobileFooter from './mobile-footer.svelte';
 
-	const smallSocials = socialLinks({
-		instagram: instagramLogo,
-		tiktok: tiktokLogo,
-		linkedin: linkedinLogo,
-		whatsapp: whatsappLogo
-	});
+	let { socials }: { socials: SocialProfile[] } = $props();
 
-	const circleSocials = socialLinks({
-		instagram: instagramCircle,
-		tiktok: tiktokCircle,
-		linkedin: linkedinCircle,
-		whatsapp: whatsappCircle
-	});
+	const smallSocials = $derived(
+		socialLinks(socials, {
+			instagram: instagramLogo,
+			tiktok: tiktokLogo,
+			linkedin: linkedinLogo,
+			whatsapp: whatsappLogo
+		})
+	);
+
+	const circleSocials = $derived(
+		socialLinks(socials, {
+			instagram: instagramCircle,
+			tiktok: tiktokCircle,
+			linkedin: linkedinCircle,
+			whatsapp: whatsappCircle
+		})
+	);
 
 	const columns = [
 		{

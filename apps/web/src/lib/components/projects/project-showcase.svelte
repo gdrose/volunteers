@@ -1,26 +1,26 @@
 <script lang="ts">
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { PhotoLightbox } from '$lib/components/shared';
+	import { PhotoLightbox, SanityImage } from '$lib/components/shared';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import ZoomInIcon from '@lucide/svelte/icons/zoom-in';
 	import { cn } from '$lib/utils.js';
-	import type { Project } from './projects';
-	import type { ProjectImage } from './project-details';
+	import { urlFor } from '$lib/sanity/image';
+	import type { ProjectImage, ProjectShowcaseData } from './projects';
 	import { m } from '$lib/paraglide/messages.js';
 
 	type Props = {
-		project: Project;
-		photos: ProjectImage[];
+		project: ProjectShowcaseData;
 		/** Detail page; without one the CTA shows as coming soon. */
 		href?: string;
 		/** Puts the photos on the right on desktop. */
 		reverse?: boolean;
 	};
 
-	let { project, photos, href, reverse = false }: Props = $props();
+	let { project, href, reverse = false }: Props = $props();
 
+	const photos = $derived(project.showcasePhotos ?? []);
 	const [lead, ...rest] = $derived(photos);
-	const titleId = $derived(`${project.id}-title`);
+	const titleId = $derived(`${project.slug}-title`);
 
 	let viewerOpen = $state(false);
 	let viewerStart = $state(0);
@@ -32,7 +32,7 @@
 </script>
 
 <section
-	id={project.id}
+	id={project.slug}
 	aria-labelledby={titleId}
 	class="flex scroll-mt-24 flex-col gap-6 lg:grid lg:grid-cols-12 lg:items-center lg:gap-16"
 >
@@ -43,8 +43,10 @@
 			reverse && 'lg:order-last'
 		)}
 	>
-		{@render photo(lead, 0, 'col-span-2 aspect-4/3 lg:row-span-2 lg:aspect-auto')}
-		{#each rest as image, i (i)}
+		{#if lead}
+			{@render photo(lead, 0, 'col-span-2 aspect-4/3 lg:row-span-2 lg:aspect-auto')}
+		{/if}
+		{#each rest as image, i (image._key)}
 			{@render photo(
 				image,
 				i + 1,
@@ -57,15 +59,15 @@
 
 	<div class="flex flex-col items-start gap-3 lg:col-span-5 lg:gap-5">
 		<h2 id={titleId} class="text-h1 text-foreground">
-			{project.title()}
+			{project.title}
 		</h2>
 		<p class="text-lead text-muted-foreground">
-			{project.description()}
+			{project.teaser}
 		</p>
 		<div class="w-full pt-2 sm:w-auto lg:pt-1">
 			{#if href}
 				<Button {href} size="xl" class="w-full sm:w-auto">
-					{m.what_we_do_cta({ project: project.title() })}<span aria-hidden="true">→</span>
+					{m.what_we_do_cta({ project: project.title })}<span aria-hidden="true">→</span>
 				</Button>
 			{:else}
 				<Button size="xl" variant="outline" disabled class="w-full sm:w-auto">
@@ -79,8 +81,8 @@
 <PhotoLightbox
 	bind:open={viewerOpen}
 	start={viewerStart}
-	title={project.title()}
-	photos={photos.map((image) => ({ src: image.src, alt: image.alt() }))}
+	title={project.title}
+	photos={photos.map((image) => ({ src: urlFor(image).width(1600).url(), alt: image.alt ?? '' }))}
 />
 
 {#snippet photo(image: ProjectImage, index: number, layout: string)}
@@ -93,14 +95,11 @@
 			layout
 		)}
 	>
-		<img
-			src={image.src}
-			alt={image.alt()}
+		<SanityImage
+			{image}
+			width={index === 0 ? 800 : 480}
 			loading="lazy"
-			class={cn(
-				'size-full object-cover transition-transform duration-700 ease-out motion-safe:group-hover/photo:scale-105',
-				image.position
-			)}
+			class="size-full object-cover transition-transform duration-700 ease-out motion-safe:group-hover/photo:scale-105"
 		/>
 		<!-- Zoom cue: always shown (touch has no hover); the lead photo also tells how many there are. -->
 		<Badge

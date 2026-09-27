@@ -6,7 +6,7 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import LanguageSwitcher from './language-switcher.svelte';
 	import MobileNavbar from './mobile-navbar.svelte';
-	import { Container, socialLinks } from '$lib/components/shared';
+	import { Container, socialLinks, type SocialProfile } from '$lib/components/shared';
 	import instagramLogo from '$lib/assets/social/instagram.svg';
 	import tiktokLogo from '$lib/assets/social/tiktok.svg';
 	import linkedinLogo from '$lib/assets/social/linkedin.svg';
@@ -22,12 +22,16 @@
 
 	const findGroupPath = '/find-a-group';
 
-	const socials = socialLinks({
-		instagram: instagramLogo,
-		tiktok: tiktokLogo,
-		linkedin: linkedinLogo,
-		whatsapp: whatsappLogo
-	});
+	let { socials: profiles }: { socials: SocialProfile[] } = $props();
+
+	const socials = $derived(
+		socialLinks(profiles, {
+			instagram: instagramLogo,
+			tiktok: tiktokLogo,
+			linkedin: linkedinLogo,
+			whatsapp: whatsappLogo
+		})
+	);
 
 	const currentPath = $derived(deLocalizeUrl(page.url).pathname);
 
@@ -124,4 +128,4 @@
 	</div>
 </header>
 
-<MobileNavbar />
+<MobileNavbar socials={profiles} />

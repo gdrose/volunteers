@@ -2,8 +2,10 @@
 	import * as ToggleGroup from '$lib/components/ui/toggle-group/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import PostCard from './post-card.svelte';
-	import { newsCategories, newsPosts, type NewsCategoryId } from './news';
+	import { newsCategories, type NewsCategoryId, type NewsPost } from './news';
 	import { m } from '$lib/paraglide/messages.js';
+
+	let { posts: allPosts }: { posts: NewsPost[] } = $props();
 
 	const pageSize = 6;
 
@@ -16,7 +18,7 @@
 	]);
 
 	const posts = $derived(
-		category === 'all' ? newsPosts : newsPosts.filter((post) => post.category === category)
+		category === 'all' ? allPosts : allPosts.filter((post) => post.category === category)
 	);
 	const visiblePosts = $derived(posts.slice(0, visibleCount));
 </script>
@@ -47,7 +49,7 @@
 	</ToggleGroup.Root>
 
 	<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-6 lg:gap-y-10">
-		{#each visiblePosts as post (post.slug)}
+		{#each visiblePosts as post (post._id)}
 			<PostCard {post} />
 		{/each}
 	</div>

@@ -8,7 +8,8 @@ import { findGroup, type LocalGroup } from './groups';
 // The open group lives in the URL (`?group=milano`) so its details dialog can be linked to.
 
 /** The group whose details dialog is open, if any. Reactive when read in a component. */
-export const selectedGroup = () => findGroup(page.url.searchParams.get('group'));
+export const selectedGroup = (groups: LocalGroup[]) =>
+	findGroup(groups, page.url.searchParams.get('group'));
 
 /** Link that opens a group's details dialog. */
 export const groupHref = (group: LocalGroup) => `?group=${group.id}`;

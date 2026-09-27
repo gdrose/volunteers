@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Container } from '$lib/components/shared';
+	import { Container, SanityImage } from '$lib/components/shared';
 	import * as Item from '$lib/components/ui/item/index.js';
 	import arrowRight from '$lib/assets/icons/arrow-right-primary.svg';
 	import playIcon from '$lib/assets/icons/play.svg';
-	import type { ProjectResource, ResourceKind } from '../project-details';
+	import type { ProjectResource, ResourceKind } from '../projects';
 	import { m } from '$lib/paraglide/messages.js';
 
 	let { resources }: { resources: ProjectResource[] } = $props();
@@ -22,10 +22,12 @@
 		</h2>
 
 		<Item.Group class="grid gap-3 lg:grid-cols-2 lg:gap-4">
-			{#each resources as resource (resource.id)}
+			{#each resources as resource (resource._key)}
 				<Item.Root role="listitem" variant="outline" size="resource">
 					<Item.Media variant="thumbnail">
-						<img src={resource.cover} alt="" loading="lazy" />
+						{#if resource.cover}
+							<SanityImage image={resource.cover} width={160} alt="" loading="lazy" />
+						{/if}
 						{#if resource.kind === 'video'}
 							<span
 								class="absolute top-1/2 left-1/2 flex size-7 -translate-1/2 items-center justify-center rounded-full bg-white/90"
@@ -35,15 +37,29 @@
 						{/if}
 					</Item.Media>
 					<Item.Content>
-						<Item.Title role="heading" aria-level={3}>{resource.title()}</Item.Title>
+						<Item.Title role="heading" aria-level={3}>{resource.title}</Item.Title>
 						<Item.Description>
-							<span class="lg:hidden">{resource.shortDescription()}</span>
-							<span class="hidden lg:inline">{resource.description()}</span>
+							<span class="lg:hidden">{resource.shortDescription ?? resource.description}</span>
+							<span class="hidden lg:inline">{resource.description}</span>
 						</Item.Description>
-						<span class="inline-flex items-center gap-1.5 text-caption font-bold text-primary">
-							{actionLabel[resource.kind]()}
-							<img src={arrowRight} alt="" width="14" height="14" />
-						</span>
+						{#if resource.href}
+							<!-- eslint-disable svelte/no-navigation-without-resolve -- file or external URL -->
+							<a
+								href={resource.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								class="inline-flex items-center gap-1.5 text-caption font-bold text-primary"
+							>
+								{actionLabel[resource.kind]()}
+								<img src={arrowRight} alt="" width="14" height="14" />
+							</a>
+							<!-- eslint-enable svelte/no-navigation-without-resolve -->
+						{:else}
+							<span class="inline-flex items-center gap-1.5 text-caption font-bold text-primary">
+								{actionLabel[resource.kind]()}
+								<img src={arrowRight} alt="" width="14" height="14" />
+							</span>
+						{/if}
 					</Item.Content>
 				</Item.Root>
 			{/each}

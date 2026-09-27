@@ -6,6 +6,9 @@
  * imported images as `{$img: absolutePath}`. Run with Bun (it loads the TS directly):
  *
  *   bun migrations/import-site-content/extract.ts
+ *
+ * One-time: once the content moved to Sanity, apps/web dropped those data modules, images and
+ * message keys. To re-run, check out the commit before that removal.
  */
 import {plugin} from 'bun'
 import {resolve} from 'node:path'

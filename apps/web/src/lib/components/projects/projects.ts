@@ -1,46 +1,23 @@
-import { m } from '$lib/paraglide/messages.js';
-import citizensImage from '$lib/assets/projects/citizens.png';
-import childrenImage from '$lib/assets/projects/children.jpg';
-import medicalImage from '$lib/assets/projects/medical.jpg';
-import internationalImage from '$lib/assets/projects/international.jpg';
+import type {
+	HOME_PAGE_QUERY_RESULT,
+	PROJECT_QUERY_RESULT,
+	PROJECT_SHOWCASE_QUERY_RESULT
+} from '$lib/sanity/sanity.types';
 
-export type ProjectId = 'citizens' | 'children' | 'medical' | 'international';
+export type ProjectCardData = HOME_PAGE_QUERY_RESULT['projects'][number];
+export type ProjectShowcaseData = PROJECT_SHOWCASE_QUERY_RESULT[number];
+export type ProjectDetail = NonNullable<PROJECT_QUERY_RESULT>;
+export type ProjectImage = NonNullable<ProjectShowcaseData['showcasePhotos']>[number];
+export type ProjectActivity = NonNullable<ProjectDetail['activities']>[number];
+export type ProjectResource = NonNullable<ProjectDetail['resources']>[number];
+export type ResourceKind = ProjectResource['kind'];
 
-export type Project = {
-	id: ProjectId;
-	title: () => string;
-	description: () => string;
-	image: string;
-	/** Per-breakpoint crop of the cover image (object-position). */
-	imageClass?: string;
-};
+const icons = import.meta.glob<string>('../../assets/icons/*.svg', {
+	eager: true,
+	import: 'default'
+});
 
-export const projects: Project[] = [
-	{
-		id: 'citizens',
-		title: m.projects_citizens_title,
-		description: m.projects_citizens_description,
-		image: citizensImage
-	},
-	{
-		id: 'children',
-		title: m.projects_children_title,
-		description: m.projects_children_description,
-		image: childrenImage,
-		imageClass: 'object-[50%_27%] lg:object-[50%_13%]'
-	},
-	{
-		id: 'medical',
-		title: m.projects_medical_title,
-		description: m.projects_medical_description,
-		image: medicalImage,
-		imageClass: 'lg:object-[50%_59%]'
-	},
-	{
-		id: 'international',
-		title: m.projects_international_title,
-		description: m.projects_international_description,
-		image: internationalImage,
-		imageClass: 'lg:object-[50%_55%]'
-	}
-];
+/** Activity icon names in Sanity match the SVG file names in `$lib/assets/icons`. */
+export function activityIcon(name: ProjectActivity['icon']) {
+	return icons[`../../assets/icons/${name}.svg`];
+}

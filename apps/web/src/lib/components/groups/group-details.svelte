@@ -2,14 +2,17 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { SanityImage } from '$lib/components/shared';
 	import closeIcon from '$lib/assets/groups/close.svg';
 	import mailIcon from '$lib/assets/groups/mail.svg';
 	import { m } from '$lib/paraglide/messages.js';
-	import { groupArea, groupEmail, type LocalGroup } from './groups';
+	import { groupArea, type LocalGroup } from './groups';
 	import { selectedGroup, showGroup } from './group-selection.svelte';
 
+	let { groups }: { groups: LocalGroup[] } = $props();
+
 	// Open while the URL names a group (`?group=milano`).
-	const group = $derived(selectedGroup());
+	const group = $derived(selectedGroup(groups));
 
 	// Keep the last group rendered while the dialog animates closed.
 	let shown = $state<LocalGroup>();
@@ -22,7 +25,7 @@
 <Dialog.Root open={!!group} onOpenChange={(open) => !open && showGroup()}>
 	{#if shown}
 		{@const location = `${shown.city} · ${groupArea(shown)}`}
-		{@const email = groupEmail(shown)}
+		{@const email = shown.email}
 		<Dialog.Content
 			variant="media"
 			showCloseButton={false}
@@ -33,9 +36,14 @@
 			}}
 			bind:ref={content}
 		>
-			{#if shown.featured}
+			{#if shown.photo}
 				<div class="relative h-52.5 shrink-0 lg:h-auto lg:min-h-142.5 lg:w-107.5">
-					<img src={shown.featured.image} alt="" class="absolute inset-0 size-full object-cover" />
+					<SanityImage
+						image={shown.photo}
+						width={860}
+						alt=""
+						class="absolute inset-0 size-full object-cover"
+					/>
 					<Badge
 						variant="overlay"
 						size="pill"
@@ -47,12 +55,12 @@
 			{/if}
 
 			<div class="flex flex-col gap-4 px-5 pt-5.5 pb-5 lg:min-w-0 lg:flex-1 lg:gap-6 lg:p-10">
-				{#if !shown.featured}
+				{#if !shown.photo}
 					<Badge variant="secondary" size="pill" class="self-start">{location}</Badge>
 				{/if}
 				<Dialog.Title class="lg:pr-14">Volunteers {shown.city}</Dialog.Title>
 				{#if shown.description}
-					<Dialog.Description>{shown.description()}</Dialog.Description>
+					<Dialog.Description>{shown.description}</Dialog.Description>
 				{/if}
 
 				{#if shown.featured}
@@ -63,7 +71,7 @@
 							<dt class="order-last text-caption text-muted-foreground">
 								{m.find_group_volunteers()}
 							</dt>
-							<dd class="text-h3 font-black text-foreground">{shown.featured.volunteers}</dd>
+							<dd class="text-h3 font-black text-foreground">{shown.volunteerCount}</dd>
 						</div>
 						<div
 							class="flex flex-col gap-0.5 rounded-lg bg-muted p-3 lg:gap-1 lg:rounded-2xl lg:p-4"
@@ -71,7 +79,7 @@
 							<dt class="order-last text-caption text-muted-foreground">
 								{m.find_group_active_projects()}
 							</dt>
-							<dd class="text-h3 font-black text-foreground">{shown.featured.projects}</dd>
+							<dd class="text-h3 font-black text-foreground">{shown.projectCount}</dd>
 						</div>
 					</dl>
 				{/if}
@@ -102,9 +110,9 @@
 					</a>
 				</div>
 
-				{#if shown.whatsapp}
+				{#if shown.whatsappUrl}
 					<Button
-						href={shown.whatsapp}
+						href={shown.whatsappUrl}
 						target="_blank"
 						rel="noopener noreferrer"
 						size="cta-xl"

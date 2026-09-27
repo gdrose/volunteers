@@ -4,9 +4,11 @@
 	import { resolve } from '$app/paths';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import StatItem from './stat-item.svelte';
-	import { stats } from './stats';
+	import type { Stat } from './stats';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
+
+	let { stats }: { stats: Stat[] } = $props();
 </script>
 
 <section aria-labelledby="stats-title" class="w-full bg-background lg:bg-muted">
@@ -25,8 +27,8 @@
 		</div>
 
 		<dl class="flex flex-col gap-3.5 lg:gap-[18px]">
-			{#each stats as stat (stat.id)}
-				<StatItem value={stat.value} label={stat.label()} description={stat.description()} />
+			{#each stats as stat (stat._key)}
+				<StatItem value={stat.value} label={stat.label} description={stat.description ?? ''} />
 			{/each}
 		</dl>
 

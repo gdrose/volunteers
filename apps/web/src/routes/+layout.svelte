@@ -8,13 +8,13 @@
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 
-	let { children } = $props();
+	let { children, data } = $props();
 </script>
 
 <svelte:head><link rel="icon" href={favicon} /></svelte:head>
-<Navbar />
+<Navbar socials={data.socials} />
 {@render children()}
-<Footer />
+<Footer socials={data.socials} />
 
 <div style="display:none">
 	{#each locales as locale (locale)}

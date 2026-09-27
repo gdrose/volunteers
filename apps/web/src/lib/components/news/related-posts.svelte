@@ -21,7 +21,7 @@
 			</h2>
 
 			<div class="grid w-full gap-4 lg:grid-cols-3 lg:gap-8">
-				{#each posts as post (post.slug)}
+				{#each posts as post (post._id)}
 					<PostCard {post} />
 				{/each}
 			</div>

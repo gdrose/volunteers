@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { Container, PageBreadcrumb } from '$lib/components/shared';
-	import { stats } from '$lib/components/stats';
 	import volunteersImage from '$lib/assets/about/volunteers.png';
+	import type { AboutStat } from './about';
 	import { m } from '$lib/paraglide/messages.js';
+
+	let { stats }: { stats: AboutStat[] } = $props();
 </script>
 
 <Container
@@ -28,10 +30,10 @@
 			</p>
 
 			<dl class="flex gap-2 lg:gap-7">
-				{#each stats as stat (stat.id)}
+				{#each stats as stat (stat._key)}
 					<div class="flex min-w-0 flex-1 flex-col gap-1">
 						<dt class="order-2 text-caption font-semibold text-muted-foreground">
-							{stat.label()}
+							{stat.label}
 						</dt>
 						<dd class="order-1 text-h2 whitespace-nowrap text-primary">
 							{stat.value}

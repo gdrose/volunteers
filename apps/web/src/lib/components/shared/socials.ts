@@ -1,13 +1,22 @@
-export const socials = [
-	{ id: 'instagram', name: 'Instagram', url: 'https://www.instagram.com/volunteers.ita/' },
-	{ id: 'tiktok', name: 'TikTok', url: 'https://www.tiktok.com/@volunteers.italia' },
-	{ id: 'linkedin', name: 'LinkedIn', url: 'https://www.linkedin.com/company/volunteersita' },
-	{ id: 'whatsapp', name: 'WhatsApp', url: 'https://linktr.ee/Volunteers_ita' }
-] as const;
+import type { SITE_SETTINGS_QUERY_RESULT } from '$lib/sanity/sanity.types';
 
-export type SocialId = (typeof socials)[number]['id'];
+export type SocialProfile = NonNullable<NonNullable<SITE_SETTINGS_QUERY_RESULT>['socials']>[number];
 
-/** Pairs each social profile with the icon variant used where it's rendered. */
-export function socialLinks(icons: Record<SocialId, string>) {
-	return socials.map((social) => ({ ...social, icon: icons[social.id] }));
+export type SocialId = SocialProfile['platform'];
+
+const names: Record<SocialId, string> = {
+	instagram: 'Instagram',
+	tiktok: 'TikTok',
+	linkedin: 'LinkedIn',
+	whatsapp: 'WhatsApp'
+};
+
+/** Pairs each social profile (from Site settings) with the icon variant used where it's rendered. */
+export function socialLinks(socials: SocialProfile[], icons: Record<SocialId, string>) {
+	return socials.map((social) => ({
+		id: social.platform,
+		name: names[social.platform],
+		url: social.url,
+		icon: icons[social.platform]
+	}));
 }

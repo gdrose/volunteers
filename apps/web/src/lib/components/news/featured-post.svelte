@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
+	import { SanityImage } from '$lib/components/shared';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import PostMeta from './post-meta.svelte';
 	import type { NewsPost } from './news';
@@ -13,18 +14,19 @@
 <article
 	class="flex flex-col gap-6 rounded-[20px] bg-muted p-4 lg:flex-row lg:items-center lg:gap-10 lg:rounded-[24px] lg:p-8"
 >
-	<img
-		src={post.image}
+	<SanityImage
+		image={post.coverImage}
+		width={800}
 		alt=""
 		class="h-60 w-full rounded-2xl object-cover sm:h-80 lg:h-[420px] lg:w-3/5 lg:shrink-0"
 	/>
 
 	<div class="flex flex-col items-start gap-4 lg:min-w-0 lg:flex-1 lg:gap-5">
 		<h2 class="text-h2 text-foreground">
-			{post.title()}
+			{post.title}
 		</h2>
 		<p class="text-lead text-muted-foreground">
-			{post.excerpt()}
+			{post.excerpt}
 		</p>
 		<PostMeta {post} />
 		<Button

@@ -7,6 +7,9 @@
 	import GroupSearch from './group-search.svelte';
 	import GroupsMap from './groups-map.svelte';
 	import { showGroup } from './group-selection.svelte';
+	import type { LocalGroup } from './groups';
+
+	let { groups }: { groups: LocalGroup[] } = $props();
 
 	let map = $state<ReturnType<typeof GroupsMap>>();
 </script>
@@ -36,6 +39,7 @@
 			<li>{m.find_group_stat_abroad()}</li>
 		</ul>
 		<GroupSearch
+			{groups}
 			onSelect={(group) => {
 				map?.focusGroup(group);
 				showGroup(group);
@@ -43,5 +47,5 @@
 		/>
 	</section>
 
-	<GroupsMap bind:this={map} onSelect={showGroup} />
+	<GroupsMap bind:this={map} {groups} onSelect={showGroup} />
 </div>

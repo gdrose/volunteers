@@ -1,38 +1,27 @@
 <script lang="ts">
 	import * as Card from '$lib/components/ui/card/index.js';
-	import { ArrowLink } from '$lib/components/shared';
-	import { cn } from '$lib/utils.js';
+	import { ArrowLink, SanityImage } from '$lib/components/shared';
+	import type { SanityImageValue } from '$lib/sanity/image';
 
 	type Props = {
 		title: string;
 		description: string;
-		image: string;
-		imageClass?: string;
+		image: SanityImageValue;
 		href: string;
 		linkLabel: string;
 		class?: string;
 	};
 
-	let {
-		title,
-		description,
-		image,
-		imageClass,
-		href,
-		linkLabel,
-		class: className
-	}: Props = $props();
+	let { title, description, image, href, linkLabel, class: className }: Props = $props();
 </script>
 
 <Card.Root variant="project" class={className}>
-	<img
-		src={image}
+	<SanityImage
+		{image}
+		width={400}
 		alt=""
 		loading="lazy"
-		class={cn(
-			'h-40 w-full rounded-xl object-cover transition-transform duration-500 ease-out motion-safe:group-hover/card:scale-105 lg:h-[173px]',
-			imageClass
-		)}
+		class="h-40 w-full rounded-xl object-cover transition-transform duration-500 ease-out motion-safe:group-hover/card:scale-105 lg:h-[173px]"
 	/>
 
 	<Card.Content class="flex flex-1 flex-col gap-2 px-0 lg:gap-3.5">

@@ -5,22 +5,23 @@
 	import legendProject from '$lib/assets/groups/legend-project.svg';
 	import { m } from '$lib/paraglide/messages.js';
 	import { cn } from '$lib/utils.js';
-	import { groupArea, groups, searchGroups, type LocalGroup } from './groups';
+	import { groupArea, searchGroups, type LocalGroup } from './groups';
 
 	type Props = {
+		groups: LocalGroup[];
 		/** Called when the user picks a group from the suggestions. */
 		onSelect: (group: LocalGroup) => void;
 		class?: string;
 	};
 
-	let { onSelect, class: className }: Props = $props();
+	let { groups, onSelect, class: className }: Props = $props();
 
 	let query = $state('');
 	let open = $state(false);
 	let value = $state('');
 	let field = $state<HTMLElement | null>(null);
 
-	const results = $derived(searchGroups(query));
+	const results = $derived(searchGroups(groups, query));
 
 	function handleInput(event: Event & { currentTarget: HTMLInputElement }) {
 		query = event.currentTarget.value;

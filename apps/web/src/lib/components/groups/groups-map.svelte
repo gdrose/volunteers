@@ -7,15 +7,16 @@
 	import legendProject from '$lib/assets/groups/legend-project.svg';
 	import { m } from '$lib/paraglide/messages.js';
 	import { cn } from '$lib/utils.js';
-	import { groups, type GroupKind, type LocalGroup } from './groups';
+	import type { GroupKind, LocalGroup } from './groups';
 
 	type Props = {
+		groups: LocalGroup[];
 		/** Called when a group's marker is clicked (or activated with the keyboard). */
 		onSelect: (group: LocalGroup) => void;
 		class?: string;
 	};
 
-	let { onSelect, class: className }: Props = $props();
+	let { groups, onSelect, class: className }: Props = $props();
 
 	// Leaflet's own stylesheet is unlayered, so its font/link rules beat Tailwind utilities;
 	// the few classes that must win over it below are marked important (`!`).

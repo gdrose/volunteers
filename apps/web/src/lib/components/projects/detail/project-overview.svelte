@@ -1,29 +1,33 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
-	import { Container } from '$lib/components/shared';
+	import { PortableText, type PortableTextComponents } from '@portabletext/svelte';
+	import { Container, PortableTextLink, SanityImage } from '$lib/components/shared';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
-	import { cn } from '$lib/utils.js';
-	import type { ProjectDetail } from '../project-details';
+	import { activityIcon, type ProjectDetail } from '../projects';
+	import ProjectParagraph from './project-paragraph.svelte';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 
 	let { project }: { project: ProjectDetail } = $props();
+
+	const components: Partial<PortableTextComponents> = {
+		block: ProjectParagraph,
+		marks: { link: PortableTextLink }
+	};
 </script>
 
 <Container class="flex flex-col gap-8 pt-2 pb-10 lg:gap-12 lg:pt-8 lg:pb-14">
 	<section aria-labelledby="project-intro" class="flex flex-col gap-4 pb-4 lg:gap-5 lg:pb-0">
 		<h2 id="project-intro" class="text-h3 text-foreground">
-			{project.intro()}
+			{project.intro}
 		</h2>
-		{#each project.paragraphs as paragraph, i (i)}
-			<p class="text-body text-muted-foreground">
-				{paragraph()}
-			</p>
-		{/each}
+		{#if project.body}
+			<PortableText value={project.body} {components} />
+		{/if}
 	</section>
 
 	<Separator />
@@ -39,16 +43,13 @@
 			class="flex flex-col gap-5 lg:gap-6"
 		>
 			<Carousel.Content variant="gallery" class="-ms-3 lg:-ms-4">
-				{#each project.gallery as image, i (i)}
+				{#each project.gallery ?? [] as image (image._key)}
 					<Carousel.Item class="basis-[250px] ps-3 lg:basis-[38.93%] lg:ps-4">
-						<img
-							src={image.src}
-							alt={image.alt()}
+						<SanityImage
+							{image}
+							width={560}
 							loading="lazy"
-							class={cn(
-								'h-80 w-full rounded-[20px] object-cover lg:h-105 lg:rounded-[24px]',
-								image.position
-							)}
+							class="h-80 w-full rounded-[20px] object-cover lg:h-105 lg:rounded-[24px]"
 						/>
 					</Carousel.Item>
 				{/each}
@@ -59,15 +60,21 @@
 		<ul
 			class="flex flex-col gap-2 pt-2 lg:grid lg:grid-cols-[repeat(2,420px)] lg:justify-center lg:gap-3 lg:pt-0"
 		>
-			{#each project.activities as activity (activity.id)}
+			{#each project.activities ?? [] as activity (activity._key)}
 				<li class="flex items-center gap-3 lg:p-3">
 					<span
 						class="flex size-5 shrink-0 items-center justify-center rounded-[6px] border border-primary bg-primary/10 lg:size-10 lg:rounded-[12px] lg:bg-background"
 					>
-						<img src={activity.icon} alt="" width="22" height="22" class="size-3 lg:size-[22px]" />
+						<img
+							src={activityIcon(activity.icon)}
+							alt=""
+							width="22"
+							height="22"
+							class="size-3 lg:size-[22px]"
+						/>
 					</span>
 					<span class="text-small font-bold text-foreground">
-						{activity.label()}
+						{activity.label}
 					</span>
 				</li>
 			{/each}

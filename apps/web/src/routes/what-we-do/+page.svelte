@@ -2,20 +2,15 @@
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { PageLayout } from '$lib/components/shared';
-	import {
-		ProjectShowcase,
-		getProjectDetail,
-		projectPhotos,
-		projects
-	} from '$lib/components/projects';
+	import { ProjectShowcase } from '$lib/components/projects';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { NewsletterSection } from '$lib/components/newsletter';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
+	import type { PageProps } from './$types';
 
-	const detailHref = (id: string) =>
-		getProjectDetail(id) ? resolve(localizeHref(`/what-we-do/${id}`) as Pathname) : undefined;
+	let { data }: PageProps = $props();
 </script>
 
 <PageLayout crumbs={[{ label: m.nav_what_we_do() }]} description={m.what_we_do_description()}>
@@ -24,11 +19,10 @@
 	{/snippet}
 
 	<div class="flex flex-col gap-16 lg:gap-28 lg:pt-4">
-		{#each projects as project, i (project.id)}
+		{#each data.projects as project, i (project._id)}
 			<ProjectShowcase
 				{project}
-				photos={projectPhotos[project.id]}
-				href={detailHref(project.id)}
+				href={resolve(localizeHref(`/what-we-do/${project.slug}`) as Pathname)}
 				reverse={i % 2 === 1}
 			/>
 		{/each}

@@ -1,25 +1,31 @@
 <script lang="ts">
-	import { Container, PageBreadcrumb } from '$lib/components/shared';
-	import { cn } from '$lib/utils.js';
-	import type { ProjectDetail } from '../project-details';
+	import { Container, PageBreadcrumb, SanityImage } from '$lib/components/shared';
+	import type { ProjectDetail } from '../projects';
 
 	let { project }: { project: ProjectDetail } = $props();
 </script>
 
 <header>
-	<img
-		src={project.header.src}
-		alt={project.header.alt()}
-		class={cn('h-60 w-full object-cover lg:h-[438px]', project.header.position)}
-	/>
+	{#if project.heroImage}
+		<SanityImage
+			image={project.heroImage}
+			width={1920}
+			fetchpriority="high"
+			class="h-60 w-full object-cover lg:h-[438px]"
+		/>
+	{/if}
 	<Container class="flex flex-col gap-3 pt-6 pb-7 lg:pt-8 lg:pb-4">
-		<PageBreadcrumb crumbs={[{ label: project.name() }]} />
+		<PageBreadcrumb crumbs={[{ label: project.title }]} />
 		<h1 class="text-h1 text-foreground">
-			{project.titleStart()}
-			<span class="text-primary">{project.titleHighlight()}</span>
+			{project.headline}
+			{#if project.headlineEmphasis}
+				<span class="text-primary">{project.headlineEmphasis}</span>
+			{/if}
 		</h1>
-		<p class="text-lead text-muted-foreground">
-			{project.summary()}
-		</p>
+		{#if project.summary}
+			<p class="text-lead text-muted-foreground">
+				{project.summary}
+			</p>
+		{/if}
 	</Container>
 </header>

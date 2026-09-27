@@ -7,10 +7,9 @@ export { default as GroupsMap } from './groups-map.svelte';
 export { default as GroupCard } from './group-card.svelte';
 export { selectedGroup, groupHref, showGroup } from './group-selection.svelte';
 export {
-	groups,
+	toLocalGroups,
 	featuredGroups,
 	groupArea,
-	groupEmail,
 	findGroup,
 	searchGroups,
 	type LocalGroup,

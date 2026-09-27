@@ -3,6 +3,7 @@
 	import { resolve } from '$app/paths';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
+	import { SanityImage } from '$lib/components/shared';
 	import { formatPostDate, type NewsPost } from './news';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
@@ -11,8 +12,9 @@
 </script>
 
 <Card.Root variant="post">
-	<img
-		src={post.image}
+	<SanityImage
+		image={post.coverImage}
+		width={480}
 		alt=""
 		loading="lazy"
 		class="h-45 w-full rounded-[8px] object-cover transition-transform duration-500 ease-out motion-safe:group-hover/card:scale-105"
@@ -24,15 +26,15 @@
 				href={resolve(localizeHref(`/news/${post.slug}`) as Pathname)}
 				class="outline-none after:absolute after:inset-0"
 			>
-				{post.title()}
+				{post.title}
 			</a>
 		</Card.Title>
 
 		<div class="mt-auto flex flex-col gap-3">
 			<Separator />
 			<div class="flex items-center justify-between text-small">
-				<time datetime={post.date} class="text-muted-foreground">
-					{formatPostDate(post.date)}
+				<time datetime={post.publishedAt} class="text-muted-foreground">
+					{formatPostDate(post.publishedAt)}
 				</time>
 				<span class="font-semibold text-link">
 					{m.news_reading_time({ minutes: post.readingMinutes })}

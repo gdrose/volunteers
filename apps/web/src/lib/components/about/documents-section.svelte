@@ -4,8 +4,10 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import fileIcon from '$lib/assets/about/documents/file.svg';
 	import downloadIcon from '$lib/assets/about/documents/download.svg';
-	import { documents } from './documents';
+	import type { FoundationDocument } from './about';
 	import { m } from '$lib/paraglide/messages.js';
+
+	let { documents }: { documents: FoundationDocument[] } = $props();
 </script>
 
 <section aria-labelledby="documents-title" class="w-full bg-background">
@@ -21,22 +23,23 @@
 		</header>
 
 		<Item.Group>
-			{#each documents as document (document.id)}
+			{#each documents as document (document._key)}
 				<Item.Root role="listitem" variant="divided" size="document">
 					<Item.Media variant="tile">
 						<img src={fileIcon} alt="" width="20" height="20" />
 					</Item.Media>
 					<Item.Content>
-						<Item.Title role="heading" aria-level={3}>{document.title()}</Item.Title>
+						<Item.Title role="heading" aria-level={3}>{document.title}</Item.Title>
 						<Item.Description>
-							{document.format} ·
-							{m.about_documents_updated({ year: document.updatedYear })}
+							{document.format}
+							{#if document.updatedYear}
+								· {m.about_documents_updated({ year: document.updatedYear })}
+							{/if}
 						</Item.Description>
 					</Item.Content>
 					<Item.Actions>
 						<Button
-							href={document.href}
-							download
+							href="{document.href}?dl="
 							variant="outline"
 							size="download"
 							class="w-full lg:w-auto"

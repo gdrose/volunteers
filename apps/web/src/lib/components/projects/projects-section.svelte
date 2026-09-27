@@ -4,18 +4,11 @@
 	import { resolve } from '$app/paths';
 	import { SectionTitle } from '$lib/components/shared';
 	import ProjectCard from './project-card.svelte';
-	import { projects } from './projects';
-	import { getProjectDetail } from './project-details';
+	import type { ProjectCardData } from './projects';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 
-	const projectsPath = resolve(localizeHref('/what-we-do') as Pathname);
-
-	// Projects with a detail page link to it; the rest anchor into /what-we-do for now.
-	const projectHref = (id: string) =>
-		getProjectDetail(id)
-			? resolve(localizeHref(`/what-we-do/${id}`) as Pathname)
-			: `${projectsPath}#${id}`;
+	let { projects }: { projects: ProjectCardData[] } = $props();
 </script>
 
 <section aria-labelledby="projects-title" class="w-full bg-muted lg:bg-background">
@@ -23,13 +16,12 @@
 		<SectionTitle id="projects-title">{m.projects_title()}</SectionTitle>
 
 		<div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-[19px]">
-			{#each projects as project (project.id)}
+			{#each projects as project (project._id)}
 				<ProjectCard
-					title={project.title()}
-					description={project.description()}
-					image={project.image}
-					imageClass={project.imageClass}
-					href={projectHref(project.id)}
+					title={project.title}
+					description={project.teaser}
+					image={project.coverImage}
+					href={resolve(localizeHref(`/what-we-do/${project.slug}`) as Pathname)}
 					linkLabel={m.projects_learn_more()}
 				/>
 			{/each}

@@ -1,11 +1,13 @@
 <script lang="ts">
-	import { Container } from '$lib/components/shared';
+	import { Container, SanityImage } from '$lib/components/shared';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
-	import { cn } from '$lib/utils.js';
 	import timelineDot from '$lib/assets/about/story/timeline-dot.svg';
-	import { milestones } from './story';
+	import type { Milestone } from './about';
 	import { m } from '$lib/paraglide/messages.js';
+
+	/** Oldest first; the last milestone is the present day. */
+	let { milestones }: { milestones: Milestone[] } = $props();
 
 	// Dotted connector between year badges, as in the design (3px dots every 10px).
 	const connectorDots = [...Array(18).keys()];
@@ -23,14 +25,15 @@
 		</header>
 
 		<ol class="flex flex-col gap-6 lg:gap-2.5">
-			{#each milestones as milestone, i (milestone.id)}
+			{#each milestones as milestone, i (milestone._key)}
+				{@const current = i === milestones.length - 1}
 				<li class="relative lg:flex lg:items-center lg:gap-6">
 					<Badge
-						variant={milestone.current ? 'default' : 'outline-primary'}
+						variant={current ? 'default' : 'outline-primary'}
 						size="lg"
 						class="hidden lg:inline-flex"
 					>
-						{milestone.year()}
+						{milestone.period}
 					</Badge>
 
 					{#if i < milestones.length - 1}
@@ -45,24 +48,24 @@
 					{/if}
 
 					<Card.Root variant="timeline" class="lg:min-w-0 lg:flex-1">
-						<img
-							src={milestone.image}
-							alt=""
-							loading="lazy"
-							class={cn(
-								'h-52.5 w-full object-cover lg:h-55 lg:w-105 lg:shrink-0',
-								milestone.imagePosition
-							)}
-						/>
+						{#if milestone.image}
+							<SanityImage
+								image={milestone.image}
+								width={420}
+								alt=""
+								loading="lazy"
+								class="h-52.5 w-full object-cover lg:h-55 lg:w-105 lg:shrink-0"
+							/>
+						{/if}
 						<Card.Content class="flex flex-col gap-2 lg:min-w-0 lg:flex-1">
 							<p class="text-small font-bold text-primary lg:hidden">
-								{milestone.year()}
+								{milestone.period}
 							</p>
 							<h3 class="text-h3 text-foreground">
-								{milestone.title()}
+								{milestone.title}
 							</h3>
 							<p class="text-body text-muted-foreground">
-								{milestone.description()}
+								{milestone.description}
 							</p>
 						</Card.Content>
 					</Card.Root>
