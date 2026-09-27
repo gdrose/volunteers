@@ -7,7 +7,7 @@ import {PinIcon} from '@sanity/icons/Pin'
 import {RocketIcon} from '@sanity/icons/Rocket'
 import type {ComponentType} from 'react'
 import type {StructureBuilder, StructureResolver} from 'sanity/structure'
-import {LOCALES, LOCALIZED_SINGLETONS, SINGLETONS} from '../locales'
+import {API_VERSION, LOCALES, LOCALIZED_SINGLETONS, SINGLETONS} from '../locales'
 
 /** One fixed-id document per language, e.g. `homePage-it`, grouped under one item. */
 function localizedSingleton(
@@ -64,6 +64,7 @@ function translatedList(
               .child(
                 S.documentTypeList(typeName)
                   .title(`${title} (${locale.id.toUpperCase()})`)
+                  .apiVersion(API_VERSION)
                   .filter('_type == $type && language == $language')
                   .params({type: typeName, language: locale.id})
                   .initialValueTemplates([S.initialValueTemplateItem(`${typeName}-${locale.id}`)]),

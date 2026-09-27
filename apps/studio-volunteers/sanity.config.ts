@@ -12,7 +12,7 @@ import {
   TRANSLATED_TYPES,
 } from './locales'
 import {schemaTypes} from './schemaTypes'
-import {structure} from './structure'
+import {structure} from './deskStructure'
 
 const singletonTypes = new Set([...SINGLETONS, ...LOCALIZED_SINGLETONS])
 
