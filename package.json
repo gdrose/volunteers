@@ -1,0 +1,11 @@
+{
+  "name": "volunteers-monorepo",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+      "dev:web": "bun run --cwd apps/web dev",
+      "build:web": "bun run --cwd apps/web build"
+    }
+}
