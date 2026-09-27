@@ -1,0 +1,31 @@
+name: Deploy Sanity Studio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/studio-volunteers/**'
+      - 'bun.lock'
+      - '.github/workflows/deploy-studio.yml'
+  workflow_dispatch:
+
+# Never run two deploys at once; a newer push replaces a queued one.
+concurrency:
+  group: deploy-studio
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+
+      - name: Deploy studio
+        working-directory: apps/studio-volunteers
+        run: bunx sanity deploy --yes
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
