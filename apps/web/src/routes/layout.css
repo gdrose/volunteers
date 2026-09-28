@@ -263,6 +263,20 @@
 	}
 }
 
+/*
+ * iOS Safari zooms into any focused field under 16px and doesn't zoom back out, which leaves the
+ * page off-centre and still zoomed after the field closes. Touch devices get 16px fields instead.
+ * Unlayered, so it wins over the type utilities without !important. Never fix this with
+ * `maximum-scale=1`: that blocks pinch-zoom (WCAG 1.4.4).
+ */
+@media (pointer: coarse) {
+	input,
+	textarea,
+	select {
+		font-size: 1rem;
+	}
+}
+
 /* Honour reduced motion everywhere: tw-animate dialogs/sheets, underlines, chevrons. */
 @media (prefers-reduced-motion: reduce) {
 	*,
