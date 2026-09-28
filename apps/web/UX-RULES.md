@@ -50,6 +50,7 @@ These are hard rules for `apps/web`. If a change would break one, stop and raise
 - **No dead ends:** every CTA points to a real route. Unfinished pages use `shared/coming-soon-page.svelte` (breadcrumb, explanation, contact CTA). New routes need a breadcrumb unless they're top-level.
 - **One action, one label:** the same destination uses the same wording everywhere (e.g. "Find your group" → `/find-a-group`). The header "Join" is the only compact exception.
 - Keep utility actions (share, download, language) visually separate from the main story flow.
+- **Language:** unprefixed URLs redirect once to the saved choice (cookie) or the browser language (`Accept-Language`), in `lib/server/locale-redirect.ts`. Never pick a language from IP or location, never override a locale prefix already in the URL, and the switcher always wins.
 
 ## 5. Content and microcopy
 
