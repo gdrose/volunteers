@@ -4,7 +4,7 @@
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 	import visFoundationLogo from '$lib/assets/footer/vis-foundation.png';
-	import { footerColumns } from '$lib/components/nav/nav-links';
+	import { footerColumns, sourceCodeUrl } from '$lib/components/nav/nav-links';
 </script>
 
 <footer
@@ -43,6 +43,19 @@
 		</div>
 		<p class="text-caption text-muted-foreground">
 			{m.footer_copyright_short({ year: new Date().getFullYear() })}
+		</p>
+		<p class="text-caption text-muted-foreground">
+			{m.footer_open_source()}
+			<!-- eslint-disable svelte/no-navigation-without-resolve -- external repository URL -->
+			<a
+				href={sourceCodeUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="font-medium text-foreground underline underline-offset-4"
+			>
+				{m.footer_github_cta()}
+			</a>
+			<!-- eslint-enable svelte/no-navigation-without-resolve -->
 		</p>
 	</div>
 </footer>

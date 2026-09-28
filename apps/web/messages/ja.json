@@ -20,6 +20,8 @@
 	"footer_locations": "拠点",
 	"footer_media_kit": "メディアキット",
 	"footer_copyright_short": "© {year} Volunteers. 全著作権所有。",
+	"footer_open_source": "このウェブサイトはオープンソースです。",
+	"footer_github_cta": "GitHubで貢献する",
 	"privacy_title": "プライバシーポリシー",
 	"stub_description": "このページは現在準備中です。それまでの間、お問い合わせいただければ直接ご案内します。",
 	"error_not_found_title": "ページが見つかりません",

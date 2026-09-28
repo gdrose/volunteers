@@ -20,6 +20,8 @@
 	"footer_locations": "Sedi",
 	"footer_media_kit": "Media Kit",
 	"footer_copyright_short": "© {year} Volunteers. Tutti i diritti riservati.",
+	"footer_open_source": "Questo sito è open source.",
+	"footer_github_cta": "Contribuisci su GitHub",
 	"privacy_title": "Informativa sulla privacy",
 	"stub_description": "Stiamo ancora preparando questa pagina. Nel frattempo, scrivici e ti aiuteremo direttamente.",
 	"error_not_found_title": "Pagina non trovata",

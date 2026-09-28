@@ -13,7 +13,7 @@
 	import linkedinCircle from '$lib/assets/social/circle/linkedin.svg';
 	import whatsappCircle from '$lib/assets/social/circle/whatsapp.svg';
 	import visFoundationLogo from '$lib/assets/footer/vis-foundation.png';
-	import { footerColumns } from '$lib/components/nav/nav-links';
+	import { footerColumns, sourceCodeUrl } from '$lib/components/nav/nav-links';
 	import MobileFooter from './mobile-footer.svelte';
 
 	let { socials }: { socials: SocialProfile[] } = $props();
@@ -111,6 +111,22 @@
 				<span class="text-vis-gold">VIS</span>&nbsp;FOUNDATION
 			</span>
 		</div>
+	</Container>
+
+	<Container class="border-t border-border py-6">
+		<p class="text-caption text-muted-foreground">
+			{m.footer_open_source()}
+			<!-- eslint-disable svelte/no-navigation-without-resolve -- external repository URL -->
+			<a
+				href={sourceCodeUrl}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="font-medium text-foreground underline underline-offset-4"
+			>
+				{m.footer_github_cta()}
+			</a>
+			<!-- eslint-enable svelte/no-navigation-without-resolve -->
+		</p>
 	</Container>
 </footer>
 

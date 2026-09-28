@@ -20,6 +20,8 @@
 	"footer_locations": "Locations",
 	"footer_media_kit": "Media Kit",
 	"footer_copyright_short": "© {year} Volunteers. All rights reserved.",
+	"footer_open_source": "This website is open source.",
+	"footer_github_cta": "Contribute on GitHub",
 	"privacy_title": "Privacy policy",
 	"stub_description": "We are still putting this page together. In the meantime, write to us and we will help you directly.",
 	"error_not_found_title": "Page not found",

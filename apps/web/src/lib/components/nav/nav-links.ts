@@ -38,6 +38,9 @@ export const footerColumns: { title: string | (() => string); links: NavLink[] }
 	}
 ];
 
+/** Public source repository: the site is open source and takes contributions. */
+export const sourceCodeUrl = 'https://github.com/gdrose/volunteers';
+
 /**
  * `aria-current` for a nav link: "page" on the section's own page, "true" anywhere
  * inside it (e.g. an article under News), so both get the active style.

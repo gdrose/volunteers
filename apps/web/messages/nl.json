@@ -20,6 +20,8 @@
 	"footer_locations": "Locaties",
 	"footer_media_kit": "Media Kit",
 	"footer_copyright_short": "© {year} Volunteers. Alle rechten voorbehouden.",
+	"footer_open_source": "Deze website is open source.",
+	"footer_github_cta": "Bijdragen op GitHub",
 	"privacy_title": "Privacybeleid",
 	"stub_description": "We werken nog aan deze pagina. Schrijf ons in de tussentijd, dan helpen we je direct.",
 	"error_not_found_title": "Pagina niet gevonden",
