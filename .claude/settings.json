@@ -1,0 +1,50 @@
+{
+	"$schema": "https://json.schemastore.org/claude-code-settings.json",
+	"permissions": {
+		"allow": [
+			"Bash(bun run:*)",
+			"Bash(bunx prettier:*)",
+			"Bash(bunx eslint:*)",
+			"Bash(git status:*)",
+			"Bash(git diff:*)",
+			"Bash(git log:*)"
+		],
+		"deny": ["Read(**/.env)", "Read(**/.env.local)"]
+	},
+	"hooks": {
+		"PreToolUse": [
+			{
+				"matcher": "Edit|Write|MultiEdit",
+				"hooks": [
+					{ "type": "command", "command": "bun \"$CLAUDE_PROJECT_DIR/.claude/hooks/guard-generated.ts\"" }
+				]
+			}
+		],
+		"PostToolUse": [
+			{
+				"matcher": "Edit|Write|MultiEdit",
+				"hooks": [
+					{ "type": "command", "command": "bun \"$CLAUDE_PROJECT_DIR/.claude/hooks/post-edit.ts\"" }
+				]
+			}
+		],
+		"Stop": [
+			{
+				"hooks": [
+					{ "type": "command", "command": "bun \"$CLAUDE_PROJECT_DIR/.claude/hooks/stop-check.ts\"" }
+				]
+			}
+		]
+	},
+	"extraKnownMarketplaces": {
+		"svelte": {
+			"source": {
+				"source": "github",
+				"repo": "sveltejs/ai-tools"
+			}
+		}
+	},
+	"enabledPlugins": {
+		"svelte@svelte": true
+	}
+}

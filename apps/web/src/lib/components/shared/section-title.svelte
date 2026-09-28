@@ -12,10 +12,7 @@
 	}: HTMLAttributes<HTMLHeadingElement> & { children: Snippet } = $props();
 </script>
 
-<h2
-	class={cn('pb-[13px] text-h1 text-foreground lg:pb-4 lg:text-center', className)}
-	{...restProps}
->
+<h2 class={cn('pb-3 text-h1 text-foreground lg:pb-4 lg:text-center', className)} {...restProps}>
 	<span class="relative inline-block">
 		<img
 			src={waveMobile}

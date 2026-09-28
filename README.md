@@ -48,6 +48,7 @@ messages/{en,es,it,ja,nl}.json   # UI strings
 | `bun run build` / `preview` | Production build / preview it |
 | `bun run check` | Type-check with `svelte-check` |
 | `bun run lint` / `format` | Prettier + ESLint |
+| `bun run check:rules` | Mechanical UX-RULES checks + message-key parity |
 | `bun run test` | Vitest (server tests in Node, component tests in headless Chromium via Playwright) |
 
 **Before editing UI,** read [`apps/web/UX-RULES.md`](apps/web/UX-RULES.md). The rules are strict: use design-system variants rather than per-page style overrides, `Container` for widths, only the type scale in `layout.css`, WCAG 2.2 AA, a single nav source (`nav/nav-links.ts`), and no dead links.
@@ -74,7 +75,7 @@ This regenerates `schema.json` and `apps/web/src/lib/sanity/sanity.types.ts`.
 ## Deployment
 
 - **Studio:** pushes to `main` that touch `apps/studio-volunteers/**` deploy automatically via [GitHub Actions](.github/workflows/deploy-studio.yml). This needs the `SANITY_AUTH_TOKEN` secret.
-- **Website:** built with `@sveltejs/adapter-auto`. Deploy it to a supported host (Vercel, Netlify, Cloudflare, …) with `PUBLIC_SANITY_PROJECT_ID` and `PUBLIC_SANITY_DATASET` set.
+- **Website:** hosted on Vercel (`@sveltejs/adapter-vercel`). Set `PUBLIC_SANITY_PROJECT_ID`, `PUBLIC_SANITY_DATASET` and `PUBLIC_SITE_URL`.
 
 ## License
 

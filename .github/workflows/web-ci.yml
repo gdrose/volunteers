@@ -1,0 +1,45 @@
+name: Web CI
+
+on:
+  pull_request:
+    paths:
+      - 'apps/web/**'
+      - 'bun.lock'
+      - '.github/workflows/web-ci.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'apps/web/**'
+      - 'bun.lock'
+      - '.github/workflows/web-ci.yml'
+
+concurrency:
+  group: web-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/web
+    env:
+      PUBLIC_SANITY_PROJECT_ID: hkjo1dgo
+      PUBLIC_SANITY_DATASET: production
+      PUBLIC_SITE_URL: https://example.org
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - run: bun install --frozen-lockfile
+        working-directory: .
+
+      # Component tests (*.svelte.spec.ts) run in headless Chromium.
+      - run: bunx playwright install --with-deps chromium
+
+      - run: bun run check
+      - run: bun run lint
+      - run: bun run check:rules
+      - run: bun run test
+      - run: bun run build

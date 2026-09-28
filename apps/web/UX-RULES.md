@@ -11,12 +11,13 @@ These are hard rules for `apps/web`. If a change would break one, stop and raise
 
 - **No per-page style overrides on UI primitives.** Visual styling for `ui/*` components lives in their `tv()` variants and sizes. If a look is missing, add a named variant (e.g. `Card` `brand` / `featured`) rather than passing classes at the call site. Layout-only classes (`grid`, `col-span`, margins between siblings) at call sites are fine.
 - **Width and gutters:** sections use `Container` (`shared/container.svelte`), never their own `max-w-*` / `px-*`. Pages use `PageLayout`.
-- **Type:** only the scale in `layout.css` — `text-display`, `text-h1`–`text-h4`, `text-lead`, `text-body`, `text-small`, `text-caption`, `text-micro`, `text-eyebrow`. No `text-[Npx]`, `leading-*` or `tracking-*` one-offs. Don't use `text-micro` for anything a user must read (consent, legal, form help): use `text-caption` or larger.
+- **Type:** only the scale in `layout.css` — `text-display`, `text-h1`–`text-h4`, `text-lead`, `text-body`, `text-small`, `text-caption`, `text-micro`, `text-eyebrow`. No `text-[Npx]`, `leading-*` or `tracking-*` one-offs. A new type token must also be added to the `font-size` group in `src/lib/utils.ts`, or `cn` treats it as a colour and drops it. Don't use `text-micro` for anything a user must read (consent, legal, form help): use `text-caption` or larger.
 - **Button sizes:** `sm` (h-8), `default` (h-10), `lg` (h-12), plus the icon sizes. Don't add bespoke heights.
 - **Radii:** use the tokens `rounded-sm` … `rounded-4xl`. No `rounded-[Npx]`.
 - **Spacing:** the 4/8px scale only. No `gap-[19px]`, `px-[117px]`, `h-[438px]`-style arbitrary values in page components.
+  - Exception: px offsets that pin a decorative ornament (`alt=""` / `aria-hidden` artwork) to text, as in `section-title` and `newsletter-section`. Add each one to the allowlist in `scripts/check-rules.ts`.
 - **Colours:** tokens only. A new brand colour gets a CSS variable in `layout.css` with a light and a `.dark` value (as with `--vis-gold`), never a raw hex in a component.
-- Don't run `prettier --write` over `components/ui`.
+- `components/ui` keeps shadcn's own style (double quotes) and is in `.prettierignore`; match it when editing a primitive.
 
 ## 2. Accessibility (WCAG 2.2 AA baseline)
 
@@ -87,6 +88,7 @@ These are hard rules for `apps/web`. If a change would break one, stop and raise
 ## Pre-edit checklist
 
 Before editing:
+
 1. Does this need a new **variant or token** instead of a call-site class?
 2. Does any new text or interactive element meet **contrast, focus, 24px target and label** requirements?
 3. Is the **DOM order** the reading order?
@@ -94,10 +96,7 @@ Before editing:
 5. Does any motion respect **reduced motion**?
 
 Before calling it done:
-- `bun run check`, `bun run lint`, `bun run test`, `bun run build`
-- Regression greps in `src`, all of which should return nothing new:
-  ```sh
-  grep -rn "ring-ring/50\|rounded-\[\|text-\[[0-9#]\|order-last\|flex-row-reverse\|flex-col-reverse\|grid-flow-dense" src
-  grep -rn "outline-none" src --include=*.svelte | grep -v "focus-visible\|components/ui"
-  ```
+
+- `bun run check`, `bun run lint`, `bun run check:rules`, `bun run test`, `bun run build`
+- `check:rules` (`scripts/check-rules.ts`) enforces the mechanical rules above (arbitrary values, reordering, bare `outline-none`, raw hex, message-key parity). Reviewed exceptions live in its allowlist with a reason; never silence a hit without one.
 - For UI changes: check keyboard-only tab order, reduced-motion emulation, and light and dark themes on the affected routes. Use axe via Playwright when available.
