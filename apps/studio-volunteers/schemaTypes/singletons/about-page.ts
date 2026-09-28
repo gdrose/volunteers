@@ -11,7 +11,6 @@ export const aboutPage = defineType({
     {name: 'story', title: 'Our story', default: true},
     {name: 'contacts', title: 'Contacts'},
     {name: 'documents', title: 'Documents'},
-    {name: 'seo', title: 'Search & sharing'},
   ],
   fields: [
     languageField,
@@ -102,11 +101,6 @@ export const aboutPage = defineType({
           preview: {select: {title: 'title', subtitle: 'updatedYear'}},
         }),
       ],
-    }),
-    defineField({
-      name: 'seo',
-      type: 'seo',
-      group: 'seo',
     }),
   ],
   preview: {

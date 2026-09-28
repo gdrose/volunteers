@@ -61,14 +61,6 @@ export type PullQuote = {
   attribution?: string;
 };
 
-export type Seo = {
-  _type: "seo";
-  metaTitle?: string;
-  metaDescription?: string;
-  shareImage?: ImageWithAlt;
-  noindex?: boolean;
-};
-
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -151,7 +143,6 @@ export type AboutPage = {
     _type: "foundationDocument";
     _key: string;
   }>;
-  seo?: Seo;
 };
 
 export type NewsPostReference = {
@@ -169,7 +160,6 @@ export type NewsPage = {
   _rev: string;
   language?: string;
   featuredPost?: NewsPostReference;
-  seo?: Seo;
 };
 
 export type HomePage = {
@@ -187,7 +177,6 @@ export type HomePage = {
     _key: string;
   }>;
   statsAsOf?: string;
-  seo?: Seo;
 };
 
 export type Group = {
@@ -277,7 +266,6 @@ export type NewsPost = {
   project?: ProjectReference;
   coverImage: ImageWithAlt;
   body: ArticleBody;
-  seo?: Seo;
 };
 
 export type Project = {
@@ -335,7 +323,6 @@ export type Project = {
     _key: string;
   }>;
   outcomes?: SimpleText;
-  seo?: Seo;
 };
 
 export type SanityImageCrop = {
@@ -444,18 +431,12 @@ export type SanityImageAsset = {
   source?: SanityAssetSourceData;
 };
 
-export type AllSanitySchemaTypes = SimpleText | ArticleBody | PullQuote | Seo | SanityImageAssetReference | ImageWithAlt | SiteSettings | SanityFileAssetReference | AboutPage | NewsPostReference | NewsPage | HomePage | Group | InternationalizedArrayText | Geopoint | Slug | InternationalizedArrayTextValue | TranslationMetadata | InternationalizedArrayReference | ProjectReference | InternationalizedArrayReferenceValue | NewsPost | Project | SanityImageCrop | SanityImageHotspot | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset;
+export type AllSanitySchemaTypes = SimpleText | ArticleBody | PullQuote | SanityImageAssetReference | ImageWithAlt | SiteSettings | SanityFileAssetReference | AboutPage | NewsPostReference | NewsPage | HomePage | Group | InternationalizedArrayText | Geopoint | Slug | InternationalizedArrayTextValue | TranslationMetadata | InternationalizedArrayReference | ProjectReference | InternationalizedArrayReferenceValue | NewsPost | Project | SanityImageCrop | SanityImageHotspot | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset;
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: NEWS_INDEX_QUERY
-// Query: {	"seo": *[_id == "newsPage-" + $locale][0].seo{ metaTitle, metaDescription, shareImage, "noindex": noindex == true },	"featured": coalesce(		*[_id == "newsPage-" + $locale][0].featuredPost->{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])},		*[_type == "newsPost" && language == $locale] | order(publishedAt desc)[0]{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}	),	"posts": *[_type == "newsPost" && language == $locale && defined(slug.current)]		| order(publishedAt desc){	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}}
+// Query: {	"featured": coalesce(		*[_id == "newsPage-" + $locale][0].featuredPost->{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])},		*[_type == "newsPost" && language == $locale] | order(publishedAt desc)[0]{	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}	),	"posts": *[_type == "newsPost" && language == $locale && defined(slug.current)]		| order(publishedAt desc){	_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	])}}
 export type NEWS_INDEX_QUERY_RESULT = {
-  seo: {
-    metaTitle: string | null;
-    metaDescription: string | null;
-    shareImage: ImageWithAlt | null;
-    noindex: boolean | false;
-  } | null;
   featured: {
     _id: string;
     title: string;
@@ -482,7 +463,7 @@ export type NEWS_INDEX_QUERY_RESULT = {
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: NEWS_POST_QUERY
-// Query: *[_type == "newsPost" && language == $locale && slug.current == $slug][0]{			_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	]),		_updatedAt,		body,		"project": project->{ title, teaser, "slug": slug.current },		"seo": seo{ metaTitle, metaDescription, shareImage, "noindex": noindex == true },		"translations": coalesce(	*[_type == "translation.metadata" && references(^._id)][0].translations[].value->{		language, "slug": slug.current, "noindex": seo.noindex == true	},	[{ language, "slug": slug.current, "noindex": seo.noindex == true }])	}
+// Query: *[_type == "newsPost" && language == $locale && slug.current == $slug][0]{			_id,	title,	"slug": slug.current,	excerpt,	category,	publishedAt,	author,	coverImage,	"readingMinutes": math::max([		1,		round(length(pt::text(body)) / select(language == "ja" => 500, 1000))	]),		_updatedAt,		body,		"project": project->{ title, teaser, "slug": slug.current },		"translations": coalesce(	*[_type == "translation.metadata" && references(^._id)][0].translations[].value->{		language, "slug": slug.current	},	[{ language, "slug": slug.current }])	}
 export type NEWS_POST_QUERY_RESULT = {
   _id: string;
   title: string;
@@ -500,20 +481,12 @@ export type NEWS_POST_QUERY_RESULT = {
     teaser: string;
     slug: string;
   } | null;
-  seo: {
-    metaTitle: string | null;
-    metaDescription: string | null;
-    shareImage: ImageWithAlt | null;
-    noindex: boolean | false;
-  } | null;
   translations: Array<{
     language: string | null;
     slug: string;
-    noindex: boolean | false;
   }> | Array<{
     language: string | null;
     slug: string;
-    noindex: boolean | false;
   } | null>;
 } | null;
 
@@ -574,7 +547,7 @@ export type SITE_SETTINGS_QUERY_RESULT = {
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: HOME_PAGE_QUERY
-// Query: {	"projects": *[_type == "project" && language == $locale && defined(slug.current)]		| order(sortOrder asc){			_id,			title,			"slug": slug.current,			teaser,			coverImage		},	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description },	"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf,	"seo": *[_id == "homePage-" + $locale][0].seo{ metaTitle, metaDescription, shareImage, "noindex": noindex == true }}
+// Query: {	"projects": *[_type == "project" && language == $locale && defined(slug.current)]		| order(sortOrder asc){			_id,			title,			"slug": slug.current,			teaser,			coverImage		},	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description },	"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf}
 export type HOME_PAGE_QUERY_RESULT = {
   projects: Array<{
     _id: string;
@@ -590,17 +563,11 @@ export type HOME_PAGE_QUERY_RESULT = {
     description: string | null;
   }> | null;
   statsAsOf: null | string;
-  seo: {
-    metaTitle: string | null;
-    metaDescription: string | null;
-    shareImage: ImageWithAlt | null;
-    noindex: boolean | false;
-  } | null;
 };
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: ABOUT_PAGE_QUERY
-// Query: *[_id == "aboutPage-" + $locale][0]{		"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label },		"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf,		"milestones": milestones[]{ _key, period, title, description, image },		"offices": offices[]{ _key, scope, title, description, location, email },		"documents": documents[defined(file.asset)]{			_key,			title,			updatedYear,			"href": file.asset->url,			"format": upper(file.asset->extension)		},		"seo": seo{ metaTitle, metaDescription, shareImage, "noindex": noindex == true }	}
+// Query: *[_id == "aboutPage-" + $locale][0]{		"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label },		"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf,		"milestones": milestones[]{ _key, period, title, description, image },		"offices": offices[]{ _key, scope, title, description, location, email },		"documents": documents[defined(file.asset)]{			_key,			title,			updatedYear,			"href": file.asset->url,			"format": upper(file.asset->extension)		}	}
 export type ABOUT_PAGE_QUERY_RESULT = {
   stats: Array<{
     _key: string;
@@ -611,23 +578,6 @@ export type ABOUT_PAGE_QUERY_RESULT = {
   milestones: null;
   offices: null;
   documents: null;
-  seo: null;
-} | {
-  stats: Array<{
-    _key: string;
-    value: string;
-    label: string;
-  }> | null;
-  statsAsOf: null | string;
-  milestones: null;
-  offices: null;
-  documents: null;
-  seo: {
-    metaTitle: string | null;
-    metaDescription: string | null;
-    shareImage: ImageWithAlt | null;
-    noindex: boolean | false;
-  } | null;
 } | {
   stats: Array<{
     _key: string;
@@ -657,12 +607,6 @@ export type ABOUT_PAGE_QUERY_RESULT = {
     href: string;
     format: string;
   }> | null;
-  seo: {
-    metaTitle: string | null;
-    metaDescription: string | null;
-    shareImage: ImageWithAlt | null;
-    noindex: boolean | false;
-  } | null;
 } | null;
 
 // Source: ../web/src/lib/sanity/queries.ts
@@ -680,7 +624,7 @@ export type PROJECT_SHOWCASE_QUERY_RESULT = Array<{
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: PROJECT_QUERY
-// Query: *[_type == "project" && language == $locale && slug.current == $slug][0]{		_id,		title,		"slug": slug.current,		headline,		headlineEmphasis,		summary,		intro,		body,		heroImage,		gallery,		activities,		"resources": resources[]{			_key,			kind,			title,			description,			shortDescription,			cover,			"href": coalesce(url, file.asset->url)		},		partners,		startedYear,		"impact": impact[]{ _key, value, label, description },		outcomes,		_updatedAt,		"seo": seo{ metaTitle, metaDescription, shareImage, "noindex": noindex == true },		"translations": coalesce(	*[_type == "translation.metadata" && references(^._id)][0].translations[].value->{		language, "slug": slug.current, "noindex": seo.noindex == true	},	[{ language, "slug": slug.current, "noindex": seo.noindex == true }])	}
+// Query: *[_type == "project" && language == $locale && slug.current == $slug][0]{		_id,		title,		"slug": slug.current,		headline,		headlineEmphasis,		summary,		teaser,		intro,		body,		heroImage,		coverImage,		gallery,		activities,		"resources": resources[]{			_key,			kind,			title,			description,			shortDescription,			cover,			"href": coalesce(url, file.asset->url)		},		partners,		startedYear,		"impact": impact[]{ _key, value, label, description },		outcomes,		_updatedAt,		"translations": coalesce(	*[_type == "translation.metadata" && references(^._id)][0].translations[].value->{		language, "slug": slug.current	},	[{ language, "slug": slug.current }])	}
 export type PROJECT_QUERY_RESULT = {
   _id: string;
   title: string;
@@ -688,9 +632,11 @@ export type PROJECT_QUERY_RESULT = {
   headline: string;
   headlineEmphasis: string | null;
   summary: string | null;
+  teaser: string;
   intro: string | null;
   body: SimpleText | null;
   heroImage: ImageWithAlt | null;
+  coverImage: ImageWithAlt;
   gallery: Array<{
     _key: string;
   } & ImageWithAlt> | null;
@@ -719,20 +665,12 @@ export type PROJECT_QUERY_RESULT = {
   }> | null;
   outcomes: SimpleText | null;
   _updatedAt: string;
-  seo: {
-    metaTitle: string | null;
-    metaDescription: string | null;
-    shareImage: ImageWithAlt | null;
-    noindex: boolean | false;
-  } | null;
   translations: Array<{
     language: string | null;
     slug: string;
-    noindex: boolean | false;
   }> | Array<{
     language: string | null;
     slug: string;
-    noindex: boolean | false;
   } | null>;
 } | null;
 
@@ -770,7 +708,7 @@ export type GROUPS_QUERY_RESULT = {
 
 // Source: ../web/src/lib/sanity/queries.ts
 // Variable: SITEMAP_QUERY
-// Query: {	"documents": *[_type in ["newsPost", "project"] && defined(slug.current) && seo.noindex != true]{		_type,		language,		"slug": slug.current,		_updatedAt,		"translationGroup": coalesce(*[_type == "translation.metadata" && references(^._id)][0]._id, _id)	},	"hiddenPages": *[_type in ["homePage", "aboutPage", "newsPage"] && seo.noindex == true]{ _type, language }}
+// Query: {	"documents": *[_type in ["newsPost", "project"] && defined(slug.current)]{		_type,		language,		"slug": slug.current,		_updatedAt,		"translationGroup": coalesce(*[_type == "translation.metadata" && references(^._id)][0]._id, _id)	}}
 export type SITEMAP_QUERY_RESULT = {
   documents: Array<{
     _type: "newsPost";
@@ -784,16 +722,6 @@ export type SITEMAP_QUERY_RESULT = {
     slug: string;
     _updatedAt: string;
     translationGroup: string;
-  }>;
-  hiddenPages: Array<{
-    _type: "aboutPage";
-    language: string | null;
-  } | {
-    _type: "homePage";
-    language: string | null;
-  } | {
-    _type: "newsPage";
-    language: string | null;
   }>;
 };
 

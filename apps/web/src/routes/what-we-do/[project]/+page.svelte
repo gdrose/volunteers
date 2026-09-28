@@ -10,19 +10,21 @@
 	import { Seo } from '$lib/components/shared';
 	import { translationPaths } from '$lib/components/shared/seo';
 	import { shareImageUrl } from '$lib/sanity/image';
-	import { m } from '$lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
+
+	const shareImage = $derived(
+		data.project.heroImage?.asset ? data.project.heroImage : data.project.coverImage
+	);
 </script>
 
 <Seo
 	title={data.project.title}
-	description={data.project.summary ?? m.what_we_do_description()}
-	image={data.project.heroImage ? shareImageUrl(data.project.heroImage) : undefined}
-	imageAlt={data.project.heroImage?.alt ?? undefined}
+	description={data.project.summary || data.project.teaser}
+	image={shareImageUrl(shareImage)}
+	imageAlt={shareImage.alt ?? undefined}
 	translations={translationPaths(data.project.translations, (slug) => `/what-we-do/${slug}`)}
-	cms={data.project.seo}
 />
 
 <ProjectHeader project={data.project} />

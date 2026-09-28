@@ -37,7 +37,6 @@
 	image={shareImageUrl(post.coverImage)}
 	imageAlt={post.coverImage.alt ?? undefined}
 	translations={translationPaths(post.translations, (slug) => `/news/${slug}`)}
-	cms={post.seo}
 />
 <svelte:head>
 	<meta property="article:published_time" content={post.publishedAt} />

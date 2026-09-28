@@ -12,7 +12,7 @@ For deeper Sanity questions (schema design, GROQ, Portable Text, images), also l
 
 ## Steps
 
-1. **Schema**: edit `apps/studio-volunteers/schemaTypes/…`. Follow `.claude/rules/sanity-studio.md`: choose the right localisation kind, use `imageWithAlt` for images, `seo` for pages, and `defineField` with validation for required content.
+1. **Schema**: edit `apps/studio-volunteers/schemaTypes/…`. Follow `.claude/rules/sanity-studio.md`: choose the right localisation kind, use `imageWithAlt` for images, and `defineField` with validation for required content.
 2. **Query**: update the GROQ in `apps/web/src/lib/sanity/queries.ts` (`defineQuery`). Select only the fields the UI uses. Filter by `language == $locale` for translated types.
 3. **Typegen**: `bun run --cwd apps/studio-volunteers typegen`. This rewrites `schema.json` and `sanity.types.ts`. Never edit those by hand; a hook blocks it.
 4. **Load + UI**: update the route's `+page.server.ts` (with `?? null` / `?? []` fallbacks) and the component. Images go through `shared/sanity-image.svelte` with a correct `sizes`. Optional content renders only when present.

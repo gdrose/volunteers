@@ -53,10 +53,10 @@ export function localeAlternates(
 	return alternates;
 }
 
-type Translation = { language: string | null; slug: string; noindex?: boolean } | null;
+type Translation = { language: string | null; slug: string } | null;
 
 /**
- * Where each published, indexable translation of a CMS document lives,
+ * Where each published translation of a CMS document lives,
  * e.g. `translationPaths(post.translations, (slug) => `/news/${slug}`)`.
  */
 export function translationPaths(
@@ -65,7 +65,7 @@ export function translationPaths(
 ): LocalePaths {
 	const paths: LocalePaths = {};
 	for (const t of translations) {
-		if (t && !t.noindex && isLocale(t.language)) paths[t.language] = pathFor(t.slug);
+		if (t && isLocale(t.language)) paths[t.language] = pathFor(t.slug);
 	}
 	return paths;
 }
@@ -78,6 +78,23 @@ export const ogLocales: Record<Locale, string> = {
 	ja: 'ja_JP',
 	nl: 'nl_NL'
 };
+
+/** Search results cut descriptions at about this many characters. */
+export const META_DESCRIPTION_MAX = 155;
+
+/**
+ * Fits page copy (an excerpt, a summary) into a search snippet: the whole sentences that fit,
+ * else cut at a word with an ellipsis. Japanese has no spaces, so it's cut at the character.
+ */
+export function metaDescription(text: string, max = META_DESCRIPTION_MAX) {
+	const clean = text.replace(/\s+/g, ' ').trim();
+	if (clean.length <= max) return clean;
+	const cut = clean.slice(0, max - 1);
+	const sentenceEnd = Math.max(...['. ', '! ', '? ', '。'].map((end) => cut.lastIndexOf(end)));
+	if (sentenceEnd >= max / 2) return cut.slice(0, sentenceEnd + 1).trim();
+	const space = cut.lastIndexOf(' ');
+	return `${(space >= max / 2 ? cut.slice(0, space) : cut).replace(/[\s,;:.–—-]+$/, '')}…`;
+}
 
 /** Serializes JSON-LD for inline `<script>`: `<` is escaped so CMS text can't close the tag. */
 export function jsonLdScript(schema: object) {

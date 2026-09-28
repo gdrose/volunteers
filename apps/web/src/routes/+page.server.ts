@@ -6,10 +6,10 @@ import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async () => {
 	const locale = getLocale();
-	const [{ projects, stats, statsAsOf, seo }, email] = await Promise.all([
+	const [{ projects, stats, statsAsOf }, email] = await Promise.all([
 		client.fetch<HOME_PAGE_QUERY_RESULT>(HOME_PAGE_QUERY, { locale }),
 		// For the organisation's structured data.
 		client.fetch<CONTACT_EMAIL_QUERY_RESULT>(CONTACT_EMAIL_QUERY, { locale })
 	]);
-	return { projects, stats: stats ?? [], statsAsOf, seo, email };
+	return { projects, stats: stats ?? [], statsAsOf, email };
 };

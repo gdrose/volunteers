@@ -10,33 +10,23 @@ import type { RequestHandler } from './$types';
 /** Placeholder pages (`ComingSoonPage`, noindex): leave them out until they're written. */
 const COMING_SOON = new Set(['/donate', '/locations', '/media-kit', '/privacy']);
 
-/** CMS singletons whose "Hide from search engines" switch hides a static route. */
-const SINGLETON_PATHS: Record<string, string> = {
-	homePage: '/',
-	aboutPage: '/about',
-	newsPage: '/news'
-};
-
 const DOCUMENT_PATHS: Record<string, (slug: string) => string> = {
 	newsPost: (slug) => `/news/${slug}`,
 	project: (slug) => `/what-we-do/${slug}`
 };
 
 export const GET: RequestHandler = async ({ url }) => {
-	const { documents, hiddenPages } = await client.fetch<SITEMAP_QUERY_RESULT>(SITEMAP_QUERY);
+	const { documents } = await client.fetch<SITEMAP_QUERY_RESULT>(SITEMAP_QUERY);
 
 	// Every page linked from the navigation, so the sitemap follows the site's own structure.
 	const staticPaths = new Set([
 		'/',
 		...[...mainLinks, findGroupLink, ...footerColumns.flatMap((c) => c.links)].map((l) => l.path)
 	]);
-	const hidden = new Set(hiddenPages.map((p) => `${p.language}:${SINGLETON_PATHS[p._type]}`));
 	const staticPages: SitemapPage[] = [...staticPaths]
 		.filter((path) => !COMING_SOON.has(path))
 		.map((path) => ({
-			paths: Object.fromEntries(
-				locales.filter((locale) => !hidden.has(`${locale}:${path}`)).map((locale) => [locale, path])
-			)
+			paths: Object.fromEntries(locales.map((locale) => [locale, path]))
 		}));
 
 	// Translations of one post or project share a group, so they list each other as alternates.

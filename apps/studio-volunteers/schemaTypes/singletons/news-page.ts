@@ -21,10 +21,6 @@ export const newsPage = defineType({
         }),
       },
     }),
-    defineField({
-      name: 'seo',
-      type: 'seo',
-    }),
   ],
   preview: {
     select: {language: 'language'},

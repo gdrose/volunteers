@@ -72,10 +72,6 @@ export const newsPost = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({name: 'body', type: 'articleBody', validation: (rule) => rule.required()}),
-    defineField({
-      name: 'seo',
-      type: 'seo',
-    }),
   ],
   orderings: [
     {

@@ -15,10 +15,10 @@ Read `apps/web/UX-RULES.md` before you start.
 1. **Route files** in `apps/web/src/routes/<path>/`:
    - A stub is just `+page.svelte` rendering `<ComingSoonPage name={m.nav_<x>()} />` (see `routes/donate/+page.svelte`).
    - A real page with CMS content gets `+page.server.ts`. Fetch with `client.fetch<QUERY_RESULT>(QUERY, { locale: getLocale() })` and return plain fields with `?? []` / `?? null` fallbacks (see `routes/about/+page.server.ts`). For the query itself, use the `content-field` skill.
-2. **`+page.svelte`**: start with `<Seo title description cms={data.seo} />` from `$lib/components/shared`. A page that isn't top-level uses `PageLayout` with `crumbs`. Every section uses `Container`. Don't add another `<main>`.
+2. **`+page.svelte`**: start with `<Seo title description />` from `$lib/components/shared`. A page that isn't top-level uses `PageLayout` with `crumbs`. Every section uses `Container`. Don't add another `<main>`.
 3. **Strings**: add each new key to all five `apps/web/messages/{en,es,it,ja,nl}.json` (`nav_<x>`, `meta_<x>_description`, …). No hardcoded copy.
 4. **Navigation**: if the page is linked from the header or footer, add it only in `src/lib/components/nav/nav-links.ts`. Header, mobile menu, footers and the sitemap all read from there.
-5. **Sitemap** (`src/routes/sitemap.xml/+server.ts`): nav paths are included automatically. Add stubs to `COMING_SOON`. Add a CMS singleton with a "hide from search" switch to `SINGLETON_PATHS`, and a new slugged document type to `DOCUMENT_PATHS` plus `SITEMAP_QUERY`.
+5. **Sitemap** (`src/routes/sitemap.xml/+server.ts`): nav paths are included automatically. Add stubs to `COMING_SOON`. Add a new slugged document type to `DOCUMENT_PATHS` plus `SITEMAP_QUERY`.
 6. **CTAs** that point at the page use the same label everywhere ("one action, one label").
 
 ## Constraints

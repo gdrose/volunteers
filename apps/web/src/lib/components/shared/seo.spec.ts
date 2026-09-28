@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { jsonLdScript, localeAlternates, translationPaths } from './seo';
+import { jsonLdScript, localeAlternates, metaDescription, translationPaths } from './seo';
 
 const hrefs = (url: string) =>
 	Object.fromEntries(localeAlternates(new URL(url)).map((a) => [a.hreflang, a.href]));
@@ -55,14 +55,9 @@ describe('localeAlternates for pages in some languages only', () => {
 });
 
 describe('translationPaths', () => {
-	it('keeps published, indexable translations in supported languages', () => {
+	it('keeps translations in supported languages', () => {
 		const paths = translationPaths(
-			[
-				{ language: 'en', slug: 'hello', noindex: false },
-				{ language: 'it', slug: 'ciao', noindex: true },
-				{ language: 'de', slug: 'hallo', noindex: false },
-				null
-			],
+			[{ language: 'en', slug: 'hello' }, { language: 'de', slug: 'hallo' }, null],
 			(slug) => `/news/${slug}`
 		);
 		expect(paths).toEqual({ en: '/news/hello' });
@@ -84,5 +79,27 @@ describe('localeAlternates for the home page', () => {
 			it: 'https://example.org/it',
 			'x-default': 'https://example.org/'
 		});
+	});
+});
+
+describe('metaDescription', () => {
+	it('keeps short copy as is, whitespace collapsed', () => {
+		expect(metaDescription('  Meals for\nfamilies.  ')).toBe('Meals for families.');
+	});
+
+	it('keeps the whole sentences that fit', () => {
+		const text = `${'a'.repeat(100)}. ${'b'.repeat(100)}.`;
+		expect(metaDescription(text)).toBe(`${'a'.repeat(100)}.`);
+	});
+
+	it('cuts at a word with an ellipsis when no sentence fits', () => {
+		const result = metaDescription('word '.repeat(50));
+		expect(result.length).toBeLessThanOrEqual(155);
+		expect(result).toMatch(/word…$/);
+	});
+
+	it('cuts Japanese at the character', () => {
+		const result = metaDescription('あ'.repeat(200));
+		expect(result).toBe(`${'あ'.repeat(154)}…`);
 	});
 });

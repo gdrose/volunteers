@@ -2,13 +2,13 @@
 	import { page } from '$app/state';
 	import { m } from '$lib/paraglide/messages.js';
 	import { getLocale } from '$lib/paraglide/runtime';
-	import { shareImageUrl, type SanityImageValue } from '$lib/sanity/image';
 	import { siteOrigin } from '$lib/site';
-	import { SITE_NAME, localeAlternates, ogLocales, type LocalePaths } from './seo';
+	import { SITE_NAME, localeAlternates, metaDescription, ogLocales, type LocalePaths } from './seo';
 
 	type Props = {
 		/** Page name; the site name is appended. Omit on the home page. */
 		title?: string;
+		/** Page copy for the snippet; trimmed to fit search results. */
 		description: string;
 		/** Absolute URL of the social preview image, cropped to 1200×630. Defaults to the brand card. */
 		image?: string;
@@ -18,23 +18,11 @@
 		translations?: LocalePaths;
 		/** Keep the page out of search results (errors, placeholders). */
 		noindex?: boolean;
-		/** Editor overrides from the CMS "Search & sharing" fields; each wins over the prop above. */
-		cms?: {
-			metaTitle: string | null;
-			metaDescription: string | null;
-			shareImage: SanityImageValue | null;
-			noindex: boolean;
-		} | null;
 	};
 
-	let props: Props = $props();
+	let { title, description: copy, image, imageAlt, type, translations, noindex }: Props = $props();
 
-	const title = $derived(props.cms?.metaTitle || props.title);
-	const description = $derived(props.cms?.metaDescription || props.description);
-	const shareImage = $derived(props.cms?.shareImage?.asset ? props.cms.shareImage : undefined);
-	const image = $derived(shareImage ? shareImageUrl(shareImage) : props.image);
-	const imageAlt = $derived(shareImage ? (shareImage.alt ?? undefined) : props.imageAlt);
-	const noindex = $derived(props.cms?.noindex || props.noindex);
+	const description = $derived(metaDescription(copy));
 
 	const fullTitle = $derived(
 		title
@@ -44,7 +32,7 @@
 
 	const origin = $derived(siteOrigin(page.url));
 	// Same page in each language, so search engines link the versions and show the right one.
-	const alternates = $derived(localeAlternates(page.url, origin, props.translations));
+	const alternates = $derived(localeAlternates(page.url, origin, translations));
 	const canonical = $derived(alternates.find((a) => a.hreflang === getLocale())?.href);
 	const otherLocales = $derived(
 		alternates.flatMap((a) =>
@@ -67,7 +55,7 @@
 		{/each}
 	{/if}
 	<meta property="og:site_name" content={SITE_NAME} />
-	<meta property="og:type" content={props.type ?? 'website'} />
+	<meta property="og:type" content={type ?? 'website'} />
 	<meta property="og:title" content={title ?? fullTitle} />
 	<meta property="og:description" content={description} />
 	{#if canonical && !noindex}

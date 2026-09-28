@@ -15,7 +15,7 @@
 	const origin = $derived(siteOrigin(page.url));
 </script>
 
-<Seo description={m.meta_home_description()} cms={data.seo} />
+<Seo description={m.meta_home_description()} />
 <!-- Who runs the site, for search engines' knowledge panels; Google reads it from the home page. -->
 <JsonLd
 	schema={graph(

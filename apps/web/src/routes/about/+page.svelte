@@ -13,7 +13,7 @@
 	let { data }: PageProps = $props();
 </script>
 
-<Seo title={m.nav_about()} description={m.meta_about_description()} cms={data.seo} />
+<Seo title={m.nav_about()} description={m.meta_about_description()} />
 
 <AboutHero stats={data.stats} asOf={data.statsAsOf} />
 {#if data.milestones.length}
