@@ -1,1 +1,1 @@
-Make sure to never override the components styling, they should be coherent with the variants present in the main component. If you think that a variant is missing, add it, don't have explicit per page component style overrides.
+Before making any edit, review and follow the UX/UI ruleset: @UX-RULES.md
