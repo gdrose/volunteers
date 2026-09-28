@@ -22,7 +22,7 @@ bun run --cwd apps/studio-volunteers dev # studio at http://localhost:3333
 
 ## Website (`apps/web`)
 
-**Routes:** home, `/about`, `/what-we-do` (+ `/what-we-do/[project]`), `/news` (+ `/news/[slug]`), `/find-a-group` (Leaflet map + directory), `/contact`, and stub pages (`/donate`, `/locations`, `/media-kit`, `/privacy`).
+**Routes:** home, `/about`, `/what-we-do` (+ `/what-we-do/[project]`), `/news` (+ `/news/[slug]`), `/find-a-group` (Leaflet map + directory), `/contact`, and stub pages (`/donate`, `/media-kit`, `/privacy`).
 
 **Layout:**
 

@@ -8,7 +8,7 @@ import { siteOrigin } from '$lib/site';
 import type { RequestHandler } from './$types';
 
 /** Placeholder pages (`ComingSoonPage`, noindex): leave them out until they're written. */
-const COMING_SOON = new Set(['/donate', '/locations', '/media-kit', '/privacy']);
+const COMING_SOON = new Set(['/donate', '/media-kit', '/privacy']);
 
 const DOCUMENT_PATHS: Record<string, (slug: string) => string> = {
 	newsPost: (slug) => `/news/${slug}`,

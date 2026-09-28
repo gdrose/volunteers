@@ -32,7 +32,6 @@ export const footerColumns: { title: string | (() => string); links: NavLink[] }
 		title: m.footer_contacts,
 		links: [
 			{ label: m.footer_contact_us, path: '/contact' },
-			{ label: m.footer_locations, path: '/locations' },
 			{ label: m.footer_media_kit, path: '/media-kit' }
 		]
 	}
