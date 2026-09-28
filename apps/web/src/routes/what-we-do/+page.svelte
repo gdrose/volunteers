@@ -21,11 +21,10 @@
 	{/snippet}
 
 	<div class="flex flex-col gap-16 lg:gap-28 lg:pt-4">
-		{#each data.projects as project, i (project._id)}
+		{#each data.projects as project (project._id)}
 			<ProjectShowcase
 				{project}
 				href={resolve(localizeHref(`/what-we-do/${project.slug}`) as Pathname)}
-				reverse={i % 2 === 1}
 			/>
 		{/each}
 	</div>

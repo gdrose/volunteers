@@ -12,11 +12,9 @@
 		project: ProjectShowcaseData;
 		/** Detail page; without one the CTA shows as coming soon. */
 		href?: string;
-		/** Text first, photos second (on the right on desktop), in DOM and visual order alike. */
-		reverse?: boolean;
 	};
 
-	let { project, href, reverse = false }: Props = $props();
+	let { project, href }: Props = $props();
 
 	const photos = $derived(project.showcasePhotos ?? []);
 	const [lead, ...rest] = $derived(photos);
@@ -36,13 +34,9 @@
 	aria-labelledby={titleId}
 	class="flex scroll-mt-24 flex-col gap-6 lg:grid lg:grid-cols-12 lg:items-center lg:gap-16"
 >
-	{#if reverse}
-		{@render text()}
-		{@render gallery()}
-	{:else}
-		{@render gallery()}
-		{@render text()}
-	{/if}
+	<!-- Same order on every project and breakpoint: text first (left on desktop), then photos. -->
+	{@render text()}
+	{@render gallery()}
 </section>
 
 <PhotoLightbox

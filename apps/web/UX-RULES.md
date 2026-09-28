@@ -27,7 +27,7 @@ These are hard rules for `apps/web`. If a change would break one, stop and raise
   - Never use `ring-ring/50`.
   - Never add a bare `outline-none` without a `focus-visible:` replacement on the same element or a wrapping `focus-within`.
 - **Target size:** every interactive target is at least 24×24 CSS px. Small visuals such as dots, icons and markers keep a padded hit area around them (see `carousel-dots`, `groups-map` markers).
-- **Reading order = visual order.** Never reorder with `order-*`, `flex-row-reverse`, `flex-col-reverse` or `grid-flow-dense`. For alternating layouts, render the DOM in the order users should read it (see `project-showcase`'s `reverse`).
+- **Reading order = visual order.** Never reorder with `order-*`, `flex-row-reverse`, `flex-col-reverse` or `grid-flow-dense`. Render the DOM in the order users should read it; prefer one consistent layout over alternating sides, so mobile stacking stays consistent (see `project-showcase`: text, then photos).
   - Known exceptions: the `dt`/`dd` visual swaps in `about-hero` and `group-details`, where label-then-value is the logical order, and the shadcn `dialog-footer` primitive.
 - **Landmarks:** the root layout owns the skip link and `<main id="main">`. Pages must not add another `<main>`.
 - **No false affordances:** if something looks clickable, it must be a real `<a>` or `<button>`. If it isn't clickable, it must not look like a link (no arrow icons, no link colour). Missing hrefs render a muted "Coming soon", not a dead link.
