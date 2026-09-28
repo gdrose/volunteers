@@ -7,12 +7,21 @@
 	let {
 		children,
 		class: className,
+		stretch = false,
 		...restProps
-	}: HTMLAnchorAttributes & { children: Snippet } = $props();
+	}: HTMLAnchorAttributes & {
+		children: Snippet;
+		/** Cover the nearest positioned ancestor (e.g. a card) so all of it is clickable; the ancestor shows the focus ring. */
+		stretch?: boolean;
+	} = $props();
 </script>
 
 <a
-	class={cn('group inline-flex items-center gap-1.5 text-small font-bold text-link', className)}
+	class={cn(
+		'group inline-flex items-center gap-1.5 text-small font-bold text-link',
+		stretch && 'after:absolute after:inset-0 focus-visible:outline-none',
+		className
+	)}
 	{...restProps}
 >
 	{@render children()}

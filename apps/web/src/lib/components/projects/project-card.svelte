@@ -31,6 +31,6 @@
 	</Card.Content>
 
 	<Card.Footer class="px-0">
-		<ArrowLink {href}>{linkLabel}</ArrowLink>
+		<ArrowLink {href} stretch>{linkLabel}</ArrowLink>
 	</Card.Footer>
 </Card.Root>
