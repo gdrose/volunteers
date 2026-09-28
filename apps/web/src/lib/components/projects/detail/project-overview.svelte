@@ -2,9 +2,8 @@
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
 	import { PortableText, type PortableTextComponents } from '@portabletext/svelte';
-	import { Container, PortableTextLink, SanityImage } from '$lib/components/shared';
+	import { Container, PhotoMosaic, PortableTextLink } from '$lib/components/shared';
 	import * as Card from '$lib/components/ui/card/index.js';
-	import * as Carousel from '$lib/components/ui/carousel/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import { activityIcon, type ProjectDetail } from '../projects';
@@ -37,25 +36,9 @@
 			{m.project_activities_title()}
 		</h2>
 
-		<Carousel.Root
-			opts={{ align: 'start' }}
-			aria-label={m.project_gallery_label()}
-			class="flex flex-col gap-5 lg:gap-6"
-		>
-			<Carousel.Content variant="gallery" class="-ms-3 lg:-ms-4">
-				{#each project.gallery ?? [] as image (image._key)}
-					<Carousel.Item class="basis-64 ps-3 lg:basis-[38.93%] lg:ps-4">
-						<SanityImage
-							{image}
-							width={560}
-							loading="lazy"
-							class="h-80 w-full rounded-2xl object-cover lg:h-105 lg:rounded-3xl"
-						/>
-					</Carousel.Item>
-				{/each}
-			</Carousel.Content>
-			<Carousel.Dots label={(index) => m.carousel_go_to_slide({ index })} />
-		</Carousel.Root>
+		{#if project.gallery?.length}
+			<PhotoMosaic photos={project.gallery} title={project.title} />
+		{/if}
 
 		<ul
 			class="flex flex-col gap-2 pt-2 lg:grid lg:grid-cols-[repeat(2,420px)] lg:justify-center lg:gap-3 lg:pt-0"

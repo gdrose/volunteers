@@ -5,6 +5,7 @@ export { default as PageBreadcrumb, type Crumb } from './page-breadcrumb.svelte'
 export { default as Container } from './container.svelte';
 export { socialLinks, type SocialId, type SocialProfile } from './socials';
 export { default as PhotoLightbox, type LightboxPhoto } from './photo-lightbox.svelte';
+export { default as PhotoMosaic } from './photo-mosaic.svelte';
 export { default as SanityImage } from './sanity-image.svelte';
 export { default as PortableTextLink } from './portable-text-link.svelte';
 export { default as Seo } from './seo.svelte';
