@@ -1,5 +1,6 @@
 import type { Handle } from '@sveltejs/kit';
 import { sequence } from '@sveltejs/kit/hooks';
+import { env } from '$env/dynamic/private';
 import { getTextDirection } from '$lib/paraglide/runtime';
 import { paraglideMiddleware } from '$lib/paraglide/server';
 import { localeRedirect } from '$lib/server/locale-redirect';
@@ -19,6 +20,13 @@ const handleLocaleRedirect: Handle = ({ event, resolve }) => {
 	});
 };
 
+// Preview and dev deployments must never be indexed; only production is the real site.
+const handleRobots: Handle = async ({ event, resolve }) => {
+	const response = await resolve(event);
+	if (env.VERCEL_ENV !== 'production') response.headers.set('X-Robots-Tag', 'noindex, nofollow');
+	return response;
+};
+
 const handleParaglide: Handle = ({ event, resolve }) =>
 	paraglideMiddleware(event.request, ({ request, locale }) => {
 		event.request = request;
@@ -31,4 +39,4 @@ const handleParaglide: Handle = ({ event, resolve }) =>
 		});
 	});
 
-export const handle: Handle = sequence(handleLocaleRedirect, handleParaglide);
+export const handle: Handle = sequence(handleRobots, handleLocaleRedirect, handleParaglide);

@@ -33,6 +33,7 @@ export const project = defineType({
     {name: 'media', title: 'Photos'},
     {name: 'details', title: 'Activities & resources'},
     {name: 'impact', title: 'Impact'},
+    {name: 'seo', title: 'Search & sharing'},
   ],
   fields: [
     languageField,
@@ -225,6 +226,11 @@ export const project = defineType({
       type: 'simpleText',
       group: 'impact',
       description: 'Optional. What changed thanks to the project, in a few sentences.',
+    }),
+    defineField({
+      name: 'seo',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   orderings: [

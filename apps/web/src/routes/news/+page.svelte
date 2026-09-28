@@ -8,7 +8,7 @@
 	let { data }: PageProps = $props();
 </script>
 
-<Seo title={m.nav_news()} description={m.news_description()} />
+<Seo title={m.nav_news()} description={m.news_description()} cms={data.seo} />
 
 <PageLayout crumbs={[{ label: m.nav_news() }]} description={m.news_description()}>
 	{#snippet title()}

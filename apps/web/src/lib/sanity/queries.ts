@@ -2,6 +2,21 @@ import { defineQuery } from '@sanity/sveltekit';
 
 // Every query takes `$locale` (Paraglide's current locale); localized documents carry it as `language`.
 
+/** Search & sharing overrides (Studio: "Search & sharing"); every field falls back to the page's own. */
+const seoProjection = /* groq */ `seo{ metaTitle, metaDescription, shareImage, "noindex": noindex == true }`;
+const seoFields = /* groq */ `"seo": ${seoProjection}`;
+
+/**
+ * Each language this document is published in (itself included), from the
+ * document-internationalization metadata, so hreflang only lists pages that exist.
+ */
+const translationsField = /* groq */ `"translations": coalesce(
+	*[_type == "translation.metadata" && references(^._id)][0].translations[].value->{
+		language, "slug": slug.current, "noindex": seo.noindex == true
+	},
+	[{ language, "slug": slug.current, "noindex": seo.noindex == true }]
+)`;
+
 // --- News -----------------------------------------------------------------------------
 
 /**
@@ -25,6 +40,7 @@ const postCardFields = /* groq */ `
 
 /** The featured post (editor's pick, else the latest) and every post, newest first. */
 export const NEWS_INDEX_QUERY = defineQuery(`{
+	"seo": *[_id == "newsPage-" + $locale][0].${seoProjection},
 	"featured": coalesce(
 		*[_id == "newsPage-" + $locale][0].featuredPost->{${postCardFields}},
 		*[_type == "newsPost" && language == $locale] | order(publishedAt desc)[0]{${postCardFields}}
@@ -36,8 +52,11 @@ export const NEWS_INDEX_QUERY = defineQuery(`{
 export const NEWS_POST_QUERY = defineQuery(`
 	*[_type == "newsPost" && language == $locale && slug.current == $slug][0]{
 		${postCardFields},
+		_updatedAt,
 		body,
-		"project": project->{ title, teaser, "slug": slug.current }
+		"project": project->{ title, teaser, "slug": slug.current },
+		${seoFields},
+		${translationsField}
 	}
 `);
 
@@ -58,7 +77,10 @@ export const PROJECT_NEWS_QUERY = defineQuery(`
 // --- Site-wide & home -----------------------------------------------------------------
 
 export const SITE_SETTINGS_QUERY = defineQuery(`
-	*[_id == "siteSettings"][0]{ "socials": socials[]{ _key, platform, url } }
+	*[_id == "siteSettings"][0]{
+		"socials": socials[]{ _key, platform, url },
+		organization{ legalName, foundingDate, address }
+	}
 `);
 
 /** Project cards and key figures for the home page. */
@@ -72,7 +94,8 @@ export const HOME_PAGE_QUERY = defineQuery(`{
 			coverImage
 		},
 	"stats": *[_id == "homePage-" + $locale][0].stats[]{ _key, value, label, description },
-	"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf
+	"statsAsOf": *[_id == "homePage-" + $locale][0].statsAsOf,
+	"seo": *[_id == "homePage-" + $locale][0].${seoProjection}
 }`);
 
 // --- About ----------------------------------------------------------------------------
@@ -90,7 +113,8 @@ export const ABOUT_PAGE_QUERY = defineQuery(`
 			updatedYear,
 			"href": file.asset->url,
 			"format": upper(file.asset->extension)
-		}
+		},
+		${seoFields}
 	}
 `);
 
@@ -132,7 +156,10 @@ export const PROJECT_QUERY = defineQuery(`
 		partners,
 		startedYear,
 		"impact": impact[]{ _key, value, label, description },
-		outcomes
+		outcomes,
+		_updatedAt,
+		${seoFields},
+		${translationsField}
 	}
 `);
 
@@ -174,4 +201,18 @@ export const GROUPS_QUERY = defineQuery(`{
 		projectCount
 	},
 	"offices": *[_id == "aboutPage-" + $locale][0].offices[]{ scope, email }
+}`);
+
+// --- Sitemap --------------------------------------------------------------------------
+
+/** Every indexable CMS page in every language, for /sitemap.xml. */
+export const SITEMAP_QUERY = defineQuery(`{
+	"documents": *[_type in ["newsPost", "project"] && defined(slug.current) && seo.noindex != true]{
+		_type,
+		language,
+		"slug": slug.current,
+		_updatedAt,
+		"translationGroup": coalesce(*[_type == "translation.metadata" && references(^._id)][0]._id, _id)
+	},
+	"hiddenPages": *[_type in ["homePage", "aboutPage", "newsPage"] && seo.noindex == true]{ _type, language }
 }`);

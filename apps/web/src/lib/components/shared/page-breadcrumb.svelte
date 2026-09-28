@@ -5,9 +5,13 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
+	import { page } from '$app/state';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import { localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
+	import { siteOrigin } from '$lib/site';
+	import JsonLd from './json-ld.svelte';
+	import { breadcrumbList, graph } from './schema';
 
 	type Props = {
 		/** Trail after "Home"; the last crumb is the current page. */
@@ -18,6 +22,9 @@
 
 	const trail = $derived<Crumb[]>([{ label: m.breadcrumb_home(), path: '/' }, ...crumbs]);
 </script>
+
+<!-- Same trail for search engines, so result snippets show where the page sits. -->
+<JsonLd schema={graph(breadcrumbList(siteOrigin(page.url), trail))} />
 
 <Breadcrumb.Root>
 	<Breadcrumb.List>

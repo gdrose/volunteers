@@ -8,7 +8,8 @@
 		ProjectResources
 	} from '$lib/components/projects';
 	import { Seo } from '$lib/components/shared';
-	import { urlFor } from '$lib/sanity/image';
+	import { translationPaths } from '$lib/components/shared/seo';
+	import { shareImageUrl } from '$lib/sanity/image';
 	import { m } from '$lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
 
@@ -18,9 +19,10 @@
 <Seo
 	title={data.project.title}
 	description={data.project.summary ?? m.what_we_do_description()}
-	image={data.project.heroImage
-		? urlFor(data.project.heroImage).width(1200).height(630).fit('crop').url()
-		: undefined}
+	image={data.project.heroImage ? shareImageUrl(data.project.heroImage) : undefined}
+	imageAlt={data.project.heroImage?.alt ?? undefined}
+	translations={translationPaths(data.project.translations, (slug) => `/what-we-do/${slug}`)}
+	cms={data.project.seo}
 />
 
 <ProjectHeader project={data.project} />

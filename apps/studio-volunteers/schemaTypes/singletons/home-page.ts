@@ -38,6 +38,10 @@ export const homePage = defineType({
       type: 'date',
       description: 'When the key figures were last checked. Shown under them as "Figures as of …".',
     }),
+    defineField({
+      name: 'seo',
+      type: 'seo',
+    }),
   ],
   preview: {
     select: {language: 'language'},

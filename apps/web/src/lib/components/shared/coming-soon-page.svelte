@@ -12,7 +12,8 @@
 	let { name }: { name: string } = $props();
 </script>
 
-<Seo title={name} description={m.stub_description()} />
+<!-- Placeholders stay out of search results until the real page replaces them. -->
+<Seo title={name} description={m.stub_description()} noindex />
 
 <PageLayout crumbs={[{ label: name }]}>
 	{#snippet title()}

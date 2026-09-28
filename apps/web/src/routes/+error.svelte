@@ -20,7 +20,7 @@
 	];
 </script>
 
-<Seo title={heading} {description} />
+<Seo title={heading} {description} noindex />
 
 <PageLayout crumbs={[{ label: heading }]} {description}>
 	{#snippet title()}

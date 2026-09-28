@@ -1,7 +1,10 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
 	import { resolve } from '$app/paths';
-	import { Container, PageBreadcrumb, SanityImage, Seo } from '$lib/components/shared';
+	import { page } from '$app/state';
+	import { Container, JsonLd, PageBreadcrumb, SanityImage, Seo } from '$lib/components/shared';
+	import { article, graph } from '$lib/components/shared/schema';
+	import { absoluteUrl, translationPaths } from '$lib/components/shared/seo';
 	import {
 		ArticleBody,
 		PostMeta,
@@ -9,12 +12,13 @@
 		ShareButton,
 		newsCategories
 	} from '$lib/components/news';
-	import { urlFor } from '$lib/sanity/image';
+	import { shareImageUrl } from '$lib/sanity/image';
+	import { siteOrigin } from '$lib/site';
 	import { NewsletterSection } from '$lib/components/newsletter';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { localizeHref } from '$lib/paraglide/runtime';
+	import { getLocale, localizeHref } from '$lib/paraglide/runtime';
 	import { m } from '$lib/paraglide/messages.js';
 	import type { PageProps } from './$types';
 
@@ -23,17 +27,41 @@
 	const post = $derived(data.post);
 	const category = $derived(newsCategories.find((c) => c.id === post.category));
 	const project = $derived(post.project);
+	const origin = $derived(siteOrigin(page.url));
 </script>
 
 <Seo
 	title={post.title}
 	description={post.excerpt}
 	type="article"
-	image={urlFor(post.coverImage).width(1200).height(630).fit('crop').url()}
+	image={shareImageUrl(post.coverImage)}
+	imageAlt={post.coverImage.alt ?? undefined}
+	translations={translationPaths(post.translations, (slug) => `/news/${slug}`)}
+	cms={post.seo}
 />
 <svelte:head>
 	<meta property="article:published_time" content={post.publishedAt} />
+	<meta property="article:modified_time" content={post._updatedAt} />
+	{#if category}
+		<meta property="article:section" content={category.label()} />
+	{/if}
 </svelte:head>
+<JsonLd
+	schema={graph(
+		article({
+			origin,
+			url: absoluteUrl(`/news/${post.slug}`, origin),
+			locale: getLocale(),
+			headline: post.title,
+			description: post.excerpt,
+			image: post.coverImage,
+			datePublished: post.publishedAt,
+			dateModified: post._updatedAt,
+			author: post.author,
+			section: category?.label()
+		})
+	)}
+/>
 
 <Container as="article" class="flex flex-col gap-8 pt-8 pb-12 lg:gap-12 lg:pt-10 lg:pb-16">
 	<!-- Header and body share one reading column; the photo runs the full content width. -->
@@ -53,7 +81,6 @@
 	<SanityImage
 		image={post.coverImage}
 		width={1280}
-		alt=""
 		fetchpriority="high"
 		class="aspect-4/3 w-full rounded-2xl object-cover sm:aspect-video lg:aspect-2/1 lg:rounded-3xl"
 	/>

@@ -154,5 +154,10 @@
 	"news_article_share": "シェア",
 	"news_article_link_copied": "リンクをコピーしました",
 	"news_article_more": "ほかのストーリー",
-	"news_article_project": "このストーリーは次のプロジェクトの一部です"
+	"news_article_project": "このストーリーは次のプロジェクトの一部です",
+	"meta_home_description": "Volunteersはヨーロッパ各地で活動する若者のボランティア団体です。学生や若手社会人が、自分の街で現場のプロジェクトに取り組んでいます。",
+	"meta_about_description": "Volunteersは、イタリア・カターニアの若者たちが立ち上げた青少年ボランティア団体です。私たちの歩み、使命、活動拠点をご紹介します。",
+	"meta_find_group_description": "近くのVolunteersグループを探しましょう。イタリアとヨーロッパの各都市で若者のボランティアグループが活動中。地図で検索するか、新しく立ち上げられます。",
+	"meta_what_we_do_description": "若者によるボランティアの4つの分野。支援を最も必要とする人々に現場で寄り添います。Volunteersの各プロジェクトとその成果をご覧ください。",
+	"seo_default_image_alt": "Volunteersのロゴ"
 }

@@ -154,5 +154,10 @@
 	"news_article_share": "Compartir",
 	"news_article_link_copied": "Enlace copiado",
 	"news_article_more": "Más historias",
-	"news_article_project": "Esta historia forma parte del proyecto"
+	"news_article_project": "Esta historia forma parte del proyecto",
+	"meta_home_description": "Volunteers es un movimiento de voluntariado juvenil en toda Europa: estudiantes y jóvenes profesionales con proyectos concretos en sus ciudades.",
+	"meta_about_description": "Volunteers es una asociación de voluntariado juvenil fundada por jóvenes de Catania, Italia. Conoce nuestra historia, misión y dónde trabajamos.",
+	"meta_find_group_description": "Encuentra un grupo de Volunteers cerca de ti: grupos de voluntariado juvenil en ciudades de Italia y Europa. Busca en el mapa o abre uno nuevo.",
+	"meta_what_we_do_description": "Cuatro áreas de voluntariado juvenil: jóvenes sobre el terreno, junto a quienes más lo necesitan. Descubre cada proyecto de Volunteers.",
+	"seo_default_image_alt": "Logotipo de Volunteers"
 }

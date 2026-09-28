@@ -5,5 +5,5 @@ import type { LayoutServerLoad } from './$types';
 
 export const load: LayoutServerLoad = async () => {
 	const settings = await client.fetch<SITE_SETTINGS_QUERY_RESULT>(SITE_SETTINGS_QUERY);
-	return { socials: settings?.socials ?? [] };
+	return { socials: settings?.socials ?? [], organization: settings?.organization ?? null };
 };

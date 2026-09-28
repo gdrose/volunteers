@@ -8,4 +8,5 @@ export { default as PhotoLightbox, type LightboxPhoto } from './photo-lightbox.s
 export { default as SanityImage } from './sanity-image.svelte';
 export { default as PortableTextLink } from './portable-text-link.svelte';
 export { default as Seo } from './seo.svelte';
+export { default as JsonLd } from './json-ld.svelte';
 export { default as ComingSoonPage } from './coming-soon-page.svelte';

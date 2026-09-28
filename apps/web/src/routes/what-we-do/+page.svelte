@@ -13,7 +13,7 @@
 	let { data }: PageProps = $props();
 </script>
 
-<Seo title={m.nav_what_we_do()} description={m.what_we_do_description()} />
+<Seo title={m.nav_what_we_do()} description={m.meta_what_we_do_description()} />
 
 <PageLayout crumbs={[{ label: m.nav_what_we_do() }]} description={m.what_we_do_description()}>
 	{#snippet title()}

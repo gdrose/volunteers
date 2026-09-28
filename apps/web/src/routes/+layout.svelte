@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Pathname } from '$app/types';
-	import { resolve } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 	import { page } from '$app/state';
 	import { locales, localizeHref } from '$lib/paraglide/runtime';
 	import { Navbar } from '$lib/components/nav';
@@ -13,7 +13,13 @@
 	let { children, data } = $props();
 </script>
 
-<svelte:head><link rel="icon" href={favicon} /></svelte:head>
+<svelte:head>
+	<!-- .ico for crawlers and old browsers (Google shows it in results); SVG where supported. -->
+	<link rel="icon" href={asset('/favicon.ico')} sizes="48x48" />
+	<link rel="icon" href={favicon} type="image/svg+xml" />
+	<link rel="apple-touch-icon" href={asset('/apple-touch-icon.png')} />
+	<link rel="manifest" href={asset('/manifest.webmanifest')} />
+</svelte:head>
 <!-- Hidden until focused: lets keyboard users jump past the header. -->
 <Button
 	href="#main"

@@ -44,6 +44,39 @@ export const siteSettings = defineType({
           return new Set(platforms).size === platforms.length || 'Each platform can appear once'
         }),
     }),
+    defineField({
+      name: 'organization',
+      title: 'Organisation details',
+      type: 'object',
+      description:
+        'Used by search engines to describe the association (e.g. in a knowledge panel). Not shown on the site.',
+      options: {collapsible: true, collapsed: true},
+      fields: [
+        defineField({
+          name: 'legalName',
+          type: 'string',
+          description: 'Registered name, if different from "Volunteers".',
+        }),
+        defineField({name: 'foundingDate', type: 'date'}),
+        defineField({
+          name: 'address',
+          title: 'Registered address',
+          type: 'object',
+          fields: [
+            defineField({name: 'streetAddress', title: 'Street', type: 'string'}),
+            defineField({name: 'postalCode', type: 'string'}),
+            defineField({name: 'addressLocality', title: 'City', type: 'string'}),
+            defineField({
+              name: 'addressCountry',
+              title: 'Country code',
+              type: 'string',
+              description: 'Two letters, e.g. IT.',
+              validation: (rule) => rule.regex(/^[A-Z]{2}$/, {name: 'ISO country code'}),
+            }),
+          ],
+        }),
+      ],
+    }),
   ],
   preview: {prepare: () => ({title: 'Site settings'})},
 })

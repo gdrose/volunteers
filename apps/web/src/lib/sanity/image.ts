@@ -18,3 +18,8 @@ export function hotspotPosition(image: SanityImageValue) {
 	const { x, y } = image.hotspot ?? {};
 	return x === undefined || y === undefined ? undefined : `${x * 100}% ${y * 100}%`;
 }
+
+/** Link-preview image (`og:image`): 1200×630, cropped around the hotspot. */
+export function shareImageUrl(image: SanityImageSource) {
+	return urlFor(image).width(1200).height(630).fit('crop').url();
+}

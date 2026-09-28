@@ -154,5 +154,10 @@
 	"news_article_share": "Share",
 	"news_article_link_copied": "Link copied",
 	"news_article_more": "More stories",
-	"news_article_project": "This story is part of the project"
+	"news_article_project": "This story is part of the project",
+	"meta_home_description": "Volunteers is a youth volunteering movement across Europe: students and young professionals running hands-on projects in their own cities.",
+	"meta_about_description": "Volunteers is a youth volunteering association founded by young people from Catania, Italy. Read our story, our mission and where we work.",
+	"meta_find_group_description": "Find a Volunteers group near you: local youth volunteering groups in Italian and European cities. Search the map, or start a group in your city.",
+	"meta_what_we_do_description": "Four areas of youth volunteering: young people in the field, alongside those who need it most. See each Volunteers project and its impact.",
+	"seo_default_image_alt": "Volunteers logo"
 }
