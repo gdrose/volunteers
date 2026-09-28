@@ -1,7 +1,12 @@
 import { createImageUrlBuilder, type SanityImageSource } from '@sanity/image-url';
-import { client } from './client';
+import { PUBLIC_SANITY_DATASET, PUBLIC_SANITY_PROJECT_ID } from '$env/static/public';
 
-const builder = createImageUrlBuilder(client);
+// Project and dataset only, not the Sanity client: this module runs in the browser, and
+// the client's package entry drags the whole Studio (React, its CSS) into the dev graph.
+const builder = createImageUrlBuilder({
+	projectId: PUBLIC_SANITY_PROJECT_ID,
+	dataset: PUBLIC_SANITY_DATASET
+});
 
 export type SanityImageValue = {
 	asset?: { _ref: string };

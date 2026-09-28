@@ -142,6 +142,31 @@
 			transform: translateX(4px);
 		}
 	}
+
+	/* Pen-stroke reveal, left to right. Negative insets keep the stroke's overhang visible. */
+	--animate-underline-draw: underline-draw 0.7s ease-out 0.2s both;
+	@keyframes underline-draw {
+		from {
+			clip-path: inset(-1em 100% -1em -1em);
+		}
+		to {
+			clip-path: inset(-1em -1em -1em -1em);
+		}
+	}
+}
+
+/*
+ * Hand-drawn underline under a highlighted title phrase. Spans the text's own
+ * width (any locale) and sizes in em so it follows the type scale.
+ */
+@utility title-underline {
+	position: absolute;
+	top: calc(100% - 0.1em);
+	left: 0;
+	width: 100%;
+	height: 0.23em;
+	overflow: visible;
+	stroke-width: 0.09em;
 }
 
 /*
@@ -151,7 +176,8 @@
  * and scales up at the `lg` breakpoint via the overrides in @layer base.
  */
 @theme {
-	--text-display: 2.5rem;
+	/* Fluid below lg so each two-line hero title keeps its lines on phones (Italian is the widest). */
+	--text-display: clamp(2rem, 9.5vw, 2.5rem);
 	--text-display--line-height: 1.05;
 	--text-display--letter-spacing: -0.02em;
 	--text-display--font-weight: 900;
